@@ -93,6 +93,21 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 
 ---
 
+## 📊 The Threat Landscape (2025-2026)
+
+According to **SlowMist** and **Chainalysis** forensic audits:
+
+- **$17B** in projected losses from crypto-related crime in 2025
+- **94% of users** only verify the first/last 4 characters of wallet addresses
+- **4.5x revenue multiplier** from AI-enabled scams vs. traditional methods
+- **1400% YoY increase** in impersonation attacks targeting the human decision layer
+
+> *"The theft lives in the gap between what you see and what you sign."*
+
+Traditional security focuses on Layer 1 (The Chain). **VIGIL secures the Retinal Perimeter** - the cognitive gap where adversaries exploit human visual limitations to generate "Vanity Mimics" that appear identical to trusted addresses.
+
+---
+
 ## 🏗️ Architecture
 
 VIGIL is built with:
@@ -276,7 +291,7 @@ Built with modern open-source technologies:
 
 <div align="center">
 
-**Built with ❤️ by the VIGIL community**
+**Built with ❤️ by the Posion address Victim*
 
 *"Improving safety, not eliminating risk"*
 
