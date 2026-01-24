@@ -14,7 +14,7 @@
 
 Layer 0.5 security system that validates user intent before cryptographic execution. Neutralizes address poisoning, phishing, and social engineering attacks through real-time forensic analysis.
 
-**[🚀 Start Free Trial](https://www.vigilcore.org)** • **[📊 View Pricing](https://www.vigilcore.org/pricing)** • **[📖 Documentation](https://www.vigilcore.org/docs)**
+**[🚀 Launch Platform](https://www.vigilcore.org)**
 
 </div>
 
@@ -62,7 +62,7 @@ Connect your wallet to continue with:
 - 💎 **Sentinel**: Full unlimited access ($50/year)
 - 👑 **Apex**: Predictive intelligence + priority mesh ($100/year)
 
-**[View Full Pricing Details →](https://www.vigilcore.org/pricing)**
+**View pricing details on the platform** - Visit [www.vigilcore.org](https://www.vigilcore.org) and access pricing from the footer menu
 
 ---
 
@@ -258,9 +258,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🌐 Links
 
-- **Live Platform**: [www.vigilcore.org](https://www.vigilcore.org)
-- **Documentation**: [www.vigilcore.org/docs](https://www.vigilcore.org/docs)
-- **Pricing**: [www.vigilcore.org/pricing](https://www.vigilcore.org/pricing)
+- **Live Platform**: [www.vigilcore.org](https://www.vigilcore.org) *(Documentation & pricing available within the platform)*
 - **Report Issues**: [GitHub Issues](https://github.com/Vigilcore/vigil-core/issues)
 - **Security Reports**: [SECURITY.md](SECURITY.md)
 
