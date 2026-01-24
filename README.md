@@ -1,7 +1,6 @@
 <div align="center">
-<img width="1200" height="475" alt="VIGIL Banner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
-# VIGIL Core
+# 🛡️ VIGIL Core
 **AI-Powered Security Intelligence for Blockchain**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -46,15 +45,15 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 ### Prerequisites
 - **Node.js** 18+ ([Download here](https://nodejs.org/))
 - **API Keys** (free tier available):
-  - [Google Gemini](https://aistudio.google.com/app/apikey) (Primary)
-  - [OpenAI](https://platform.openai.com/api-keys) (Fallback)
+  - [Gemini API](https://aistudio.google.com/app/apikey) (Primary AI provider)
+  - [OpenAI API](https://platform.openai.com/api-keys) (Fallback provider)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/vigil-layer/vigilcore.git
-   cd vigilcore
+   git clone https://github.com/Vigilcore/vigil-core.git
+   cd vigil-core
    ```
 
 2. **Install dependencies**
@@ -90,7 +89,7 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 VIGIL is built with:
 
 - **Frontend**: React 19 + TypeScript + Vite
-- **AI Providers**: Google Gemini (primary) + OpenAI (fallback)
+- **AI Providers**: Gemini API (primary) + OpenAI (fallback)
 - **Blockchain**: Solana Web3.js
 - **Styling**: Modern CSS with security-themed UI
 - **State Management**: React hooks with `useApiGuard` for rate limiting
@@ -198,18 +197,18 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 - **Live Demo**: [Coming Soon]
 - **Documentation**: [/components/docs/](components/docs/)
-- **Report Issues**: [GitHub Issues](https://github.com/vigil-layer/vigilcore/issues)
+- **Report Issues**: [GitHub Issues](https://github.com/Vigilcore/vigil-core/issues)
 - **Security Reports**: [SECURITY.md](SECURITY.md)
 
 ---
 
 ## 🙏 Acknowledgments
 
-VIGIL is built on the shoulders of giants:
-- Google Gemini & OpenAI for AI capabilities
-- Solana for blockchain infrastructure
-- The React and TypeScript communities
-- All contributors and security researchers
+Built with modern open-source technologies:
+- Powered by Gemini and OpenAI APIs
+- Solana blockchain infrastructure
+- React and TypeScript ecosystem
+- Security research community
 
 ---
 

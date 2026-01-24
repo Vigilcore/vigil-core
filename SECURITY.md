@@ -16,7 +16,7 @@ If you discover a security vulnerability in VIGIL Core, please report it private
 3. Fill out the private vulnerability report form
 
 ### Alternative Method: Email
-If you prefer email, please send details to: **[Your security contact email]**
+If you prefer email, please send details to: **security@vigilcore.org**
 
 ### What to Include in Your Report
 
