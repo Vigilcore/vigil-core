@@ -124,7 +124,10 @@ const App: React.FC = () => {
   const isProgrammaticScrollRef = useRef<boolean>(false);
   const animationFrameRef = useRef<number | null>(null);
   
-  const hasTriggeredPromptRef = useRef<boolean>(false);
+  // Check if user has already dismissed the resume prompt
+  const hasTriggeredPromptRef = useRef<boolean>(
+    localStorage.getItem('vigil_resume_prompt_dismissed') === 'true'
+  );
   const initialLevelOnMount = useRef<number>(Number(localStorage.getItem('vigil_node_level')) || 1);
 
   const [historyCount, setHistoryCount] = useState(() => {
@@ -164,7 +167,12 @@ const App: React.FC = () => {
   }, [isAiScanning, lastUsage]);
 
   useEffect(() => {
-    if (hasAcknowledged && initialLevelOnMount.current > 1 && !hasTriggeredPromptRef.current) {
+    // Only show resume prompt if:
+    // 1. User has acknowledged
+    // 2. User has unlocked level > 1
+    // 3. User hasn't dismissed the prompt before
+    const hasDismissedPrompt = localStorage.getItem('vigil_resume_prompt_dismissed') === 'true';
+    if (hasAcknowledged && initialLevelOnMount.current > 1 && !hasDismissedPrompt && !hasTriggeredPromptRef.current) {
       const timer = setTimeout(() => {
         setShowResumePrompt(true);
         hasTriggeredPromptRef.current = true;
@@ -632,10 +640,14 @@ const App: React.FC = () => {
           level={unlockLevel} 
           onJump={() => {
             setShowResumePrompt(false);
+            // Save dismissal state to localStorage so it doesn't show again
+            localStorage.setItem('vigil_resume_prompt_dismissed', 'true');
             scrollToSection(`silo-${unlockLevel}`);
           }} 
           onStay={() => {
             setShowResumePrompt(false);
+            // Save dismissal state to localStorage so it doesn't show again
+            localStorage.setItem('vigil_resume_prompt_dismissed', 'true');
             scrollToSection('silo-1');
           }} 
         />
