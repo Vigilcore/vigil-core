@@ -12,7 +12,7 @@
 # VIGIL CORE
 **The Security Standard for the Retinal Perimeter**
 
-**[🚀 Launch Facility](https://www.vigilcore.org)** • **[📑 Read Whitepaper](https://www.vigilcore.org)** • **[🛠️ Deploy Field Unit](https://www.vigilcore.org)**
+**[🚀 Launch Facility](https://www.vigilcore.org)** • **[📑 Read Whitepaper](https://www.vigilcore.org?doc=whitepaper)** • **[🛠️ Deploy Field Unit](https://www.vigilcore.org)**
 
 </div>
 
@@ -327,7 +327,6 @@ Built with modern open-source technologies:
 
 <div align="center">
 
-**Vigilance is the only permanent shield.**
 
 Built in response to **real attack vectors.**
 

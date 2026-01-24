@@ -201,6 +201,42 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, [hasAcknowledged, unlockLevel, isAdmin, viewMode, isStandalone]);
 
+  // Handle URL query parameters for opening documents (e.g., ?doc=whitepaper)
+  // This only runs on initial page load to avoid conflicts with footer button clicks
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const docParam = params.get('doc');
+    
+    // Only open if URL has doc param AND no doc is currently open
+    // This ensures footer button clicks work normally without interference
+    if (docParam && !activeDoc) {
+      // Map common document types
+      const docMap: Record<string, RegistryDoc> = {
+        'whitepaper': 'whitepaper',
+        'pricing': 'pricing',
+        'terms': 'terms',
+        'privacy': 'privacy',
+        'disclaimer': 'disclaimer',
+        'technical_spec': 'technical_spec',
+        'technical_doc': 'technical_doc',
+        'threat_model': 'threat_model',
+        'docs': 'docs',
+        'identity_manifest': 'identity_manifest'
+      };
+      
+      const docToOpen = docMap[docParam.toLowerCase()];
+      if (docToOpen) {
+        // Small delay to ensure page is fully loaded
+        setTimeout(() => {
+          setActiveDoc(docToOpen);
+          // Clean up URL without reloading (removes ?doc=whitepaper from address bar)
+          const newUrl = window.location.pathname + (window.location.hash || '');
+          window.history.replaceState({}, '', newUrl);
+        }, 100);
+      }
+    }
+  }, []); // Run once on mount - footer button clicks work independently
+
   useEffect(() => {
     const smoothScrollLoop = () => {
       if (!scrollContainerRef.current || viewMode === 'TACTICAL' || isStandalone) return;
