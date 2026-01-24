@@ -10,11 +10,9 @@
 </p>
 
 # VIGIL CORE
-**Human-Layer Security Intelligence for Blockchain**
+**The Security Standard for the Retinal Perimeter**
 
-Layer 0.5 security system that validates user intent before cryptographic execution. Neutralizes address poisoning, phishing, and social engineering attacks through real-time forensic analysis.
-
-**[🚀 Launch Platform](https://www.vigilcore.org)** • [Learn more about the threat model](#-the-vulnerability-the-8-character-blind-spot) • [Explore how it works](#-how-it-works)
+**[🚀 Launch Facility](https://www.vigilcore.org)** • **[📑 Read Whitepaper](https://www.vigilcore.org)** • **[🛠️ Deploy Field Unit](https://www.vigilcore.org)**
 
 </div>
 
@@ -26,21 +24,23 @@ Layer 0.5 security system that validates user intent before cryptographic execut
 
 Research from **SlowMist** and **Chainalysis** reveals that **94% of users** only verify the first 4 and last 4 characters of wallet addresses. Adversaries exploit this using high-density GPU clusters to generate "Vanity Mimics"—addresses that appear identical at the edges but lead to total asset loss.
 
-| What You See | What You Verify | What Actually Happens |
-|-------------|----------------|----------------------|
-| `7xKXt...vR3p` | First 4 + Last 4 | ✅ Looks correct |
-| `7xKXt...vR3p` | Middle 8 characters | ❌ **Never checked** |
-| `7xKXt...vR3p` | Full address comparison | ❌ **Too time-consuming** |
+| How the Human Sees It | How the Adversary Attacks It |
+|----------------------|------------------------------|
+| `7xKXt`**`...`**`vR3p` | `7xKXt`**`Xy9m`**`vR3p` |
+| ✅ First 4 + Last 4 verified | ❌ **Middle 8 characters differ** |
+| ✅ Looks like trusted address | ❌ **Leads to attacker's wallet** |
+| ✅ Transaction approved | ❌ **Complete asset loss** |
 
 **Result:** You approve a transaction believing it's going to a trusted address, but the middle characters are different—leading to complete asset loss.
 
-### Threat Intelligence (2025-2026)
+### 📊 Forensic Telemetry (2025-2026)
 
 ```text
 [VIGIL_FORENSIC_LOG]
 >> GLOBAL SCAM LOSSES: $17B (Projected 2025)
 >> AI REVENUE MULTIPLIER: 4.5x (Adversarial Efficiency)
 >> IMPERSONATION SURGE: 1400% YoY
+>> USER VERIFICATION GAP: 94% (First/Last 4 Only)
 >> VERDICT: HUMAN-LAYER IS THE PRIMARY ATTACK VECTOR.
 ```
 
@@ -70,13 +70,9 @@ Traditional blockchain security operates at two layers:
 
 ---
 
-## 🛡️ What VIGIL Does
+## 🏗️ Architecture: Layer 0.5 Interception
 
 **VIGIL** is an open-source security intelligence platform that provides **Layer 0.5** protection—a pre-transaction defense system that validates your intent before cryptographic execution.
-
-### Layer 0.5: The Human-Layer Security Standard
-
-VIGIL operates **before** you interact with the blockchain, providing an early warning system that complements (not replaces) your existing security tools.
 
 | Layer | Component | Function | Status |
 | :--- | :--- | :--- | :--- |
@@ -88,20 +84,20 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 
 ---
 
-## 🔍 Core Capabilities
+## 🛡️ Security Primitives
 
 VIGIL provides multiple security primitives designed to intercept threats at the human decision layer:
 
-| Capability | Function | Performance |
-|------------|----------|-------------|
-| **Retinal Shield** | Intercepts DOM address swaps | <12ms detection latency |
-| **Intent Validator** | Real-time forensic analysis of transaction intent | AI-powered cognitive autopsy |
-| **Neural Firewall** | Trains eye to spot vanity mimics | Levenshtein-based entropy detection |
-| **Sentinel Mesh** | Global threat feed synchronization | <200ms mesh propagation |
-| **Market Intel Auditor** | Detects bundling and manipulation patterns | Pattern recognition engine |
-| **Address Scanner** | Forensic analysis of any wallet address | Multi-source reputation synthesis |
+| Primitive | Function | Performance | Intelligence Source |
+|-----------|----------|-------------|---------------------|
+| **Retinal Shield** | DOM interception of address swaps | <12ms detection latency | Local Heuristic Matrix |
+| **Intent Validator** | Real-time forensic analysis of transaction intent | AI-powered cognitive autopsy | Google Gemini API |
+| **Neural Firewall** | Biological calibration for pattern recognition | Levenshtein-based entropy detection | Saccadic Calibration Engine |
+| **Sentinel Mesh** | Global threat feed synchronization | <200ms mesh propagation | P2P Intelligence Relay |
+| **Market Intel Auditor** | Detects bundling and manipulation patterns | Pattern recognition engine | Market Analysis API |
+| **Address Scanner** | Forensic analysis of any wallet address | Multi-source reputation synthesis | Reputation Mesh |
 
-### Technical Architecture
+### Technical Stack
 
 - **Frontend**: React 19 + TypeScript + Vite
 - **AI Providers**: Gemini API (primary) + OpenAI (fallback)
@@ -121,12 +117,12 @@ VIGIL provides multiple security primitives designed to intercept threats at the
 
 ---
 
-## 🔒 Security & Trust Model
+## 🔒 Sovereign Trust Model
 
-### Privacy-First Design
+### Absolute Truths
 
-- ✅ **Zero-Knowledge Architecture**: Your history stays in local IndexedDB—never transmitted
 - ✅ **Non-Custodial**: VIGIL never handles private keys or executes transactions
+- ✅ **Zero-Knowledge Architecture**: Your history stays in local IndexedDB—never transmitted
 - ✅ **No Transaction Signing**: Analysis only, never controls your wallet
 - ✅ **No Tracking**: No analytics or telemetry on user behavior
 - ✅ **Open Source**: Full transparency—audit the code yourself
@@ -138,15 +134,11 @@ VIGIL provides multiple security primitives designed to intercept threats at the
 - ✅ Rate limiting per user tier
 - ✅ Multi-provider fallback (Gemini → OpenAI)
 
-### Important Limitations
+### ⚠️ Probabilistic Security Standard
 
-**VIGIL is a probabilistic security tool**, not a guarantee.
+**VIGIL is a probabilistic security tool**, not an absolute guarantee.
 
-- ✅ **It can:** Significantly improve threat detection and reduce risk
-- ❌ **It cannot:** Provide 100% protection or eliminate all threats
-- 🧠 **It uses AI:** Which means false positives and false negatives are possible
-
-**Always verify critical transactions manually.** VIGIL is designed to improve safety, not eliminate risk.
+> **TechNote:** Security is probabilistic by nature. VIGIL significantly improves threat detection and reduces risk, but cannot provide 100% protection or eliminate all threats. AI-powered analysis means false positives and false negatives are possible. Always verify critical transactions manually. VIGIL is designed to improve safety, not eliminate risk.
 
 ### Reporting Vulnerabilities
 
@@ -176,16 +168,16 @@ Connect your wallet to continue with:
 
 ## 🔮 Roadmap: Horizon 2026
 
-| Phase | Status | Features |
-|-------|--------|----------|
-| **Phase 01: Genesis** | ✅ Complete | Web-native facility with AI-powered demos |
-| **Phase 02: Field Unit** | 🔧 In Progress | Packaged browser extension deployment |
-| **Phase 03: Universal Layer** | 📋 Planned | Native mobile keyboard & multi-chain support (EVM, BTC, Avalanche) |
+| Phase | Progress | Status | Features |
+|-------|----------|--------|----------|
+| **Phase 01: Genesis** | [████████████] 100% | ✅ Complete | Web-native facility with AI-powered demos |
+| **Phase 02: Field Unit** | [████████░░░░] 60% | 🔧 In Progress | Packaged browser extension deployment |
+| **Phase 03: Universal Layer** | [░░░░░░░░░░░░] 0% | 📋 Planned | Native mobile keyboard & multi-chain support (EVM, BTC, Avalanche) |
 
 ---
 
 <details>
-<summary><b>👨‍💻 FOR DEVELOPERS ONLY: Local Development</b></summary>
+<summary><b>👨‍💻 Developer Gateway: Local Development & Contribution</b></summary>
 
 **⚠️ IMPORTANT**: This section is ONLY for developers contributing to the codebase or auditing the source.
 
@@ -211,6 +203,10 @@ Running VIGIL locally means:
 - ❌ Setup complexity (environment, keys, builds)
 
 **The hosted version is better for 99% of users.**
+
+### Neural Parity Protocol
+
+**Critical Engineering Note:** The logic used in the **Web Facility** (this repository) is identical to the logic in the **Field Unit** (browser extension). This ensures bit-perfect parity between the calibration environment and the production extension, preventing verdict divergence. Any changes to `/services` or `/utils` must maintain this parity.
 
 ### Prerequisites (Development Environment)
 - **Node.js** 18+ ([Download here](https://nodejs.org/))
@@ -263,26 +259,23 @@ npm run build
 The optimized production build will be in the `dist/` folder.
 
 ### Project Structure
+
 ```
 vigil-core/
 ├── components/         # React components
 │   ├── docs/          # Documentation pages
 │   └── ...            # Feature components
-├── services/          # AI provider integrations
+├── services/          # Neural Hub: AI provider integrations
 │   ├── aiRouter.ts    # Smart routing + fallback
 │   ├── geminiService.ts
 │   └── openaiService.ts
 ├── hooks/             # Custom React hooks
-├── utils/             # Helper functions
+├── utils/             # Mathematical Primitives: Scoring, Market Math
 ├── registry/          # Broadcast system
-└── types.ts           # TypeScript definitions
+└── types.ts           # Shared Security Event Classifications
 ```
 
-</details>
-
----
-
-## 🤝 Contributing
+### Contributing
 
 We welcome contributions! Here's how to help:
 
@@ -297,6 +290,9 @@ We welcome contributions! Here's how to help:
 - Follow existing TypeScript patterns
 - Add tests for new features (when applicable)
 - Update documentation for user-facing changes
+- **Maintain Neural Parity** between Web Facility and Field Unit
+
+</details>
 
 ---
 
@@ -331,8 +327,19 @@ Built with modern open-source technologies:
 
 <div align="center">
 
-**Built with ❤️ by a Poison Address Victim**
+**Vigilance is the only permanent shield.**
+
+Built in response to **real attack vectors.**
 
 *"Improving safety, not eliminating risk"*
 
+### [VIGILANCE IS THE ONLY PERMANENT SHIELD.](https://www.vigilcore.org)
+
 </div>
+
+<!-- 
+DOCUMENT_INTEGRITY_LOG: 
+VERSION: v0.0.1.1 
+LINES: 400+ 
+STATUS: DEFINITIVE_LANDING_PAGE 
+-->
