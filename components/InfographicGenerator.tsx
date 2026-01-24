@@ -272,7 +272,7 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
             <div className="relative z-10 flex justify-between items-end border-t border-zinc-900/50 pt-10">
               <div className="space-y-2">
                 <div className={`text-[10px] font-black uppercase tracking-widest ${mode === 'MASTER' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                   OFFICIAL BROADCAST // SOLANA SECURITY STANDARD
+                   OFFICIAL BROADCAST // BLOCKCHAIN SECURITY STANDARD
                 </div>
                 <div className={`text-[16px] font-black uppercase tracking-widest italic ${mode === 'MASTER' ? 'text-black' : 'text-white'}`}>
                    VIGIL.LAYER / THE HUMAN LAYER

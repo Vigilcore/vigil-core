@@ -9,7 +9,7 @@
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
 
-*Defending against address poisoning, phishing attacks, and social engineering on Solana*
+*Defending against address poisoning, phishing attacks, and social engineering across blockchain networks*
 
 </div>
 
@@ -92,7 +92,7 @@ VIGIL is built with:
 
 - **Frontend**: React 19 + TypeScript + Vite
 - **AI Providers**: Gemini API (primary) + OpenAI (fallback)
-- **Blockchain**: Solana Web3.js
+- **Blockchain**: Currently optimized for Solana (Web3.js)
 - **Styling**: Modern CSS with security-themed UI
 - **State Management**: React hooks with `useApiGuard` for rate limiting
 
@@ -208,7 +208,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 Built with modern open-source technologies:
 - Powered by Gemini and OpenAI APIs
-- Solana blockchain infrastructure
+- Modern blockchain infrastructure
 - React and TypeScript ecosystem
 - Security research community
 

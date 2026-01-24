@@ -156,7 +156,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDoc, onVersionClick }) => 
           <p className="text-zinc-500 text-[13px] md:text-[14px] leading-relaxed font-medium">
             VIGIL is a browser-level Layer 0.5 security system that restores human-layer awareness before cryptographic execution.
             <br/><br/>
-            Protecting Solana users from address poisoning and visual impersonation attacks.
+            Protecting users from address poisoning and visual impersonation attacks across blockchain networks.
           </p>
         </div>
 
