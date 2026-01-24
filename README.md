@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🛡️ VIGIL Core
+![VIGIL Core Banner](https://github.com/user-attachments/assets/4bc52511-6e56-4b9b-ba74-978a53622de0)
+
+# VIGIL Core
 **AI-Powered Security Intelligence for Blockchain**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
