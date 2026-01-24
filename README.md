@@ -14,86 +14,13 @@
 
 Layer 0.5 security system that validates user intent before cryptographic execution. Neutralizes address poisoning, phishing, and social engineering attacks through real-time forensic analysis.
 
-**[🚀 Launch Platform](https://www.vigilcore.org)**
+[Learn more about the threat model](#-the-vulnerability-the-8-character-blind-spot) • [Explore how it works](#-how-it-works)
 
 </div>
 
 ---
 
-## ⚠️ FOR USERS: Don't Run This Locally!
-
-**This is source code.** The actual product is hosted at **[www.vigilcore.org](https://www.vigilcore.org)**
-
-### Why Use the Hosted Version?
-
-✅ **Zero setup** - No installation, no API keys, just visit and use  
-✅ **Always updated** - Latest features and security patches  
-✅ **Enterprise hosting** - Fast, reliable, globally distributed  
-✅ **Subscription management** - Your wallet unlocks premium features  
-✅ **No costs** - We handle the AI API costs, not you  
-
-**Running locally is only for developers contributing code.**
-
----
-
-## 🎯 Get Protected Now (30-Day Free Trial)
-
-Visit **[www.vigilcore.org](https://www.vigilcore.org)** and start protecting yourself immediately:
-
-✅ **No API keys required**  
-✅ **No installation needed**  
-✅ **No credit card**  
-✅ **Full feature access for 30 days**
-
-### What You Get:
-
-| Feature | What It Does |
-|---------|--------------|
-| **Intent Validator** | Verify transaction safety before signing |
-| **Neural Firewall** | Train your eye to spot vanity mimics |
-| **Mesh Intelligence** | Access global threat feeds in real-time |
-| **Market Intel Auditor** | Detect bundling and manipulation patterns |
-| **Address Scanner** | Forensic analysis of any wallet address |
-
-### After Your Trial
-
-Connect your wallet to continue with:
-- 🆓 **Baseline**: Community protection (5 intercepts, throttled AI)
-- 💎 **Sentinel**: Full unlimited access ($50/year)
-- 👑 **Apex**: Predictive intelligence + priority mesh ($100/year)
-
-**View pricing details on the platform** - Visit [www.vigilcore.org](https://www.vigilcore.org) and access pricing from the footer menu
-
----
-
-## ⚠️ Important Disclaimer
-
-**VIGIL is a probabilistic security tool**, not a guarantee.
-
-- ✅ **It can:** Significantly improve threat detection and reduce risk
-- ❌ **It cannot:** Provide 100% protection or eliminate all threats
-- 🧠 **It uses AI:** Which means false positives and false negatives are possible
-
-**Always verify critical transactions manually.** VIGIL is designed to improve safety, not eliminate risk.
-
----
-
-## 🛡️ What is VIGIL?
-
-**VIGIL** is an open-source security intelligence platform that provides **Layer 0.5** protection for blockchain users. It analyzes wallet addresses, transaction patterns, and social media content to detect:
-
-- 🚨 **Address Poisoning**: Fake addresses designed to trick you via transaction history
-- 🎣 **Phishing Attempts**: Scam links and malicious contracts
-- 🤖 **Social Engineering**: AI-generated fake influencer accounts and pump-and-dump schemes
-- 📊 **Market Manipulation**: Coordinated trading patterns and bot activity
-
-### Why "Layer 0.5"?
-
-VIGIL operates **before** you interact with the blockchain, providing an early warning system that complements (not replaces) your existing security tools like hardware wallets and network validators.
-
----
-
-## 📊 The Threat Landscape (2025-2026)
+## 🚨 The Vulnerability: The 8-Character Blind Spot
 
 According to **SlowMist** and **Chainalysis** forensic audits:
 
@@ -104,11 +31,69 @@ According to **SlowMist** and **Chainalysis** forensic audits:
 
 > *"The theft lives in the gap between what you see and what you sign."*
 
-Traditional security focuses on Layer 1 (The Chain). **VIGIL secures the Retinal Perimeter** - the cognitive gap where adversaries exploit human visual limitations to generate "Vanity Mimics" that appear identical to trusted addresses.
+Adversaries exploit this cognitive gap using high-density GPU clusters to generate "Vanity Mimics"—addresses that appear identical to trusted contacts at the edges but lead to total asset loss.
+
+### Real Attack Vectors
+
+- 🚨 **Address Poisoning**: Fake addresses designed to trick you via transaction history
+- 🎣 **Phishing Attempts**: Scam links and malicious contracts
+- 🤖 **Social Engineering**: AI-generated fake influencer accounts and pump-and-dump schemes
+- 📊 **Market Manipulation**: Coordinated trading patterns and bot activity
 
 ---
 
-## 🏗️ Architecture
+## ⚠️ Why Existing Security Tools Fall Short
+
+Traditional blockchain security operates at two layers:
+
+| Layer | Tools | What They Protect |
+|-------|-------|-------------------|
+| **Layer 1** | Consensus protocols, validators | Cryptographic integrity of the chain |
+| **Layer 0** | Hardware wallets, explorers | Transaction signing and broadcast |
+
+**What they don't protect:** The moment you *believe* you're sending funds to a trusted address, but you're actually signing a transaction to an attacker's vanity mimic.
+
+### The Gap
+
+- ✅ Your wallet correctly signs the transaction you approved
+- ✅ The blockchain correctly executes what was signed
+- ❌ **You approved the wrong address** because your eyes were deceived
+
+**Cryptographic validation ≠ Intent validation**
+
+---
+
+## 🛡️ What VIGIL Does
+
+**VIGIL** is an open-source security intelligence platform that provides **Layer 0.5** protection—a pre-transaction defense system that validates your intent before cryptographic execution.
+
+### Layer 0.5: The Human-Layer Security Standard
+
+VIGIL operates **before** you interact with the blockchain, providing an early warning system that complements (not replaces) your existing security tools.
+
+| Layer | Component | Function | Status |
+| :--- | :--- | :--- | :--- |
+| **Layer 0** | dApp UI / Browser DOM | Intent Origination | *Untrusted* |
+| **Layer 0.5** | **VIGIL INTERCEPTION** | **Cognitive Validation** | **ACTIVE** |
+| **Layer 1** | Wallet / Blockchain | Cryptographic Settlement | *Finality* |
+
+**VIGIL secures the Retinal Perimeter**—the cognitive gap where adversaries exploit human visual limitations to generate addresses that appear identical to trusted contacts.
+
+---
+
+## 🔍 How It Works
+
+VIGIL provides multiple security primitives:
+
+| Feature | What It Does | Technology |
+|---------|--------------|------------|
+| **Intent Validator** | Verify transaction safety before signing | AI-powered forensic analysis |
+| **Neural Firewall** | Train your eye to spot vanity mimics | Levenshtein-based entropy detection |
+| **Mesh Intelligence** | Access global threat feeds in real-time | Decentralized threat synchronization |
+| **Market Intel Auditor** | Detect bundling and manipulation patterns | Pattern recognition |
+| **Address Scanner** | Forensic analysis of any wallet address | Multi-source reputation synthesis |
+
+### Technical Architecture
 
 VIGIL is built with:
 
@@ -130,20 +115,54 @@ VIGIL is built with:
 
 ---
 
-## 🛡️ Security Features
+## 🔒 Security & Trust Model
+
+### Privacy-First Design
+
+- ✅ **No transaction signing**: Analysis only, never controls your wallet
+- ✅ **No tracking**: No analytics or telemetry on user behavior
+- ✅ **Open source**: Full transparency—audit the code yourself
+- ✅ **Client-side processing**: Your data stays local whenever possible
 
 ### API Key Protection
+
 - ✅ Server-side API management (users never see keys)
 - ✅ Rate limiting per user tier
 - ✅ Multi-provider fallback (Gemini → OpenAI)
 
-### Privacy-First Design
-- ✅ **No transaction signing**: Analysis only, never controls your wallet
-- ✅ **No tracking**: No analytics or telemetry on user behavior
-- ✅ **Open source**: Full transparency—audit the code yourself
+### Important Limitations
+
+**VIGIL is a probabilistic security tool**, not a guarantee.
+
+- ✅ **It can:** Significantly improve threat detection and reduce risk
+- ❌ **It cannot:** Provide 100% protection or eliminate all threats
+- 🧠 **It uses AI:** Which means false positives and false negatives are possible
+
+**Always verify critical transactions manually.** VIGIL is designed to improve safety, not eliminate risk.
 
 ### Reporting Vulnerabilities
+
 See our [Security Policy](SECURITY.md) for responsible disclosure guidelines.
+
+---
+
+## 🎯 Get Protected Now (30-Day Free Trial)
+
+Visit **[www.vigilcore.org](https://www.vigilcore.org)** to start using VIGIL immediately:
+
+✅ **No API keys required**  
+✅ **No installation needed**  
+✅ **No credit card**  
+✅ **Full feature access for 30 days**
+
+### After Your Trial
+
+Connect your wallet to continue with:
+- 🆓 **Baseline**: Community protection (5 intercepts, throttled AI)
+- 💎 **Sentinel**: Full unlimited access ($50/year)
+- 👑 **Apex**: Predictive intelligence + priority mesh ($100/year)
+
+**View pricing details on the platform** - Visit [www.vigilcore.org](https://www.vigilcore.org) and access pricing from the footer menu
 
 ---
 
@@ -162,6 +181,16 @@ See our [Security Policy](SECURITY.md) for responsible disclosure guidelines.
 **⚠️ IMPORTANT**: This section is ONLY for developers contributing to the codebase or auditing the source.
 
 **If you're a user looking to protect yourself**, visit the hosted platform at **[www.vigilcore.org](https://www.vigilcore.org)** instead.
+
+### Why Use the Hosted Version?
+
+✅ **Zero setup** - No installation, no API keys, just visit and use  
+✅ **Always updated** - Latest features and security patches  
+✅ **Enterprise hosting** - Fast, reliable, globally distributed  
+✅ **Subscription management** - Your wallet unlocks premium features  
+✅ **No costs** - We handle the AI API costs, not you  
+
+**Running locally is only for developers contributing code.**
 
 ### Why Contribute Instead of Self-Hosting?
 
@@ -291,7 +320,7 @@ Built with modern open-source technologies:
 
 <div align="center">
 
-**Built with ❤️ by the Posion address Victim*
+**Built with ❤️ by a Poison Address Victim**
 
 *"Improving safety, not eliminating risk"*
 
