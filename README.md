@@ -2,20 +2,83 @@
 
 ![VIGIL Core Banner](https://github.com/user-attachments/assets/4bc52511-6e56-4b9b-ba74-978a53622de0)
 
-# VIGIL Core
-**AI-Powered Security Intelligence for Blockchain**
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Live-10b981?style=for-the-badge&logo=shield&logoColor=white" />
+  <img src="https://img.shields.io/badge/Layer-0.5_Standard-3b82f6?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-fbbf24?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Trial-30_Days_Free-8b5cf6?style=for-the-badge" />
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
+# VIGIL CORE
+**Human-Layer Security Intelligence for Blockchain**
 
-*Defending against address poisoning, phishing attacks, and social engineering across blockchain networks*
+Layer 0.5 security system that validates user intent before cryptographic execution. Neutralizes address poisoning, phishing, and social engineering attacks through real-time forensic analysis.
+
+**[🚀 Start Free Trial](https://www.vigilcore.org)** • **[📊 View Pricing](https://www.vigilcore.org/pricing)** • **[📖 Documentation](https://www.vigilcore.org/docs)**
 
 </div>
 
 ---
 
-## 🎯 What is VIGIL?
+## ⚠️ FOR USERS: Don't Run This Locally!
+
+**This is source code.** The actual product is hosted at **[www.vigilcore.org](https://www.vigilcore.org)**
+
+### Why Use the Hosted Version?
+
+✅ **Zero setup** - No installation, no API keys, just visit and use  
+✅ **Always updated** - Latest features and security patches  
+✅ **Enterprise hosting** - Fast, reliable, globally distributed  
+✅ **Subscription management** - Your wallet unlocks premium features  
+✅ **No costs** - We handle the AI API costs, not you  
+
+**Running locally is only for developers contributing code.**
+
+---
+
+## 🎯 Get Protected Now (30-Day Free Trial)
+
+Visit **[www.vigilcore.org](https://www.vigilcore.org)** and start protecting yourself immediately:
+
+✅ **No API keys required**  
+✅ **No installation needed**  
+✅ **No credit card**  
+✅ **Full feature access for 30 days**
+
+### What You Get:
+
+| Feature | What It Does |
+|---------|--------------|
+| **Intent Validator** | Verify transaction safety before signing |
+| **Neural Firewall** | Train your eye to spot vanity mimics |
+| **Mesh Intelligence** | Access global threat feeds in real-time |
+| **Market Intel Auditor** | Detect bundling and manipulation patterns |
+| **Address Scanner** | Forensic analysis of any wallet address |
+
+### After Your Trial
+
+Connect your wallet to continue with:
+- 🆓 **Baseline**: Community protection (5 intercepts, throttled AI)
+- 💎 **Sentinel**: Full unlimited access ($50/year)
+- 👑 **Apex**: Predictive intelligence + priority mesh ($100/year)
+
+**[View Full Pricing Details →](https://www.vigilcore.org/pricing)**
+
+---
+
+## ⚠️ Important Disclaimer
+
+**VIGIL is a probabilistic security tool**, not a guarantee.
+
+- ✅ **It can:** Significantly improve threat detection and reduce risk
+- ❌ **It cannot:** Provide 100% protection or eliminate all threats
+- 🧠 **It uses AI:** Which means false positives and false negatives are possible
+
+**Always verify critical transactions manually.** VIGIL is designed to improve safety, not eliminate risk.
+
+---
+
+## 🛡️ What is VIGIL?
 
 **VIGIL** is an open-source security intelligence platform that provides **Layer 0.5** protection for blockchain users. It analyzes wallet addresses, transaction patterns, and social media content to detect:
 
@@ -30,27 +93,81 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 
 ---
 
-## ⚠️ Important Disclaimer
+## 🏗️ Architecture
 
-**VIGIL is a probabilistic security tool**, not a guarantee.
+VIGIL is built with:
 
-- ✅ **It can:** Significantly improve your threat detection and reduce risk
-- ❌ **It cannot:** Provide 100% protection or eliminate all threats
-- 🧠 **It uses AI:** Which means false positives and false negatives are possible
+- **Frontend**: React 19 + TypeScript + Vite
+- **AI Providers**: Gemini API (primary) + OpenAI (fallback)
+- **Blockchain**: Currently optimized for Solana (Web3.js)
+- **Security Engine**: Levenshtein-based entropy analysis
+- **State Management**: React hooks with rate limiting
 
-**Always verify critical transactions manually.** VIGIL is designed to be humble about its capabilities—we aim to help you make safer decisions, not make decisions for you.
+### Key Components
+
+| Component | Purpose |
+|-----------|---------|
+| `VigilScanner` | Main threat detection interface |
+| `IntentValidatorDemo` | Analyzes transaction intent vs. actual behavior |
+| `AdversarialMimicryLab` | Tests social engineering resistance |
+| `SocialIntelligenceLab` | Detects fake influencers and coordinated attacks |
+| `MeshQueryTerminal` | Cross-chain threat intelligence lookup |
 
 ---
 
-## 🚀 Quick Start
+## 🛡️ Security Features
 
-### Prerequisites
+### API Key Protection
+- ✅ Server-side API management (users never see keys)
+- ✅ Rate limiting per user tier
+- ✅ Multi-provider fallback (Gemini → OpenAI)
+
+### Privacy-First Design
+- ✅ **No transaction signing**: Analysis only, never controls your wallet
+- ✅ **No tracking**: No analytics or telemetry on user behavior
+- ✅ **Open source**: Full transparency—audit the code yourself
+
+### Reporting Vulnerabilities
+See our [Security Policy](SECURITY.md) for responsible disclosure guidelines.
+
+---
+
+## 🔮 Roadmap
+
+| Phase | Status | Features |
+|-------|--------|----------|
+| **Phase 01** | ✅ Live | Web platform with AI-powered demos |
+| **Phase 02** | 🔧 In Progress | Packaged browser extension |
+| **Phase 03** | 📋 Planned | Multi-chain expansion (EVM, BTC, Avalanche) |
+
+---
+
+## 👨‍💻 FOR DEVELOPERS ONLY: Local Development
+
+**⚠️ IMPORTANT**: This section is ONLY for developers contributing to the codebase or auditing the source.
+
+**If you're a user looking to protect yourself**, visit the hosted platform at **[www.vigilcore.org](https://www.vigilcore.org)** instead.
+
+### Why Contribute Instead of Self-Hosting?
+
+Running VIGIL locally means:
+- ❌ You pay for API costs (not us)
+- ❌ No subscription features (wallet-gated access)
+- ❌ You miss updates and security patches
+- ❌ No support (you're on your own)
+- ❌ Setup complexity (environment, keys, builds)
+
+**The hosted version is better for 99% of users.**
+
+### Prerequisites (Development Environment)
 - **Node.js** 18+ ([Download here](https://nodejs.org/))
-- **API Keys** (free tier available):
-  - [Gemini API](https://aistudio.google.com/app/apikey) (Primary AI provider)
-  - [OpenAI API](https://platform.openai.com/api-keys) (Fallback provider)
+- **Your own API keys** (you'll pay for API usage):
+  - [Gemini API](https://aistudio.google.com/app/apikey) (Primary)
+  - [OpenAI API](https://platform.openai.com/api-keys) (Fallback)
+  
+**Note**: The hosted version uses server-side API keys. Users never need their own keys.
 
-### Installation
+### Local Setup
 
 1. **Clone the repository**
    ```bash
@@ -84,49 +201,7 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
    http://localhost:5173
    ```
 
----
-
-## 🏗️ Architecture
-
-VIGIL is built with:
-
-- **Frontend**: React 19 + TypeScript + Vite
-- **AI Providers**: Gemini API (primary) + OpenAI (fallback)
-- **Blockchain**: Currently optimized for Solana (Web3.js)
-- **Styling**: Modern CSS with security-themed UI
-- **State Management**: React hooks with `useApiGuard` for rate limiting
-
-### Key Components
-
-| Component | Purpose |
-|-----------|---------|
-| `VigilScanner` | Main threat detection interface |
-| `IntentValidatorDemo` | Analyzes transaction intent vs. actual behavior |
-| `AdversarialMimicryLab` | Tests social engineering resistance |
-| `SocialIntelligenceLab` | Detects fake influencers and coordinated attacks |
-| `MeshQueryTerminal` | Cross-chain threat intelligence lookup |
-
----
-
-## 🛡️ Security Features
-
-### API Key Protection
-- ✅ Environment variables via `.env.local`
-- ✅ Excluded from git via `.gitignore`
-- ✅ Rate limiting with `useApiGuard` hook
-- ✅ Multi-provider fallback (Gemini → OpenAI)
-
-### Privacy-First Design
-- ✅ **No server-side data storage**: All analysis happens client-side
-- ✅ **No tracking**: No analytics or telemetry
-- ✅ **Open source**: Full transparency—audit the code yourself
-
-### Reporting Vulnerabilities
-See our [Security Policy](SECURITY.md) for responsible disclosure guidelines.
-
----
-
-## 📦 Build for Production
+### Build for Production
 
 ```bash
 npm run build
@@ -134,18 +209,9 @@ npm run build
 
 The optimized production build will be in the `dist/` folder.
 
-To preview the production build locally:
-```bash
-npm run preview
-```
-
----
-
-## 🧪 Development
-
 ### Project Structure
 ```
-vigilcore/
+vigil-core/
 ├── components/         # React components
 │   ├── docs/          # Documentation pages
 │   └── ...            # Feature components
@@ -158,11 +224,6 @@ vigilcore/
 ├── registry/          # Broadcast system
 └── types.ts           # TypeScript definitions
 ```
-
-### Key Files
-- `App.tsx` - Main application router
-- `services/aiRouter.ts` - AI provider orchestration
-- `hooks/useApiGuard.ts` - Rate limiting and error handling
 
 ---
 
@@ -197,8 +258,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🌐 Links
 
-- **Live Demo**: [Coming Soon]
-- **Documentation**: [/components/docs/](components/docs/)
+- **Live Platform**: [www.vigilcore.org](https://www.vigilcore.org)
+- **Documentation**: [www.vigilcore.org/docs](https://www.vigilcore.org/docs)
+- **Pricing**: [www.vigilcore.org/pricing](https://www.vigilcore.org/pricing)
 - **Report Issues**: [GitHub Issues](https://github.com/Vigilcore/vigil-core/issues)
 - **Security Reports**: [SECURITY.md](SECURITY.md)
 
