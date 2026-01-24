@@ -7,7 +7,7 @@ import {
   Lock, MessageSquare, AlertOctagon, UserPlus, FileWarning, Copy 
 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
-import { validateApiKey } from '../services/geminiService';
+// NOTE: Video generation uses direct API calls - needs API route for full security
 import { TechLabel } from './docs/DocHelpers';
 import { CHRONICLES, ChronicleVideo, GIF_VAULT, TacticalGif } from './ChronicleNarrativeLibrary';
 import { VigilScanner } from './VigilScanner';
@@ -116,8 +116,11 @@ export const VideoProductionStudio: React.FC = () => {
     const prompt = getActivePrompt();
 
     try {
-      const apiKey = validateApiKey();
-      const ai = new GoogleGenAI({ apiKey });
+      // TODO: Create API route for video generation to secure API keys
+      // For now, this feature requires API key in client (temporary)
+      throw new Error('Video generation requires API route implementation for security');
+      // const apiKey = process.env.API_KEY; // Would need API route
+      // const ai = new GoogleGenAI({ apiKey });
       
       let operation = await ai.models.generateVideos({
         model: 'veo-3.1-fast-generate-preview',

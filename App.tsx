@@ -64,12 +64,24 @@ import { AdminToolsSection } from './components/AdminToolsSection';
 export type ViewMode = 'NARRATIVE' | 'TACTICAL';
 
 const App: React.FC = () => {
+  // Check for ?doc=whitepaper in URL to skip boot sequence
+  const hasWhitepaperParam = typeof window !== 'undefined' && 
+    new URLSearchParams(window.location.search).get('doc')?.toLowerCase() === 'whitepaper';
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(() => !localStorage.getItem('vigil_node_acknowledged'));
+  // Skip SecurityModal if whitepaper param is present (allow direct access)
+  const [isModalOpen, setIsModalOpen] = useState(() => {
+    if (hasWhitepaperParam) return false; // Skip boot for whitepaper
+    return !localStorage.getItem('vigil_node_acknowledged');
+  });
   const [isIdentitySelectionOpen, setIsIdentitySelectionOpen] = useState(false);
   const [isRevokeModalOpen, setIsRevokeModalOpen] = useState(false);
   const [isBooting, setIsBooting] = useState(false);
-  const [hasAcknowledged, setHasAcknowledged] = useState(() => !!localStorage.getItem('vigil_node_acknowledged'));
+  // Allow whitepaper to show even if not acknowledged
+  const [hasAcknowledged, setHasAcknowledged] = useState(() => {
+    if (hasWhitepaperParam) return true; // Allow whitepaper to show
+    return !!localStorage.getItem('vigil_node_acknowledged');
+  });
   const [isGuest, setIsGuest] = useState(() => localStorage.getItem('vigil_user_is_guest') === 'true');
   const [activeDoc, setActiveDoc] = useState<RegistryDoc>(null);
   const [activeAnchor, setActiveAnchor] = useState<string>('silo-1');
@@ -201,39 +213,20 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, [hasAcknowledged, unlockLevel, isAdmin, viewMode, isStandalone]);
 
-  // Handle URL query parameters for opening documents (e.g., ?doc=whitepaper)
-  // This only runs on initial page load to avoid conflicts with footer button clicks
+  // Open whitepaper immediately from GitHub link (skip boot sequence)
+  // Whitepaper doesn't depend on app state, so it's safe to show before boot
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const docParam = params.get('doc');
     
-    // Only open if URL has doc param AND no doc is currently open
-    // This ensures footer button clicks work normally without interference
-    if (docParam && !activeDoc) {
-      // Map common document types
-      const docMap: Record<string, RegistryDoc> = {
-        'whitepaper': 'whitepaper',
-        'pricing': 'pricing',
-        'terms': 'terms',
-        'privacy': 'privacy',
-        'disclaimer': 'disclaimer',
-        'technical_spec': 'technical_spec',
-        'technical_doc': 'technical_doc',
-        'threat_model': 'threat_model',
-        'docs': 'docs',
-        'identity_manifest': 'identity_manifest'
-      };
+    // Only handle whitepaper for now (as per user request)
+    if (docParam?.toLowerCase() === 'whitepaper') {
+      // Open whitepaper immediately (before boot sequence)
+      setActiveDoc('whitepaper');
       
-      const docToOpen = docMap[docParam.toLowerCase()];
-      if (docToOpen) {
-        // Small delay to ensure page is fully loaded
-        setTimeout(() => {
-          setActiveDoc(docToOpen);
-          // Clean up URL without reloading (removes ?doc=whitepaper from address bar)
-          const newUrl = window.location.pathname + (window.location.hash || '');
-          window.history.replaceState({}, '', newUrl);
-        }, 100);
-      }
+      // Clean up URL (remove ?doc=whitepaper from address bar)
+      const newUrl = window.location.pathname + (window.location.hash || '');
+      window.history.replaceState({}, '', newUrl);
     }
   }, []); // Run once on mount - footer button clicks work independently
 

@@ -9,7 +9,7 @@ import {
   Waves, Ghost, Eye
 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
-import { validateApiKey } from '../services/geminiService';
+// NOTE: Image generation uses direct API calls - needs API route for full security
 import { TechLabel, TechNote } from './docs/DocHelpers';
 import { VigilScanner } from './VigilScanner';
 import { playSuccessChime } from '../utils/audio';

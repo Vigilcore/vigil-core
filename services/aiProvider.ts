@@ -1,87 +1,36 @@
 /**
  * Central AI Provider Configuration
- * Manages both Google AI (Gemini) and OpenAI providers
+ * NOTE: API keys are now server-side only (via /api routes)
+ * This file provides fallback routing logic
  */
 
 export type AIProvider = 'GOOGLE_AI' | 'OPENAI';
 
 export interface ProviderConfig {
   provider: AIProvider;
-  apiKey: string;
-  available: boolean;
+  available: boolean; // Always true now - API routes handle availability
 }
 
-const placeholderPatterns = [
-  'placeholder',
-  'your_api_key',
-  'your_actual_api_key',
-  'example',
-  'demo',
-  'test'
-];
-
 /**
- * Validates an API key for any provider
- */
-const validateKey = (key: string | undefined, providerName: string): string => {
-  if (!key || key === 'undefined' || key === 'null' || key.trim() === '') {
-    throw new Error(
-      `[VIGIL ${providerName} API KEY MISSING] The ${providerName} API key is not configured. ` +
-      `Please set the API key in your environment variables or .env.local file.`
-    );
-  }
-  
-  const lowerKey = key.toLowerCase();
-  if (placeholderPatterns.some(pattern => lowerKey.includes(pattern))) {
-    throw new Error(
-      `[VIGIL ${providerName} API KEY INVALID] The API key appears to be a placeholder value. ` +
-      `Please replace it with your actual ${providerName} API key.`
-    );
-  }
-  
-  return key;
-};
-
-/**
- * Gets Google AI (Gemini) API key configuration
+ * Gets Google AI (Gemini) configuration
+ * API keys are server-side, so we assume available (API route will handle errors)
  */
 export const getGoogleAIConfig = (): ProviderConfig => {
-  const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
-  try {
-    const validatedKey = validateKey(apiKey, 'GOOGLE_AI');
-    return {
-      provider: 'GOOGLE_AI',
-      apiKey: validatedKey,
-      available: true
-    };
-  } catch (error) {
-    return {
-      provider: 'GOOGLE_AI',
-      apiKey: '',
-      available: false
-    };
-  }
+  return {
+    provider: 'GOOGLE_AI',
+    available: true // API route will handle if key is missing
+  };
 };
 
 /**
- * Gets OpenAI API key configuration
+ * Gets OpenAI configuration
+ * API keys are server-side, so we assume available (API route will handle errors)
  */
 export const getOpenAIConfig = (): ProviderConfig => {
-  const apiKey = process.env.OPENAI_API_KEY;
-  try {
-    const validatedKey = validateKey(apiKey, 'OPENAI');
-    return {
-      provider: 'OPENAI',
-      apiKey: validatedKey,
-      available: true
-    };
-  } catch (error) {
-    return {
-      provider: 'OPENAI',
-      apiKey: '',
-      available: false
-    };
-  }
+  return {
+    provider: 'OPENAI',
+    available: true // API route will handle if key is missing
+  };
 };
 
 /**
@@ -96,15 +45,9 @@ export const getAllProviders = (): ProviderConfig[] => {
 
 /**
  * Validates that at least one provider is available
+ * Always passes now - API routes handle actual availability
  */
 export const validateAtLeastOneProvider = (): void => {
-  const providers = getAllProviders();
-  const available = providers.filter(p => p.available);
-  
-  if (available.length === 0) {
-    throw new Error(
-      '[VIGIL NO AI PROVIDERS AVAILABLE] At least one AI provider (Google AI or OpenAI) must be configured. ' +
-      'Please set API_KEY (for Google AI) or OPENAI_API_KEY (for OpenAI) in your environment variables or .env.local file.'
-    );
-  }
+  // Always valid - API routes will handle errors server-side
+  return;
 };
