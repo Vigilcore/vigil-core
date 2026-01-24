@@ -3,8 +3,8 @@
 ![VIGIL Core Banner](https://github.com/user-attachments/assets/4bc52511-6e56-4b9b-ba74-978a53622de0)
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Live-10b981?style=for-the-badge&logo=shield&logoColor=white" />
-  <img src="https://img.shields.io/badge/Layer-0.5_Standard-3b82f6?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Operational-10b981?style=for-the-badge&logo=shield&logoColor=white" />
+  <img src="https://img.shields.io/badge/Standard-Layer_0.5-3b82f6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-fbbf24?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Trial-30_Days_Free-8b5cf6?style=for-the-badge" />
 </p>
@@ -14,7 +14,7 @@
 
 Layer 0.5 security system that validates user intent before cryptographic execution. Neutralizes address poisoning, phishing, and social engineering attacks through real-time forensic analysis.
 
-[Learn more about the threat model](#-the-vulnerability-the-8-character-blind-spot) • [Explore how it works](#-how-it-works)
+**[🚀 Launch Platform](https://www.vigilcore.org)** • [Learn more about the threat model](#-the-vulnerability-the-8-character-blind-spot) • [Explore how it works](#-how-it-works)
 
 </div>
 
@@ -22,16 +22,29 @@ Layer 0.5 security system that validates user intent before cryptographic execut
 
 ## 🚨 The Vulnerability: The 8-Character Blind Spot
 
-According to **SlowMist** and **Chainalysis** forensic audits:
+### The Cognitive Gap
 
-- **$17B** in projected losses from crypto-related crime in 2025
-- **94% of users** only verify the first/last 4 characters of wallet addresses
-- **4.5x revenue multiplier** from AI-enabled scams vs. traditional methods
-- **1400% YoY increase** in impersonation attacks targeting the human decision layer
+Research from **SlowMist** and **Chainalysis** reveals that **94% of users** only verify the first 4 and last 4 characters of wallet addresses. Adversaries exploit this using high-density GPU clusters to generate "Vanity Mimics"—addresses that appear identical at the edges but lead to total asset loss.
+
+| What You See | What You Verify | What Actually Happens |
+|-------------|----------------|----------------------|
+| `7xKXt...vR3p` | First 4 + Last 4 | ✅ Looks correct |
+| `7xKXt...vR3p` | Middle 8 characters | ❌ **Never checked** |
+| `7xKXt...vR3p` | Full address comparison | ❌ **Too time-consuming** |
+
+**Result:** You approve a transaction believing it's going to a trusted address, but the middle characters are different—leading to complete asset loss.
+
+### Threat Intelligence (2025-2026)
+
+```text
+[VIGIL_FORENSIC_LOG]
+>> GLOBAL SCAM LOSSES: $17B (Projected 2025)
+>> AI REVENUE MULTIPLIER: 4.5x (Adversarial Efficiency)
+>> IMPERSONATION SURGE: 1400% YoY
+>> VERDICT: HUMAN-LAYER IS THE PRIMARY ATTACK VECTOR.
+```
 
 > *"The theft lives in the gap between what you see and what you sign."*
-
-Adversaries exploit this cognitive gap using high-density GPU clusters to generate "Vanity Mimics"—addresses that appear identical to trusted contacts at the edges but lead to total asset loss.
 
 ### Real Attack Vectors
 
@@ -46,18 +59,12 @@ Adversaries exploit this cognitive gap using high-density GPU clusters to genera
 
 Traditional blockchain security operates at two layers:
 
-| Layer | Tools | What They Protect |
-|-------|-------|-------------------|
-| **Layer 1** | Consensus protocols, validators | Cryptographic integrity of the chain |
-| **Layer 0** | Hardware wallets, explorers | Transaction signing and broadcast |
+| Layer | Tools | What They Protect | What They Don't Protect |
+|-------|-------|-------------------|------------------------|
+| **Layer 1** | Consensus protocols, validators | Cryptographic integrity of the chain | ❌ User intent validation |
+| **Layer 0** | Hardware wallets, explorers | Transaction signing and broadcast | ❌ Visual deception detection |
 
-**What they don't protect:** The moment you *believe* you're sending funds to a trusted address, but you're actually signing a transaction to an attacker's vanity mimic.
-
-### The Gap
-
-- ✅ Your wallet correctly signs the transaction you approved
-- ✅ The blockchain correctly executes what was signed
-- ❌ **You approved the wrong address** because your eyes were deceived
+**The Gap:** Your wallet correctly signs the transaction you approved. The blockchain correctly executes what was signed. But **you approved the wrong address** because your eyes were deceived.
 
 **Cryptographic validation ≠ Intent validation**
 
@@ -81,21 +88,20 @@ VIGIL operates **before** you interact with the blockchain, providing an early w
 
 ---
 
-## 🔍 How It Works
+## 🔍 Core Capabilities
 
-VIGIL provides multiple security primitives:
+VIGIL provides multiple security primitives designed to intercept threats at the human decision layer:
 
-| Feature | What It Does | Technology |
-|---------|--------------|------------|
-| **Intent Validator** | Verify transaction safety before signing | AI-powered forensic analysis |
-| **Neural Firewall** | Train your eye to spot vanity mimics | Levenshtein-based entropy detection |
-| **Mesh Intelligence** | Access global threat feeds in real-time | Decentralized threat synchronization |
-| **Market Intel Auditor** | Detect bundling and manipulation patterns | Pattern recognition |
+| Capability | Function | Performance |
+|------------|----------|-------------|
+| **Retinal Shield** | Intercepts DOM address swaps | <12ms detection latency |
+| **Intent Validator** | Real-time forensic analysis of transaction intent | AI-powered cognitive autopsy |
+| **Neural Firewall** | Trains eye to spot vanity mimics | Levenshtein-based entropy detection |
+| **Sentinel Mesh** | Global threat feed synchronization | <200ms mesh propagation |
+| **Market Intel Auditor** | Detects bundling and manipulation patterns | Pattern recognition engine |
 | **Address Scanner** | Forensic analysis of any wallet address | Multi-source reputation synthesis |
 
 ### Technical Architecture
-
-VIGIL is built with:
 
 - **Frontend**: React 19 + TypeScript + Vite
 - **AI Providers**: Gemini API (primary) + OpenAI (fallback)
@@ -119,10 +125,12 @@ VIGIL is built with:
 
 ### Privacy-First Design
 
-- ✅ **No transaction signing**: Analysis only, never controls your wallet
-- ✅ **No tracking**: No analytics or telemetry on user behavior
-- ✅ **Open source**: Full transparency—audit the code yourself
-- ✅ **Client-side processing**: Your data stays local whenever possible
+- ✅ **Zero-Knowledge Architecture**: Your history stays in local IndexedDB—never transmitted
+- ✅ **Non-Custodial**: VIGIL never handles private keys or executes transactions
+- ✅ **No Transaction Signing**: Analysis only, never controls your wallet
+- ✅ **No Tracking**: No analytics or telemetry on user behavior
+- ✅ **Open Source**: Full transparency—audit the code yourself
+- ✅ **Client-Side Processing**: Your data stays local whenever possible
 
 ### API Key Protection
 
@@ -166,17 +174,18 @@ Connect your wallet to continue with:
 
 ---
 
-## 🔮 Roadmap
+## 🔮 Roadmap: Horizon 2026
 
 | Phase | Status | Features |
 |-------|--------|----------|
-| **Phase 01** | ✅ Live | Web platform with AI-powered demos |
-| **Phase 02** | 🔧 In Progress | Packaged browser extension |
-| **Phase 03** | 📋 Planned | Multi-chain expansion (EVM, BTC, Avalanche) |
+| **Phase 01: Genesis** | ✅ Complete | Web-native facility with AI-powered demos |
+| **Phase 02: Field Unit** | 🔧 In Progress | Packaged browser extension deployment |
+| **Phase 03: Universal Layer** | 📋 Planned | Native mobile keyboard & multi-chain support (EVM, BTC, Avalanche) |
 
 ---
 
-## 👨‍💻 FOR DEVELOPERS ONLY: Local Development
+<details>
+<summary><b>👨‍💻 FOR DEVELOPERS ONLY: Local Development</b></summary>
 
 **⚠️ IMPORTANT**: This section is ONLY for developers contributing to the codebase or auditing the source.
 
@@ -268,6 +277,8 @@ vigil-core/
 ├── registry/          # Broadcast system
 └── types.ts           # TypeScript definitions
 ```
+
+</details>
 
 ---
 
