@@ -200,8 +200,8 @@ export const PricingContent = () => (
           <table className="w-full text-left relative z-10">
             <thead className="bg-zinc-950 border-b border-zinc-900">
               <tr>
-                <th className="p-8 text-[10px] font-black text-zinc-600 uppercase tracking-widest">Feature Vector</th>
-                <th className="p-8 text-[10px] font-black text-zinc-600 uppercase tracking-widest">Baseline</th>
+                <th className="p-8 text-[10px] font-black text-zinc-500 uppercase tracking-widest">Feature Vector</th>
+                <th className="p-8 text-[10px] font-black text-zinc-500 uppercase tracking-widest">Baseline</th>
                 <th className="p-8 text-[10px] font-black text-blue-500 uppercase tracking-widest">Sentinel</th>
                 <th className="p-8 text-[10px] font-black text-purple-500 uppercase tracking-widest">Apex</th>
               </tr>
@@ -218,7 +218,7 @@ export const PricingContent = () => (
               ].map((row, i) => (
                 <tr key={i} className="border-b border-zinc-900/50 group/row hover:bg-white/[0.01] transition-colors">
                   <td className="p-8 border-r border-zinc-900/50 text-zinc-500 group-hover/row:text-zinc-300 transition-colors">{row.f}</td>
-                  <td className="p-8 border-r border-zinc-900/50 text-center md:text-left">{row.b === false ? <X size={14} className="text-zinc-800 mx-auto md:mx-0" /> : row.b === true ? <Check size={14} className="text-zinc-600 mx-auto md:mx-0" /> : row.b}</td>
+                  <td className="p-8 border-r border-zinc-900/50 text-center md:text-left">{row.b === false ? <X size={14} className="text-zinc-800 mx-auto md:mx-0" /> : row.b === true ? <Check size={14} className="text-zinc-500 mx-auto md:mx-0" /> : row.b}</td>
                   <td className="p-8 border-r border-zinc-900/50 text-center md:text-left">{row.s === false ? <X size={14} className="text-zinc-800 mx-auto md:mx-0" /> : row.s === true ? <Check size={14} className="text-blue-500 mx-auto md:mx-0" /> : row.s}</td>
                   <td className="p-8 text-center md:text-left">{row.a === false ? <X size={14} className="text-zinc-800 mx-auto md:mx-0" /> : row.a === true ? <Check size={14} className="text-purple-500 mx-auto md:mx-0" /> : row.a}</td>
                 </tr>

@@ -15,7 +15,7 @@ export const HubHeader: React.FC<HubHeaderProps> = ({ title, subtitle, number, d
         <div className="h-[1px] flex-1 bg-zinc-900" />
       </div>
       <h2 className="text-[2.25rem] md:text-[4.5rem] font-black text-white italic uppercase tracking-tighter leading-[0.8]">{title}</h2>
-      <p className="text-zinc-600 text-[10px] md:text-sm font-black uppercase tracking-[0.4em] mt-6 mb-8">{subtitle}</p>
+      <p className="text-zinc-500 text-[10px] md:text-sm font-black uppercase tracking-[0.4em] mt-6 mb-8">{subtitle}</p>
       
       {description && (
         <div className="p-8 md:p-14 bg-[#0a0a0a]/40 backdrop-blur-[40px] border border-zinc-800 rounded-3xl md:rounded-[3.5rem] relative overflow-hidden group shadow-2xl animate-in fade-in slide-in-from-top-4 duration-1000 mb-12">

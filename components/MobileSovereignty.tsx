@@ -78,7 +78,7 @@ export const MobileSovereignty: React.FC = () => {
                { t: "Biometric Handshake", d: "Mandatory FaceID/TouchID confirmation for high-risk destination overrides.", i: <Fingerprint size={16} /> }
              ].map((item, i) => (
                <div key={i} className="flex gap-6 group">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-900 flex items-center justify-center text-zinc-600 group-hover:text-emerald-500 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-900 flex items-center justify-center text-zinc-500 group-hover:text-emerald-500 transition-colors">
                      {item.i}
                   </div>
                   <div className="space-y-1">
@@ -114,7 +114,7 @@ export const MobileSovereignty: React.FC = () => {
                     <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center">
                        <ShieldCheck size={16} className="text-black" />
                     </div>
-                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Trust Wallet v2.1</span>
+                    <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Trust Wallet v2.1</span>
                  </div>
 
                  <div className="space-y-4">
@@ -143,7 +143,7 @@ export const MobileSovereignty: React.FC = () => {
                        <div className="flex items-center gap-3 p-3 bg-black/40 rounded-xl">
                           <AddressGlyph address={TRUSTED_ADDR} size="sm" />
                           <div className="space-y-0.5">
-                             <span className="text-[7px] text-zinc-600 font-black uppercase">Should be:</span>
+                             <span className="text-[7px] text-zinc-500 font-black uppercase">Should be:</span>
                              <span className="text-[10px] font-mono text-emerald-500">{TRUSTED_ADDR.slice(0,8)}...</span>
                           </div>
                        </div>
@@ -169,7 +169,7 @@ export const MobileSovereignty: React.FC = () => {
                  {state === 'IDLE' && (
                    <div className="h-full flex flex-col items-center justify-center gap-6 animate-in fade-in duration-500">
                       <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-2xl opacity-40">
-                        <Keyboard className="w-12 h-12 text-zinc-600" />
+                        <Keyboard className="w-12 h-12 text-zinc-500" />
                       </div>
                       <button 
                         onClick={handlePaste}
@@ -229,7 +229,7 @@ export const MobileSovereignty: React.FC = () => {
                        </div>
                        <div className="space-y-1 text-center">
                           <h4 className="text-sm font-black text-white uppercase tracking-widest">Verifying Identity</h4>
-                          <p className="text-[8px] text-zinc-600 font-black uppercase tracking-[0.6em]">Biometric_Link_Active</p>
+                          <p className="text-[8px] text-zinc-500 font-black uppercase tracking-[0.6em]">Biometric_Link_Active</p>
                        </div>
                     </div>
                  )}
@@ -237,7 +237,7 @@ export const MobileSovereignty: React.FC = () => {
                  {state === 'SECURE' && (
                     <div className="h-full flex flex-col items-center justify-center space-y-6 animate-in zoom-in duration-500">
                        <Unlock className="w-12 h-12 text-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)]" />
-                       <button onClick={reset} className="text-[9px] font-black text-zinc-700 uppercase tracking-widest hover:text-white transition-colors">RESET_ENVIRONMENT</button>
+                       <button onClick={reset} className="text-xs font-black text-zinc-700 uppercase tracking-widest hover:text-white transition-colors">RESET_ENVIRONMENT</button>
                     </div>
                  )}
               </div>

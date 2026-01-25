@@ -11,7 +11,7 @@ export const FinalNotice: React.FC = () => {
             
             <div className="relative z-10 space-y-6">
               <div className="flex flex-col items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-zinc-600" strokeWidth={1.5} />
+                <AlertCircle className="w-5 h-5 text-zinc-500" strokeWidth={1.5} />
                 <h5 className="text-[10px] md:text-[11px] font-black text-white italic uppercase tracking-[0.6em]">
                   Disclaimer
                 </h5>
@@ -26,7 +26,7 @@ export const FinalNotice: React.FC = () => {
               <div className="h-[1px] w-12 bg-zinc-800 mx-auto" />
               
               <div className="max-w-xl mx-auto">
-                <p className="text-zinc-600 text-[10px] md:text-[11px] font-bold uppercase tracking-widest leading-relaxed">
+                <p className="text-zinc-500 text-[10px] md:text-[11px] font-bold uppercase tracking-widest leading-relaxed">
                   Vigil provides informational security warnings and does not control or sign transactions. 
                   <span className="text-zinc-500"> Use of Vigil does not eliminate blockchain risk.</span>
                 </p>

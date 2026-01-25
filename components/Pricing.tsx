@@ -248,13 +248,13 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
           <div className="p-1 bg-[#0a0a0a] border border-zinc-900 rounded-xl md:rounded-2xl flex items-center shadow-2xl">
              <button 
                onClick={() => setBillingCycle('YEARLY')}
-               className={`px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-3 ${billingCycle === 'YEARLY' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
+               className={`px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-3 ${billingCycle === 'YEARLY' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}
              >
                 Yearly <span className={`px-2 py-0.5 rounded-full text-[8px] ${billingCycle === 'YEARLY' ? 'bg-emerald-100 text-emerald-700' : 'bg-zinc-800 text-zinc-500'}`}>-20%</span>
              </button>
              <button 
                onClick={() => setBillingCycle('QUARTERLY')}
-               className={`px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${billingCycle === 'QUARTERLY' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
+               className={`px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${billingCycle === 'QUARTERLY' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}
              >
                 Quarterly
              </button>
@@ -284,7 +284,7 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                       <h4 className="text-4xl font-black text-white italic uppercase tracking-tighter leading-tight">{plan.label}</h4>
                       <div className="flex items-baseline gap-2 pb-4 border-b border-zinc-900">
                         <span className="text-5xl font-black text-white">{displayPriceUsd}</span>
-                        <span className="text-zinc-600 text-[9px] font-bold uppercase tracking-widest italic">{plan.id !== 'FREE' ? `~ ${displayPriceSol} SOL / ${isYearly ? 'yr' : 'qtr'}` : ''}</span>
+                        <span className="text-zinc-500 text-[9px] font-bold uppercase tracking-widest italic">{plan.id !== 'FREE' ? `~ ${displayPriceSol} SOL / ${isYearly ? 'yr' : 'qtr'}` : ''}</span>
                       </div>
                       <p className="text-zinc-500 text-sm font-medium italic leading-relaxed">{plan.desc}</p>
                     </div>
@@ -293,9 +293,9 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                       {plan.features.map((feat, i) => (
                         <div key={i} className="group/feat">
                           <div className="flex items-center gap-3 text-[11px] font-black text-zinc-300 uppercase tracking-widest mb-1 transition-colors group/feat:text-white">
-                            <Check className={`w-4 h-4 shrink-0 ${plan.accent === 'purple' ? 'text-purple-500' : plan.accent === 'blue' ? 'text-blue-500' : 'text-zinc-600'}`} /> {feat.label}
+                            <Check className={`w-4 h-4 shrink-0 ${plan.accent === 'purple' ? 'text-purple-500' : plan.accent === 'blue' ? 'text-blue-500' : 'text-zinc-500'}`} /> {feat.label}
                           </div>
-                          <p className="text-[9px] text-zinc-600 font-bold uppercase italic leading-tight pl-7 transition-colors group/feat:text-zinc-500">
+                          <p className="text-[9px] text-zinc-500 font-bold uppercase italic leading-tight pl-7 transition-colors group/feat:text-zinc-500">
                             {feat.sub}
                           </p>
                         </div>
@@ -334,14 +334,14 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                     {provisionState === 'CONNECTING' && (
                        <div className="animate-in zoom-in duration-300 space-y-6">
                           <VigilScanner label="AWAITING_IDENTITY_HANDSHAKE" />
-                          <button onClick={() => connectWallet(false)} className="px-8 py-3 bg-zinc-900 text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-zinc-800 transition-all">ESTABLISH LINK</button>
+                          <button onClick={() => connectWallet(false)} className="px-8 py-3 bg-zinc-900 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-zinc-800 transition-all">ESTABLISH LINK</button>
                        </div>
                     )}
                     {provisionState === 'PAYING' && (
                        <div className="space-y-6 animate-in zoom-in duration-300">
                           <Wallet className="w-12 h-12 text-emerald-500 mx-auto animate-pulse" />
                           <p className="text-[10px] font-black text-white uppercase tracking-widest">Authorize {billingCycle === 'YEARLY' ? selectedPlan.priceSolYearly : selectedPlan.priceSolQuarterly} SOL</p>
-                          <button onClick={handleActualPayment} className="px-10 py-4 bg-emerald-600 text-white text-[11px] font-black uppercase rounded-lg md:rounded-xl hover:bg-emerald-500">CONFIRM PAYMENT</button>
+                          <button onClick={handleActualPayment} className="px-10 py-4 bg-emerald-600 text-white text-xs font-black uppercase rounded-lg md:rounded-xl hover:bg-emerald-500">CONFIRM PAYMENT</button>
                        </div>
                     )}
                     {provisionState === 'SIGNING' && (
@@ -353,13 +353,13 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                       <div className="animate-in zoom-in duration-300 space-y-4">
                         <VigilScanner label={errorMessage} status="error" />
                         <div className="flex flex-col gap-3">
-                           <button onClick={() => connectWallet(true)} className="px-8 py-3 bg-blue-600 text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-blue-500 transition-all shadow-xl">ESTABLISH VIRTUAL IDENTITY</button>
-                           <button onClick={() => setProvisionState('IDLE')} className="text-[9px] font-black text-zinc-600 uppercase tracking-widest underline underline-offset-4">Retry Handshake</button>
+                           <button onClick={() => connectWallet(true)} className="px-8 py-3 bg-blue-600 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-blue-500 transition-all shadow-xl">ESTABLISH VIRTUAL IDENTITY</button>
+                           <button onClick={() => setProvisionState('IDLE')} className="text-xs font-black text-zinc-500 uppercase tracking-widest underline underline-offset-4">Retry Handshake</button>
                         </div>
                       </div>
                     )}
                  </div>
-                 <button onClick={() => setProvisionState('IDLE')} className="text-zinc-700 text-[10px] font-black uppercase tracking-widest hover:text-zinc-500">Terminate Setup</button>
+                 <button onClick={() => setProvisionState('IDLE')} className="text-zinc-700 text-xs font-black uppercase tracking-widest hover:text-zinc-500">Terminate Setup</button>
               </div>
            </div>
         )}
@@ -374,7 +374,7 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                  <p className="text-zinc-400 font-medium italic">"Calibration Verified. Local node synchronized with the {selectedPlan.label} standard. Extension link updated."</p>
               </div>
               <div className="py-3 px-8 bg-zinc-950 border border-zinc-900 rounded-lg md:rounded-xl inline-block">
-                 <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mr-4">License Status</span>
+                 <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mr-4">License Status</span>
                  <span className="text-[10px] font-mono text-zinc-300 font-bold uppercase tracking-widest">{expiryDate === "PERMANENT" ? "PERMANENT_LINK_ESTABLISHED" : `EXPIRES: ${expiryDate}`}</span>
               </div>
            </div>
@@ -393,7 +393,7 @@ export const Pricing: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                    {React.cloneElement(item.icon as React.ReactElement<{ size?: number }>, { size: 20 })}
                    <h5 className="text-[11px] font-black uppercase tracking-[0.2em]">{item.label}</h5>
                 </div>
-                <p className="text-[11px] text-zinc-600 font-bold leading-relaxed uppercase italic">
+                <p className="text-[11px] text-zinc-500 font-bold leading-relaxed uppercase italic">
                    {item.desc}
                 </p>
              </div>

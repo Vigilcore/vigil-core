@@ -50,7 +50,7 @@ const AlertPopup: React.FC<PopupProps> = ({ title, explanation, icon, color, glo
       {/* Structured Logic / Explanation */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest italic">Interception Logic</span>
+          <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest italic">Interception Logic</span>
         </div>
         <div className="space-y-4 text-zinc-400 text-sm leading-relaxed font-medium whitespace-pre-line">
           {explanation.split('\n').map((line, i) => (
@@ -79,15 +79,15 @@ const AlertPopup: React.FC<PopupProps> = ({ title, explanation, icon, color, glo
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-1">
-            <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest block">Address Age</span>
+            <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest block">Address Age</span>
             <span className="text-11px font-mono font-bold text-zinc-200">{telemetry.age}</span>
           </div>
           <div className="space-y-1 border-x border-white/5 px-4">
-            <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest block">Last Time</span>
+            <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest block">Last Time</span>
             <span className="text-11px font-mono font-bold text-zinc-200">{telemetry.lastTx}</span>
           </div>
           <div className="space-y-1">
-            <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest block">15D Tx</span>
+            <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest block">15D Tx</span>
             <span className="text-11px font-mono font-bold text-zinc-200">{telemetry.activity15d}</span>
           </div>
         </div>

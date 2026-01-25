@@ -48,7 +48,7 @@ export function extractAddresses(text) {
           <div className="h-[1px] flex-1 bg-zinc-900" />
           <div className="flex items-center gap-2 px-3 py-1 bg-zinc-950 border border-zinc-900 rounded-lg">
              <Lock className="w-3 h-3 text-zinc-700" />
-             <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">STATE: LOCKED</span>
+             <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">STATE: LOCKED</span>
           </div>
         </div>
         <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">
@@ -75,7 +75,7 @@ export function extractAddresses(text) {
                    { l: "TARGET", v: "Solana Mainnet" }
                  ].map((item, i) => (
                    <li key={i} className="flex justify-between items-center">
-                     <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">{item.l}</span>
+                     <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">{item.l}</span>
                      <span className="text-[10px] font-mono text-zinc-300 font-bold">{item.v}</span>
                    </li>
                  ))}

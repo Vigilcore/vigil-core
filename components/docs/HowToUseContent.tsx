@@ -57,7 +57,7 @@ export const HowToUseContent: React.FC = () => {
              <button 
               key={s.id}
               onClick={() => scrollTo(s.id)}
-              className={`w-full text-left px-6 py-4 rounded-2xl transition-all flex items-center gap-4 group ${activeSection === s.id ? 'bg-blue-600/10 border border-blue-500/20 text-white shadow-xl shadow-blue-500/5' : 'text-zinc-600 hover:text-zinc-300'}`}
+              className={`w-full text-left px-6 py-4 rounded-2xl transition-all flex items-center gap-4 group ${activeSection === s.id ? 'bg-blue-600/10 border border-blue-500/20 text-white shadow-xl shadow-blue-500/5' : 'text-zinc-500 hover:text-zinc-300'}`}
              >
                 {React.cloneElement(s.icon as React.ReactElement<{ className?: string }>, { className: activeSection === s.id ? 'text-blue-500 scale-110' : 'text-zinc-800 group-hover:text-zinc-500' })}
                 <span className="text-[11px] font-black uppercase tracking-widest">{s.label}</span>
@@ -159,7 +159,7 @@ export const HowToUseContent: React.FC = () => {
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div className="space-y-2">
-                            <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Collision Threshold</span>
+                            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Collision Threshold</span>
                             <div className="text-2xl font-black text-white italic">d=14 (Standard)</div>
                             <p className="text-[9px] text-zinc-700 font-bold uppercase">Matches found via consumer-grade CPU compute.</p>
                          </div>

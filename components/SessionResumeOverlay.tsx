@@ -41,7 +41,7 @@ export const SessionResumeOverlay: React.FC<SessionResumeOverlayProps> = ({ leve
             </button>
             <button 
               onClick={onStay}
-              className="w-full py-4 bg-zinc-950 border border-zinc-900 rounded-2xl text-[9px] font-black text-zinc-600 uppercase tracking-widest hover:text-white transition-all flex items-center justify-center gap-3 active:scale-95"
+              className="w-full py-4 bg-zinc-950 border border-zinc-900 rounded-2xl text-[9px] font-black text-zinc-500 uppercase tracking-widest hover:text-white transition-all flex items-center justify-center gap-3 active:scale-95"
             >
               <Terminal size={12} /> TOP-LEVEL ENTRY
             </button>

@@ -50,7 +50,7 @@ export const MeshKernelBridgeSection: React.FC<MeshKernelBridgeSectionProps> = (
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-3xl opacity-40 px-4">
             {['LATENCY: 8ms', 'MESH: 1.2M', 'UPTIME: 100%', 'RELAY: OK'].map(t => (
-              <div key={t} className="text-[8px] font-mono font-bold text-zinc-600 uppercase tracking-widest">{t}</div>
+              <div key={t} className="text-[8px] font-mono font-bold text-zinc-500 uppercase tracking-widest">{t}</div>
             ))}
           </div>
         </div>

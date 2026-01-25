@@ -236,7 +236,7 @@ export const WhitepaperContent = () => {
               ].map((item, i) => (
                 <div key={i} className="px-4 py-8 md:p-8 bg-[#0a0a0a] border border-zinc-900 rounded-2xl space-y-3">
                   <h4 className="text-white font-black uppercase tracking-widest text-[10px]">{item.t}</h4>
-                  <p className="text-zinc-600 text-[11px] font-medium leading-relaxed uppercase">{item.d}</p>
+                  <p className="text-zinc-500 text-[11px] font-medium leading-relaxed uppercase">{item.d}</p>
                 </div>
               ))}
             </div>
@@ -312,7 +312,7 @@ export const WhitepaperContent = () => {
                 <div className="flex items-center gap-12 px-4 py-8 md:p-8 bg-zinc-950 border border-zinc-900 rounded-3xl">
                   <div className="space-y-1">
                     <span className="text-4xl font-black text-white italic tracking-tighter">$100M</span>
-                    <span className="block text-[8px] font-black text-zinc-600 uppercase tracking-widest">Cumulative Verified</span>
+                    <span className="block text-[8px] font-black text-zinc-500 uppercase tracking-widest">Cumulative Verified</span>
                   </div>
                   <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest leading-relaxed">
                     Conservative, on-chain–verifiable estimates place directly attributable address poisoning losses at approximately $80–100 million cumulatively. The true number is significantly higher.

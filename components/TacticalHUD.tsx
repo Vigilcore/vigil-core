@@ -68,16 +68,16 @@ export const TacticalHUD: React.FC<TacticalHUDProps> = ({ bri, xp, rank, level, 
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${theme.bg} border-white/10`}><Radio size={18} className={`${theme.accent} animate-pulse`} /></div>
                 <div className="space-y-0.5">
                    <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Sentinel_HUD</span>
-                   <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest block">Merit_Reputation_Core</span>
+                   <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest block">Merit_Reputation_Core</span>
                 </div>
              </div>
-             <button onClick={(e) => { e.stopPropagation(); setIsOpen(false); }} className="w-8 h-8 flex items-center justify-center hover:bg-white/5 rounded-full text-zinc-600 hover:text-white transition-all"><X size={16} /></button>
+             <button onClick={(e) => { e.stopPropagation(); setIsOpen(false); }} className="w-8 h-8 flex items-center justify-center hover:bg-white/5 rounded-full text-zinc-500 hover:text-white transition-all"><X size={16} /></button>
           </div>
 
           <div className="space-y-6">
             <div className="space-y-4">
               <div className="flex justify-between items-center px-1">
-                 <div className="flex items-center gap-2"><Activity size={10} className="text-zinc-600" /><span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Resilience (BRI)</span></div>
+                 <div className="flex items-center gap-2"><Activity size={10} className="text-zinc-500" /><span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Resilience (BRI)</span></div>
                  <div className={`text-[14px] font-black text-white italic`}>{bri}%</div>
               </div>
               <div className="h-2 w-full bg-black/60 rounded-full overflow-hidden border border-white/5">
@@ -107,7 +107,7 @@ export const TacticalHUD: React.FC<TacticalHUDProps> = ({ bri, xp, rank, level, 
             </div>
           </div>
 
-          <button onClick={() => { onOpenMap(); setIsOpen(false); }} className={`w-full py-3.5 bg-white/5 border border-white/10 rounded-2xl text-[9px] font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 hover:bg-white/10 active:scale-[0.98] ${theme.accent}`}>
+          <button onClick={() => { onOpenMap(); setIsOpen(false); }} className={`w-full py-3.5 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 hover:bg-white/10 active:scale-[0.98] ${theme.accent}`}>
             <Map size={12} /> OPEN SYSTEM TOPOLOGY
           </button>
         </div>

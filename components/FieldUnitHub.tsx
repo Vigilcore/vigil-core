@@ -32,7 +32,7 @@ const NeuralParityHeader = ({ synced }: { synced: boolean }) => (
     <div className="flex items-center gap-3">
       <div className={`w-2 h-2 rounded-full animate-pulse ${synced ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-red-600 shadow-[0_0_10px_#ef4444]'}`} />
       <div className="flex flex-col">
-        <span className={`text-[10px] font-black uppercase tracking-widest ${synced ? 'text-emerald-500' : 'text-red-500'}`}>
+        <span className={`text-xs font-black uppercase tracking-widest ${synced ? 'text-emerald-500' : 'text-red-500'}`}>
           NEURAL PARITY: {synced ? 'ACTIVE' : 'PENDING_UPDATE'}
         </span>
       </div>
@@ -41,7 +41,7 @@ const NeuralParityHeader = ({ synced }: { synced: boolean }) => (
     <div className="hidden lg:flex items-center gap-6 overflow-hidden">
       {['VALIDATOR.JS', 'DIFF.JS', 'MARKET_INTEL.JS', 'MANIFEST_v0.0.5.1'].map((file, i) => (
         <div key={i} className="flex items-center gap-2 shrink-0">
-          <FileCheck size={11} className="text-zinc-600" />
+          <FileCheck size={11} className="text-zinc-500" />
           <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-tighter">{file}</span>
         </div>
       ))}
@@ -67,11 +67,11 @@ const GlobalCampaignBanner = ({ campaign }: { campaign: NetworkCampaignSignal })
     </div>
     <div className="flex items-center gap-10">
       <div className="text-center md:text-right space-y-1">
-        <div className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Active Scale</div>
+        <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Active Scale</div>
         <div className="text-lg font-black text-white italic">{campaign.affectedCount}</div>
       </div>
       <div className="h-10 w-[1px] bg-zinc-800" />
-      <button className="px-6 py-3 bg-white text-black rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all shadow-xl active:scale-95">
+      <button className="px-6 py-3 bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all shadow-xl active:scale-95">
         DEPLOY_COUNTERMEASURES
       </button>
     </div>
@@ -175,10 +175,10 @@ export const FieldUnitHub: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 p-1 bg-[#0a0a0a] border border-zinc-900 rounded-2xl">
-            <button onClick={() => setView('DESKTOP')} className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'DESKTOP' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+            <button onClick={() => setView('DESKTOP')} className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${view === 'DESKTOP' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
               <Monitor className="w-3.5 h-3.5 inline mr-2" /> Live Environment
             </button>
-            <button onClick={() => setView('REGISTRY')} className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'REGISTRY' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+            <button onClick={() => setView('REGISTRY')} className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${view === 'REGISTRY' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
               <Folder className="w-3.5 h-3.5 inline mr-2" /> Source Silo
             </button>
           </div>
@@ -193,7 +193,7 @@ export const FieldUnitHub: React.FC = () => {
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
                     <div className={`w-1.5 h-1.5 rounded-full ${nodeState === 'PRO_ACTIVE' ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-red-600 animate-pulse'}`} />
-                    <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">SENTINEL_NODE: {nodeState}</span>
+                    <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">SENTINEL_NODE: {nodeState}</span>
                   </div>
                 </div>
               </div>
@@ -208,7 +208,7 @@ export const FieldUnitHub: React.FC = () => {
 
                     <div className="shrink-0 p-8 bg-[#0a0a0a] border-2 border-zinc-900 rounded-3xl md:rounded-[2.5rem] space-y-6 shadow-2xl relative group">
                        <div className="absolute top-0 right-10 -translate-y-1/2">
-                          <div className="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-full text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-3">
+                          <div className="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-full text-xs font-black text-zinc-500 uppercase tracking-widest flex items-center gap-3">
                              <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
                              THE SETTLE POINT // LISTENING
                           </div>
@@ -217,7 +217,7 @@ export const FieldUnitHub: React.FC = () => {
                        <div className="space-y-4">
                           <div className="flex items-center justify-between">
                              <div className="flex items-center gap-3">
-                                <ClipboardPaste size={16} className="text-zinc-600" />
+                                <ClipboardPaste size={16} className="text-zinc-500" />
                                 <h4 className="text-sm font-black text-white uppercase tracking-widest italic">Wallet Simulation: Destination</h4>
                              </div>
                              {walletInput && <button onClick={() => setWalletInput('')} className="text-[8px] font-black text-zinc-700 hover:text-white transition-colors uppercase tracking-widest flex items-center gap-1"><RotateCcw size={10}/> Clear</button>}
@@ -248,18 +248,18 @@ export const FieldUnitHub: React.FC = () => {
                             </div>
                             <div className="space-y-2">
                                <h4 className="text-2xl font-black text-white italic uppercase tracking-tighter">Threat Intercepted.</h4>
-                               <div className="px-3 py-1 bg-red-600/10 border border-red-600/20 rounded-lg inline-block text-[9px] font-black text-red-500 uppercase tracking-widest italic">{activeThreat.type}_VECTOR_ACTIVE</div>
+                               <div className="px-3 py-1 bg-red-600/10 border border-red-600/20 rounded-lg inline-block text-xs font-black text-red-500 uppercase tracking-widest italic">{activeThreat.type}_VECTOR_ACTIVE</div>
                             </div>
                             <div className="p-4 bg-black border border-zinc-900 rounded-xl space-y-2">
-                               <div className="flex justify-between text-[7px] font-black text-zinc-600 uppercase tracking-widest">
+                               <div className="flex justify-between text-[7px] font-black text-zinc-500 uppercase tracking-widest">
                                   <span>Payload ID</span>
                                   <span>VG-SCAN-8821</span>
                                </div>
                                <p className="font-mono text-[10px] text-red-500 break-all">{activeThreat.from}</p>
                             </div>
                             <div className="space-y-3 pt-4">
-                               <button onClick={() => handleDismissThreat(true)} className="w-full py-5 bg-red-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-red-500 transition-all shadow-xl">NEUTRALIZE POISON</button>
-                               <button onClick={() => handleDismissThreat(false)} className="w-full py-4 border border-zinc-800 text-zinc-700 text-[10px] font-black uppercase tracking-[0.4em] hover:text-white transition-all">BYPASS SHIELD [HOLD]</button>
+                               <button onClick={() => handleDismissThreat(true)} className="w-full py-5 bg-red-600 text-white rounded-2xl text-xs font-black uppercase tracking-[0.4em] hover:bg-red-500 transition-all shadow-xl">NEUTRALIZE POISON</button>
+                               <button onClick={() => handleDismissThreat(false)} className="w-full py-4 border border-zinc-800 text-zinc-700 text-xs font-black uppercase tracking-[0.4em] hover:text-white transition-all">BYPASS SHIELD [HOLD]</button>
                             </div>
                          </div>
                       </div>
@@ -270,7 +270,7 @@ export const FieldUnitHub: React.FC = () => {
                     <div className="flex-1 grid grid-cols-12 overflow-hidden">
                        <div className="col-span-4 border-r border-zinc-900 flex flex-col bg-black/20 overflow-hidden">
                           <div className="p-6 border-b border-zinc-900 flex items-center justify-between">
-                             <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest flex items-center gap-2"><Folder size={12} /> Registry Manifest</span>
+                             <span className="text-xs font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2"><Folder size={12} /> Registry Manifest</span>
                           </div>
                           <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-1.5">
                              {SILO_MANIFEST.map(file => (
@@ -292,10 +292,10 @@ export const FieldUnitHub: React.FC = () => {
                        <div className="col-span-8 flex flex-col bg-[#020202] overflow-hidden">
                           <div className="p-8 border-b border-zinc-900 flex items-center justify-between bg-zinc-950/20">
                              <div className="space-y-1">
-                                <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest italic">Source Terminal</div>
+                                <div className="text-xs font-black text-blue-500 uppercase tracking-widest italic">Source Terminal</div>
                                 <h4 className="text-xl font-black text-white italic uppercase tracking-tighter">{activeFile.path}</h4>
                              </div>
-                             <button className="px-6 py-2 bg-white text-black rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all active:scale-95">Download File</button>
+                             <button className="px-6 py-2 bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all active:scale-95">Download File</button>
                           </div>
                           <div className="flex-1 p-10 overflow-auto no-scrollbar bg-black/40">
                              <pre className="font-mono text-[12px] leading-relaxed text-zinc-500 selection:bg-blue-500/20 selection:text-blue-200">
@@ -337,13 +337,13 @@ export const FieldUnitHub: React.FC = () => {
                         </div>
                      </div>
                      <div className="space-y-1">
-                        <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Resilience Index</div>
+                        <div className="text-xs font-black text-zinc-500 uppercase tracking-widest">Resilience Index</div>
                         <div className={`text-[14px] font-black text-emerald-500 italic uppercase`}>SENTINEL RANK</div>
                      </div>
                   </div>
 
                   <div className="space-y-3">
-                     <div className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.4em] mb-4 flex items-center gap-2">
+                     <div className="text-xs font-black text-zinc-700 uppercase tracking-[0.4em] mb-4 flex items-center gap-2">
                         <Zap size={12} /> Defense Matrix
                      </div>
                      {[
@@ -355,7 +355,7 @@ export const FieldUnitHub: React.FC = () => {
                        <div key={feat.id} className={`p-4 rounded-2xl border transition-all flex items-center justify-between relative overflow-hidden ${feat.pro && nodeState === 'UNAUTHORIZED' ? 'bg-zinc-950 border-zinc-900 grayscale blur-[0.5px] opacity-40' : 'bg-black border-zinc-800'}`}>
                           <div className="flex items-center gap-4">
                              <div className={`w-1.5 h-1.5 rounded-full ${feat.active ? 'bg-emerald-500' : 'bg-zinc-800'}`} />
-                             <span className="text-[10px] font-black text-zinc-300 uppercase tracking-widest">{feat.label}</span>
+                             <span className="text-xs font-black text-zinc-300 uppercase tracking-widest">{feat.label}</span>
                           </div>
                           {feat.pro && nodeState === 'UNAUTHORIZED' ? (
                             <Lock size={10} className="text-zinc-700" />
@@ -373,7 +373,7 @@ export const FieldUnitHub: React.FC = () => {
                   <button 
                     onClick={initiateHandshake}
                     disabled={isHandshaking}
-                    className="mt-8 w-full py-5 bg-blue-600 text-white rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.4em] hover:bg-blue-500 transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3"
+                    className="mt-8 w-full py-5 bg-blue-600 text-white rounded-[1.5rem] text-xs font-black uppercase tracking-[0.4em] hover:bg-blue-500 transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3"
                   >
                     {isHandshaking ? <Activity className="w-4 h-4 animate-spin" /> : <><Shield className="w-4 h-4" /> ACTIVATE PRO FEATURES</>}
                   </button>
@@ -387,7 +387,7 @@ export const FieldUnitHub: React.FC = () => {
             <div className="flex-[2] bg-zinc-950/40 border-2 border-zinc-900 rounded-3xl md:rounded-[3rem] p-8 flex flex-col space-y-6 overflow-hidden">
                <div className="flex items-center gap-3 pb-4 border-b border-zinc-900">
                   <Terminal size={14} className="text-blue-500" />
-                  <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Intercept Terminal</span>
+                  <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Intercept Terminal</span>
                </div>
                <div className="flex-1 overflow-y-auto no-scrollbar space-y-3">
                   {terminalLogs.map((log, i) => (

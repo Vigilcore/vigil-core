@@ -32,7 +32,7 @@ export const Leaderboard: React.FC<{ userWallet?: string; userBri: number; userX
           <h2 className="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter leading-none">Global <br/> Rankings.</h2>
         </div>
         <div className="text-right">
-          <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-1">Sovereign Operators Trained</div>
+          <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Sovereign Operators Trained</div>
           <div className="text-3xl font-black text-white italic">{(REGISTRY_OPERATORS_TOTAL + (userBri === 100 && userXp > 5000 ? 1 : 0)).toLocaleString()}</div>
         </div>
       </div>
@@ -51,7 +51,7 @@ export const Leaderboard: React.FC<{ userWallet?: string; userBri: number; userX
                     {entry.status}
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                <div className="flex items-center gap-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                   <span className="flex items-center gap-1"><Activity size={10} className="text-emerald-500" /> {entry.bri}% BRI</span>
                   <span className="flex items-center gap-1"><Shield size={10} className="text-blue-500" /> {entry.xp.toLocaleString()} XP</span>
                 </div>

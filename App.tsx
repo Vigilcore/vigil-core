@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Search, Binary, Target, ShieldX, Activity, Database, BarChart3, Globe, Trophy, Info, Zap, Radio, Smartphone, Monitor, Brain, Cpu, Layers, Sparkles, ShieldAlert, ShieldCheck, ZapOff, Clock, ArrowRight, ArrowDownRight, Compass, Wifi, LayoutGrid, List, Wallet, ChevronRight, LogOut, Medal, X, FileText, RotateCcw } from 'lucide-react';
+import { Menu, Search, Binary, Target, ShieldX, Activity, Database, BarChart3, Globe, Trophy, Info, Zap, Radio, Smartphone, Monitor, Brain, Cpu, Layers, Sparkles, ShieldAlert, ShieldCheck, ZapOff, Clock, ArrowRight, ArrowLeft, ArrowDownRight, Compass, Wifi, LayoutGrid, List, Wallet, ChevronRight, LogOut, Medal, X, FileText, RotateCcw } from 'lucide-react';
 import { Header } from './components/Header';
 import { SecurityAnnouncementBar } from './components/SecurityAnnouncementBar';
 import { SecurityModal } from './components/SecurityModal';
@@ -107,6 +107,9 @@ const App: React.FC = () => {
   );
   const [activeSpoke, setActiveSpoke] = useState<number | null>(null);
   
+  // Session-only tracking for VALIDATOR typing completion (persists across view switches)
+  const [validatorTypingCompleted, setValidatorTypingCompleted] = useState(false);
+  
   const [wallet, setWallet] = useState(() => localStorage.getItem('vigil_user_wallet') || '');
   const [bri, setBri] = useState(() => Number(localStorage.getItem('vigil_node_bri')) || 0);
   const [xp, setXp] = useState(() => Number(localStorage.getItem('vigil_user_xp')) || 0);
@@ -137,6 +140,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     localStorage.setItem('vigil_view_mode', viewMode);
+    // Reset scroll to top when switching to TACTICAL view
+    if (viewMode === 'TACTICAL' && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      currentScrollTopRef.current = 0;
+      targetScrollTopRef.current = 0;
+    }
   }, [viewMode]);
 
   useEffect(() => {
@@ -170,14 +179,20 @@ const App: React.FC = () => {
     // Only show resume prompt if:
     // 1. User has acknowledged
     // 2. User has unlocked level > 1
-    // 3. User hasn't dismissed the prompt before
+    // 3. User hasn't dismissed the prompt before (check localStorage directly)
     const hasDismissedPrompt = localStorage.getItem('vigil_resume_prompt_dismissed') === 'true';
-    if (hasAcknowledged && initialLevelOnMount.current > 1 && !hasDismissedPrompt && !hasTriggeredPromptRef.current) {
-      const timer = setTimeout(() => {
-        setShowResumePrompt(true);
-        hasTriggeredPromptRef.current = true;
-      }, 3200);
-      return () => clearTimeout(timer);
+    if (hasAcknowledged && initialLevelOnMount.current > 1 && !hasDismissedPrompt) {
+      // Only trigger if we haven't already shown it in this session
+      if (!hasTriggeredPromptRef.current) {
+        const timer = setTimeout(() => {
+          setShowResumePrompt(true);
+          hasTriggeredPromptRef.current = true;
+        }, 3200);
+        return () => clearTimeout(timer);
+      }
+    } else {
+      // If dismissed, make sure it stays hidden
+      setShowResumePrompt(false);
     }
   }, [hasAcknowledged]);
 
@@ -689,7 +704,7 @@ const App: React.FC = () => {
              <div className="flex flex-col items-end group/id">
                 <div className="flex items-center gap-2 relative">
                    <button 
-                     onClick={wallet ? handleDisconnect : () => setIsIdentitySelectionOpen(true)}
+                     onClick={isRealWallet ? handleDisconnect : () => setIsIdentitySelectionOpen(true)}
                      className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-xl active:scale-95 group ${isRealWallet ? 'bg-zinc-950 border border-zinc-800 text-white' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
                    >
                      {wallet && wallet !== "VISITOR_NODE_UNSYNCED" ? (
@@ -697,7 +712,7 @@ const App: React.FC = () => {
                          <div className={`w-1.5 h-1.5 rounded-full ${isRealWallet ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-blue-400'}`} />
                          <span className="font-mono">{wallet.slice(0, 4)}...{wallet.slice(-4)}</span>
                          <div className="w-[1px] h-3 bg-zinc-800 mx-1 group-hover:bg-zinc-600 transition-colors" />
-                         <LogOut size={10} className="text-zinc-600 group-hover:text-red-500 transition-colors" />
+                         <LogOut size={10} className="text-zinc-500 group-hover:text-red-500 transition-colors" />
                        </>
                      ) : (
                        <>
@@ -710,10 +725,10 @@ const App: React.FC = () => {
                      <div className="absolute top-full mt-2 right-0 opacity-0 group-hover/id:opacity-100 transition-opacity pointer-events-none z-[200]">
                        <div className="bg-[#0a0a0a] border border-zinc-800 p-4 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,1)] flex flex-col gap-2 min-w-[320px]">
                           <div className="flex justify-between items-center border-b border-zinc-900 pb-2">
-                             <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Full_Identity_Node</span>
+                             <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Full_Identity_Node</span>
                              <div className="w-1 h-1 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
                           </div>
-                          <p className="font-mono text-[10px] text-zinc-400 break-all leading-relaxed select-all">
+                          <p className="font-mono text-[10px] text-cyan-400 break-all leading-relaxed select-all">
                              {wallet}
                           </p>
                        </div>
@@ -721,7 +736,7 @@ const App: React.FC = () => {
                    )}
                 </div>
                 {wallet && (
-                  <span className="text-[7px] font-black text-zinc-600 uppercase tracking-[0.2em] mt-1 mr-1">
+                  <span className="text-[7px] font-black text-zinc-500 uppercase tracking-[0.2em] mt-1 mr-1">
                     {isRealWallet ? 'SECURE_NODE_SYNCED' : 'VISITOR_UNSYNCED'}
                   </span>
                 )}
@@ -730,7 +745,7 @@ const App: React.FC = () => {
              <div className="flex items-center gap-3 px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl">
                 <Wifi size={14} className="text-blue-500" />
                 <div className="space-y-0.5">
-                   <div className="text-[7px] font-black text-zinc-600 uppercase tracking-widest">Relay</div>
+                   <div className="text-[7px] font-black text-zinc-500 uppercase tracking-widest">Relay</div>
                    <div className="text-[9px] font-black text-white uppercase italic">STABLE</div>
                 </div>
              </div>
@@ -769,6 +784,8 @@ const App: React.FC = () => {
           isGuest={isGuest}
           onConnectWallet={() => setIsIdentitySelectionOpen(true)}
           onDisconnectWallet={handleDisconnect}
+          onSelectSilo={(id) => setActiveSpoke(id)}
+          activeSpoke={activeSpoke}
         />
         
         {viewMode === 'NARRATIVE' && (
@@ -798,6 +815,8 @@ const App: React.FC = () => {
                   onConnectWallet={() => setIsIdentitySelectionOpen(true)}
                   wallet={wallet}
                   isGuest={isGuest}
+                  validatorTypingCompleted={validatorTypingCompleted}
+                  onValidatorTypingComplete={() => setValidatorTypingCompleted(true)}
                 />
               </div>
 
@@ -1022,19 +1041,41 @@ const App: React.FC = () => {
               </div>
             </>
           ) : (
-            <div className="p-6 md:p-12 lg:p-20">
-               <TacticalAtrium 
-                currentLevel={unlockLevel} 
-                isAdmin={isAdmin} 
-                bri={bri} 
-                xp={xp} 
-                rank={rank} 
-                historyCount={historyCount} 
-                onSelectSilo={(id) => {
-                  setActiveSpoke(id);
-                  scrollToSection(`silo-${id}`);
-                }}
-               />
+            <div className="p-6 md:p-12 lg:p-20 relative">
+               {activeSpoke ? (
+                 // Show silo content when a silo is selected
+                 <div className="animate-in fade-in duration-500">
+                   <div className="mb-6 flex items-center justify-between">
+                     <button
+                       onClick={() => setActiveSpoke(null)}
+                       className="flex items-center gap-2 px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-[9px] font-black text-zinc-400 uppercase tracking-widest hover:text-white hover:border-zinc-700 transition-all"
+                     >
+                       <ArrowLeft size={12} />
+                       BACK TO GRID
+                     </button>
+                     <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">
+                       SILO 0{activeSpoke} ACTIVE
+                     </div>
+                   </div>
+                   <div className="overflow-y-auto max-h-[calc(100vh-200px)] custom-scrollbar">
+                     {renderSiloContent(activeSpoke)}
+                   </div>
+                 </div>
+               ) : (
+                 // Show silo grid when no silo is selected
+                 <TacticalAtrium 
+                   currentLevel={unlockLevel} 
+                   isAdmin={isAdmin} 
+                   bri={bri} 
+                   xp={xp} 
+                   rank={rank} 
+                   historyCount={historyCount} 
+                   onSelectSilo={(id) => {
+                     // Set the active silo to display its content in TACTICAL view
+                     setActiveSpoke(id);
+                   }}
+                 />
+               )}
             </div>
           )}
           <Footer onOpenDoc={(doc) => setActiveDoc(doc)} />

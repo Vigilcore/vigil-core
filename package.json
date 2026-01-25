@@ -1,10 +1,11 @@
 {
-  "name": "vigil-|-human-layer-security-standard",
+  "name": "vigil-core",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "npx vercel dev",
     "build": "vite build",
     "preview": "vite preview"
   },

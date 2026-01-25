@@ -207,13 +207,13 @@ export const FlagshipHeaderArchitect: React.FC = () => {
            <div className="p-1 bg-[#0a0a0a] border border-zinc-900 rounded-2xl flex">
               <button 
                 onClick={() => setAesthetic('SCHEMATIC')}
-                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${aesthetic === 'SCHEMATIC' ? 'bg-zinc-800 text-white' : 'text-zinc-600 hover:text-zinc-400'}`}
+                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${aesthetic === 'SCHEMATIC' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-400'}`}
               >
                 Schematic
               </button>
               <button 
                 onClick={() => setAesthetic('CINEMATIC')}
-                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${aesthetic === 'CINEMATIC' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-zinc-600 hover:text-zinc-400'}`}
+                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${aesthetic === 'CINEMATIC' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-zinc-500 hover:text-zinc-400'}`}
               >
                 Cinematic
               </button>
@@ -224,7 +224,7 @@ export const FlagshipHeaderArchitect: React.FC = () => {
                   key={t}
                   onClick={() => { setAssetType(t); setImageUrl(null); setState('IDLE'); }}
                   disabled={state === 'FORGING'}
-                  className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
+                  className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}
                 >
                   {t}
                 </button>
@@ -255,7 +255,7 @@ export const FlagshipHeaderArchitect: React.FC = () => {
                          "Illustrator Telemetry Overlays",
                          "Photoshop Color Grading"
                        ].map(c => (
-                         <div key={c} className="flex items-center gap-3 text-[9px] font-black text-zinc-600 uppercase tracking-widest p-3.5 bg-black/40 border border-zinc-900 rounded-xl">
+                         <div key={c} className="flex items-center gap-3 text-[9px] font-black text-zinc-500 uppercase tracking-widest p-3.5 bg-black/40 border border-zinc-900 rounded-xl">
                             <div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> {c}
                          </div>
                        ))}
@@ -264,7 +264,7 @@ export const FlagshipHeaderArchitect: React.FC = () => {
 
                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                       <Monitor className="w-4 h-4 text-zinc-600" />
+                       <Monitor className="w-4 h-4 text-zinc-500" />
                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Master Fidelity</span>
                     </div>
                     <div className="p-1 bg-black border border-zinc-900 rounded-xl flex">
@@ -273,7 +273,7 @@ export const FlagshipHeaderArchitect: React.FC = () => {
                           key={res} 
                           onClick={() => setResolution(res)}
                           disabled={state === 'FORGING'}
-                          className={`flex-1 py-2.5 rounded-lg text-[10px] font-black uppercase transition-all ${resolution === res ? 'bg-zinc-800 text-white' : 'text-zinc-600 hover:text-zinc-400'}`}
+                          className={`flex-1 py-2.5 rounded-lg text-[10px] font-black uppercase transition-all ${resolution === res ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-400'}`}
                         >
                           {res}
                         </button>
@@ -340,7 +340,7 @@ export const FlagshipHeaderArchitect: React.FC = () => {
               
               {/* HUD OVERLAY */}
               <div className="absolute top-10 left-10 opacity-30 pointer-events-none z-20">
-                 <div className="text-[9px] font-mono text-zinc-600 font-bold tracking-widest uppercase flex items-center gap-4">
+                 <div className="text-[9px] font-mono text-zinc-500 font-bold tracking-widest uppercase flex items-center gap-4">
                     <span>SYS_REF: VIG-ARCH-${assetType}</span>
                     <div className="w-1 h-1 bg-zinc-800 rounded-full" />
                     <span>AESTHETIC: ${aesthetic}_MASTER</span>
@@ -372,10 +372,10 @@ export const FlagshipHeaderArchitect: React.FC = () => {
                       <Lock className="w-16 h-16 text-amber-600/50 mx-auto" strokeWidth={1} />
                       <div className="space-y-4">
                         <h4 className="text-2xl font-black text-amber-600 uppercase italic tracking-tighter">Auth Required.</h4>
-                        <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-[0.4em] max-w-xs mx-auto">
+                        <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.4em] max-w-xs mx-auto">
                           A paid API key is required for High-Fidelity {resolution} rendering.
                         </p>
-                        <button onClick={handleSelectKey} className="px-8 py-3 bg-amber-600 text-white text-[10px] font-black uppercase rounded-lg">SELECT KEY</button>
+                        <button onClick={handleSelectKey} className="px-8 py-3 bg-amber-600 text-white text-xs font-black uppercase rounded-lg">SELECT KEY</button>
                       </div>
                    </div>
                  )}
@@ -433,9 +433,9 @@ export const FlagshipHeaderArchitect: React.FC = () => {
                       <ShieldAlert className="w-16 h-16 text-red-600 mx-auto" strokeWidth={1} />
                       <div className="space-y-2">
                          <h4 className="text-xl font-black text-red-600 uppercase italic">{state === 'QUOTA_EXHAUSTED' ? 'Quota Exhausted' : 'Forge Breach'}</h4>
-                         <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest max-w-xs mx-auto">{error || 'Rate limit reached.'}</p>
+                         <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest max-w-xs mx-auto">{error || 'Rate limit reached.'}</p>
                       </div>
-                      <button onClick={state === 'QUOTA_EXHAUSTED' ? handleSelectKey : startForge} className="px-6 py-2 bg-zinc-900 border border-zinc-800 text-zinc-500 text-[10px] font-black uppercase tracking-widest rounded-lg hover:text-white transition-all">
+                      <button onClick={state === 'QUOTA_EXHAUSTED' ? handleSelectKey : startForge} className="px-6 py-2 bg-zinc-900 border border-zinc-800 text-zinc-500 text-xs font-black uppercase tracking-widest rounded-lg hover:text-white transition-all">
                         {state === 'QUOTA_EXHAUSTED' ? 'SWITCH KEY' : 'RETRY'}
                       </button>
                    </div>
@@ -447,15 +447,15 @@ export const FlagshipHeaderArchitect: React.FC = () => {
            {usage && (
              <div className="grid grid-cols-3 gap-12 w-full max-w-2xl px-6 opacity-40 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 <div className="space-y-1">
-                   <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Master Pipeline</div>
+                   <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Master Pipeline</div>
                    <div className="text-xl font-black text-white italic tracking-tighter uppercase">Blender+PS v2.1</div>
                 </div>
                 <div className="space-y-1 border-x border-zinc-900 px-12 text-center">
-                   <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Aesthetic Score</div>
+                   <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Aesthetic Score</div>
                    <div className="text-xl font-black text-blue-500 italic tracking-tighter">{aesthetic}_ULTRA</div>
                 </div>
                 <div className="text-right space-y-1">
-                   <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Asset Fidelity</div>
+                   <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Asset Fidelity</div>
                    <div className="text-xl font-black text-emerald-500 italic tracking-tighter uppercase">{resolution}</div>
                 </div>
              </div>

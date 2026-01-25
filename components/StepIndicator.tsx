@@ -31,7 +31,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => 
             </div>
             <div className={`h-1 flex-1 ${index === steps.length - 1 ? 'bg-transparent' : (index < currentIndex ? 'bg-indigo-500' : 'bg-zinc-800')}`} />
           </div>
-          <span className={`mt-3 text-xs uppercase tracking-widest font-semibold ${index <= currentIndex ? 'text-zinc-200' : 'text-zinc-600'}`}>
+          <span className={`mt-3 text-xs uppercase tracking-widest font-semibold ${index <= currentIndex ? 'text-zinc-200' : 'text-zinc-500'}`}>
             {step.label}
           </span>
         </div>

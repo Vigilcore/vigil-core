@@ -26,7 +26,7 @@ export const TechLabel: React.FC<{ text: string, color?: string } & LightModePro
     red: "text-red-600 bg-red-50 border-red-200",
     emerald: "text-emerald-600 bg-emerald-50 border-emerald-200",
     cyan: "text-cyan-600 bg-cyan-50 border-cyan-200",
-    zinc: "text-zinc-600 bg-zinc-50 border-zinc-200",
+    zinc: "text-zinc-500 bg-zinc-50 border-zinc-200",
   } : {
     blue: "text-blue-500 bg-blue-500/10 border-blue-500/30",
     red: "text-red-500 bg-red-500/10 border-red-500/30",
@@ -108,9 +108,9 @@ export const TechNote: React.FC<{ children?: React.ReactNode, title: string } & 
   <div className={`px-4 py-6 md:p-8 ${lightMode ? 'bg-zinc-50 border-zinc-200' : 'bg-zinc-950/50 border-zinc-800'} border rounded-3xl space-y-3`}>
     <div className="flex items-center gap-3">
        <div className={`w-1.5 h-1.5 rounded-full ${lightMode ? 'bg-blue-600' : 'bg-blue-500'} animate-pulse`} />
-       <h5 className={`text-[10px] font-black ${lightMode ? 'text-zinc-600' : 'text-zinc-400'} uppercase tracking-widest`}>{title}</h5>
+       <h5 className={`text-[10px] font-black ${lightMode ? 'text-zinc-500' : 'text-zinc-400'} uppercase tracking-widest`}>{title}</h5>
     </div>
-    <div className={`text-sm ${lightMode ? 'text-zinc-600' : 'text-zinc-500'} font-medium leading-relaxed italic text-justify`}>
+    <div className={`text-sm ${lightMode ? 'text-zinc-500' : 'text-zinc-500'} font-medium leading-relaxed italic text-justify`}>
       {children}
     </div>
   </div>
@@ -119,7 +119,7 @@ export const TechNote: React.FC<{ children?: React.ReactNode, title: string } & 
 export const ClauseFrame: React.FC<{ children?: React.ReactNode, id: string } & LightModeProp> = ({ children, id, lightMode }) => (
   <div className={`relative pl-4 md:pl-12 border-l ${lightMode ? 'border-zinc-200' : 'border-zinc-700'} py-4 group`}>
     <div className={`absolute left-0 top-6 w-3 md:w-8 h-[1px] ${lightMode ? 'bg-zinc-300' : 'bg-zinc-700'} group-hover:bg-blue-600/50 transition-colors`} />
-    <div className={`absolute left-[-0.65rem] md:left-[-1.5rem] top-5 px-1 md:px-1.5 py-0.5 ${lightMode ? 'bg-[#FAF9F6]' : 'bg-zinc-950'} border ${lightMode ? 'border-zinc-200 text-zinc-400' : 'border-zinc-800 text-zinc-600'} rounded text-[6px] md:text-[8px] font-mono font-black group-hover:text-blue-500 group-hover:border-blue-900/50 transition-all`}>
+    <div className={`absolute left-[-0.65rem] md:left-[-1.5rem] top-5 px-1 md:px-1.5 py-0.5 ${lightMode ? 'bg-[#FAF9F6]' : 'bg-zinc-950'} border ${lightMode ? 'border-zinc-200 text-zinc-400' : 'border-zinc-800 text-zinc-500'} rounded text-[6px] md:text-[8px] font-mono font-black group-hover:text-blue-500 group-hover:border-blue-900/50 transition-all`}>
       {id}
     </div>
     <div className="space-y-4">

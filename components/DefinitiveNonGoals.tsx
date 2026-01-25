@@ -107,7 +107,7 @@ export const DefinitiveNonGoals: React.FC = () => {
                </div>
                <div className="space-y-2 md:space-y-3">
                   <h4 className="text-[13px] md:text-[14px] font-black text-white uppercase tracking-widest leading-none italic">{card.t}</h4>
-                  <p className="text-[10px] md:text-[11px] text-zinc-600 font-bold uppercase tracking-widest leading-relaxed italic">{card.d}</p>
+                  <p className="text-[10px] md:text-[11px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed italic">{card.d}</p>
                </div>
             </div>
           ))}
@@ -159,13 +159,13 @@ export const DefinitiveNonGoals: React.FC = () => {
                     <div className="space-y-6">
                        <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
                           <div className="flex items-center gap-3">
-                             <Terminal className="text-zinc-600" size={12} />
-                             <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Purity_Log</span>
+                             <Terminal className="text-zinc-500" size={12} />
+                             <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Purity_Log</span>
                           </div>
                           <div className={`w-2 h-2 rounded-full animate-pulse ${simState === 'CALIBRATED' ? 'bg-emerald-500' : 'bg-red-500'}`} />
                        </div>
                        
-                       <div className="space-y-2 font-mono text-[9px] text-zinc-600 h-32 md:h-40 overflow-hidden">
+                       <div className="space-y-2 font-mono text-[9px] text-zinc-500 h-32 md:h-40 overflow-hidden">
                           {logs.map((log, i) => (
                             <div key={i} className="animate-in slide-in-from-left-2 duration-300">
                                <span className="text-zinc-800">{'>>'}</span> {log}
@@ -220,7 +220,7 @@ export const DefinitiveNonGoals: React.FC = () => {
                                 </div>
                                 <div className="space-y-1">
                                    <h5 className="text-[12px] md:text-[14px] font-black text-white uppercase tracking-tight italic leading-tight">{item.label}</h5>
-                                   <p className="text-[9px] md:text-[10px] text-zinc-600 font-bold uppercase tracking-widest leading-tight">
+                                   <p className="text-[9px] md:text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-tight">
                                       {item.description}
                                    </p>
                                 </div>

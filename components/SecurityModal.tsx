@@ -182,7 +182,7 @@ export const SecurityModal: React.FC<SecurityModalProps> = ({ isOpen, onClose })
               </div>
               <div className="text-center space-y-2">
                  <div className="text-[12px] font-black text-blue-500 uppercase tracking-[0.4em] animate-pulse">{handshakeLog}</div>
-                 <p className="text-[8px] font-mono text-zinc-600 uppercase tracking-widest italic">Est. Latency: 22ms // Protocol Sync Active</p>
+                 <p className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest italic">Est. Latency: 22ms // Protocol Sync Active</p>
               </div>
             </div>
           ) : step === 'DISCLOSURE' ? (
@@ -360,7 +360,7 @@ export const SecurityModal: React.FC<SecurityModalProps> = ({ isOpen, onClose })
         <div className="p-4 md:p-6 border-t border-zinc-900 flex flex-col items-center gap-2 shrink-0 bg-[#050505] z-30">
            <div className="flex items-center gap-2 opacity-20 hover:opacity-50 transition-opacity cursor-help">
               <Info size={10} className="text-zinc-500" />
-              <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Protocol Standard: VIG-DIS-01-S</span>
+              <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Protocol Standard: VIG-DIS-01-S</span>
            </div>
            <div className="flex items-center gap-3 opacity-10">
               <div className="h-[1px] w-8 bg-white" />

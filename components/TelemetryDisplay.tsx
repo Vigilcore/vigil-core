@@ -39,7 +39,7 @@ export const TelemetryDisplay: React.FC<TelemetryDisplayProps> = ({ data, isScan
         {/* METRICS GRID */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2 text-zinc-600">
+            <div className="flex items-center gap-2 text-zinc-500">
               <Cpu size={11} />
               <span className="text-[7px] md:text-[8px] font-black uppercase tracking-widest">Tokens</span>
             </div>
@@ -49,7 +49,7 @@ export const TelemetryDisplay: React.FC<TelemetryDisplayProps> = ({ data, isScan
           </div>
 
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2 text-zinc-600">
+            <div className="flex items-center gap-2 text-zinc-500">
               <Timer size={11} />
               <span className="text-[7px] md:text-[8px] font-black uppercase tracking-widest">Latency</span>
             </div>
@@ -59,7 +59,7 @@ export const TelemetryDisplay: React.FC<TelemetryDisplayProps> = ({ data, isScan
           </div>
 
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2 text-zinc-600">
+            <div className="flex items-center gap-2 text-zinc-500">
               <DollarSign size={11} className="text-emerald-500/50" />
               <span className="text-[7px] md:text-[8px] font-black uppercase tracking-widest">Est. Cost</span>
             </div>
@@ -84,7 +84,7 @@ export const TelemetryDisplay: React.FC<TelemetryDisplayProps> = ({ data, isScan
 
         {/* LOGO STAMP */}
         <div className="flex justify-center pt-1 opacity-20">
-           <Zap size={8} className="text-zinc-600" />
+           <Zap size={8} className="text-zinc-500" />
         </div>
       </div>
     </div>

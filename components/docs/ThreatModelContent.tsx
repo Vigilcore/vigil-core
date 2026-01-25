@@ -242,7 +242,7 @@ export const ThreatModelContent = () => (
              </div>
            ))}
         </div>
-        <p className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.4em] text-center">Operational Reliability Factors</p>
+        <p className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.4em] text-center">Operational Reliability Factors</p>
       </section>
 
       {/* 14. CONTINUOUS EVOLUTION */}

@@ -25,7 +25,7 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
           </div>
           <div className="lg:w-1/2 pt-4">
             <div className="relative pl-12 border-l-2 border-zinc-800">
-              <p className="text-zinc-400 text-sm md:text-lg font-medium leading-relaxed italic uppercase tracking-tight text-justify">
+              <p className="text-zinc-400 text-sm md:text-lg font-medium leading-relaxed italic uppercase tracking-tight">
                 "Beyond the digital frontier, the VIGIL Facility serves as the definitive proving ground for cognitive security. Within its walls, these four hubs represent the Calibration Journey: a rigorous path designed to transform a standard crypto user into a Sentinel Operator by systematically addressing the cognitive vulnerabilities that hackers exploit."
               </p>
               <div className="mt-8 flex items-center gap-4 text-blue-500/40">
@@ -92,13 +92,13 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
                       <span className={`text-[10px] font-black uppercase tracking-0.4em ${hub.color}`}>HUB_{hub.id}</span>
-                      <div className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-[7px] font-black text-zinc-600 uppercase tracking-widest">v1.0.1</div>
+                      <div className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-[7px] font-black text-zinc-500 uppercase tracking-widest">v1.0.1</div>
                     </div>
                     <h4 className="text-2xl md:text-3xl font-black text-white italic uppercase tracking-tighter leading-none">{hub.title}</h4>
                   </div>
                 </div>
                 <div className="text-right hidden sm:block opacity-20 group-hover:opacity-100 transition-opacity">
-                  <div className="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-1">Telemetry Status</div>
+                  <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest mb-1">Telemetry Status</div>
                   <div className="text-[12px] font-black text-emerald-500 italic uppercase">Operational</div>
                 </div>
                 <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-white/[0.02] to-transparent pointer-events-none" />
@@ -107,7 +107,7 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
                 <div className={`absolute left-0 top-0 bottom-0 w-[2px] ${hub.color.replace('text-', 'bg-')} opacity-30`} />
                 <div className="space-y-2">
                   <span className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.3em]">The Vulnerability</span>
-                  <p className="text-lg md:text-xl text-zinc-400 font-medium leading-relaxed italic text-justify">"{hub.why}"</p>
+                  <p className="text-lg md:text-xl text-zinc-400 font-medium leading-relaxed italic">"{hub.why}"</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -115,14 +115,14 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
                   <div className="flex items-center gap-2">
                     <TechLabel text="CORE_PURPOSE" color="zinc" />
                   </div>
-                  <p className="text-[11px] md:text-[12px] text-zinc-300 font-bold uppercase tracking-tight leading-relaxed italic text-justify">{hub.purpose}</p>
+                  <p className="text-[11px] md:text-[12px] text-zinc-300 font-bold uppercase tracking-tight leading-relaxed italic">{hub.purpose}</p>
                 </div>
                 <div className="p-6 bg-zinc-900/30 border border-zinc-800 rounded-2xl space-y-4 group-hover:bg-zinc-900/50 transition-colors">
                   <div className="flex items-center gap-2">
                     <div className={`w-1 h-1 rounded-full ${hub.color.replace('text-', 'bg-')}`} />
-                    <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Operational Impact</span>
+                    <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Operational Impact</span>
                   </div>
-                  <p className="text-[11px] font-mono text-zinc-500 leading-relaxed uppercase tracking-tighter text-justify">{hub.help}</p>
+                  <p className="text-[11px] font-mono text-zinc-500 leading-relaxed uppercase tracking-tighter">{hub.help}</p>
                 </div>
               </div>
             </div>

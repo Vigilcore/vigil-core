@@ -29,7 +29,7 @@ const ValidationSnapshot = ({ onOpenDoc }: { onOpenDoc?: (doc: RegistryDoc) => v
         ].map((item, i) => (
           <div key={i} className="flex items-center justify-between group/item">
             <div className="space-y-1">
-              <span className="text-[11px] font-black text-zinc-600 uppercase tracking-widest block">{item.label}</span>
+              <span className="text-[11px] font-black text-zinc-500 uppercase tracking-widest block">{item.label}</span>
               <span className="text-base font-bold text-zinc-300 font-mono tracking-tight">{item.val}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ const ValidationSnapshot = ({ onOpenDoc }: { onOpenDoc?: (doc: RegistryDoc) => v
 
         <div className="flex items-center justify-between gap-3 p-4 bg-zinc-900/50 rounded-xl border border-zinc-800/50">
            <div className="flex items-start gap-3">
-             <Info className="w-4 h-4 text-zinc-600 shrink-0 mt-0.5" />
+             <Info className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed">
                All analysis runs locally in the browser. <br/>
                No transaction data leaves the device.
@@ -78,7 +78,7 @@ const ArchitecturalFlowCard = () => (
       <div className="lg:col-span-5 space-y-10">
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-cyan-400 font-black uppercase tracking-[0.4em] text-[10px]">
-            <span className="text-zinc-600">ARCH-VECTOR</span> Architectural Flow
+            <span className="text-zinc-500">ARCH-VECTOR</span> Architectural Flow
           </div>
           <div className="space-y-3">
             <h2 className="text-[2.25rem] md:text-[4.5rem] font-black text-white tracking-tighter italic uppercase leading-[0.8]">
@@ -133,11 +133,11 @@ const ArchitecturalFlowCard = () => (
              <div className="absolute -inset-2.5 border border-red-900/20 rounded-3xl pointer-events-none transition-all duration-500 group-hover/layer0:border-red-600/30" />
              <div className="relative w-full py-4 px-6 bg-[#0a0f1d] border border-zinc-800 rounded-2xl flex flex-col items-center gap-3 shadow-2xl transition-all duration-500 animate-receive-red">
                 <div className="w-10 h-10 bg-zinc-900/50 rounded-2xl border border-zinc-800 flex items-center justify-center relative overflow-hidden">
-                   <Copy className="w-4 h-4 text-zinc-600" />
+                   <Copy className="w-4 h-4 text-zinc-500" />
                    <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover/layer0:opacity-100 transition-opacity" />
                 </div>
                 <div className="text-center space-y-1">
-                   <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Layer 0</div>
+                   <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Layer 0</div>
                    <h4 className="text-xl font-black text-white italic uppercase tracking-tight">Intent Origination</h4>
                    <div className="flex items-center justify-center gap-2 mt-0.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
@@ -186,7 +186,7 @@ const ArchitecturalFlowCard = () => (
                    <Lock className="w-4 h-4 text-emerald-500" />
                 </div>
                 <div className="text-center space-y-1">
-                   <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Layer 1</div>
+                   <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Layer 1</div>
                    <h4 className="text-xl font-black text-white italic uppercase tracking-tight">Execution Settlement</h4>
                    <div className="flex items-center justify-center gap-2 mt-0.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -286,7 +286,7 @@ export const SafetyVideo: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void; onU
               <div className="shrink-0 w-16 h-16 rounded-2xl bg-[#080808] border border-zinc-800 flex items-center justify-center group-hover:border-cyan-500/50 transition-all shadow-lg z-10">{step.icon}</div>
               <div className="space-y-3">
                 <h3 className="text-2xl font-black tracking-tight text-white italic uppercase flex items-center gap-4">
-                  <span className="text-[12px] not-italic text-zinc-600 font-bold mono">Flow {step.id}</span> {step.title}
+                  <span className="text-[12px] not-italic text-zinc-500 font-bold mono">Flow {step.id}</span> {step.title}
                 </h3>
                 <p className="text-zinc-500 text-lg leading-relaxed font-medium">{step.desc}</p>
               </div>
@@ -315,11 +315,11 @@ export const SafetyVideo: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void; onU
           
           <div className="mt-10 grid grid-cols-2 gap-6">
             <div className="p-6 bg-[#0a0a0a] border border-zinc-900 rounded-3xl space-y-2 text-center">
-              <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Latency Impact</div>
+              <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Latency Impact</div>
               <div className="text-2xl font-black text-white italic">{"<"}12ms</div>
             </div>
             <div className="p-6 bg-[#0a0a0a] border border-zinc-900 rounded-3xl space-y-2 text-center">
-              <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Processing Layer</div>
+              <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Processing Layer</div>
               <div className="text-2xl font-black text-cyan-500 italic">Local DOM</div>
             </div>
           </div>

@@ -127,11 +127,11 @@ export const MissionBriefing: React.FC<MissionBriefingProps> = ({ isOpen, onClos
           <div className="hidden md:flex items-center gap-10 px-10">
              <div className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Neural Link: SYNCED</span>
+                <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Neural Link: SYNCED</span>
              </div>
              <div className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Mesh Relay: ACTIVE</span>
+                <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Mesh Relay: ACTIVE</span>
              </div>
           </div>
 
@@ -195,9 +195,9 @@ export const MissionBriefing: React.FC<MissionBriefingProps> = ({ isOpen, onClos
                   <div className="pt-10 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
                       <div className="p-2 bg-zinc-900 rounded-lg">
-                        <Info size={16} className="text-zinc-600" />
+                        <Info size={16} className="text-zinc-500" />
                       </div>
-                      <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">
+                      <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">
                         To clarify: The terms <span className="text-zinc-300">"Facility"</span> and <span className="text-zinc-300">"Registry"</span> are designated identifiers for this workspace.
                       </p>
                     </div>
@@ -233,13 +233,13 @@ export const MissionBriefing: React.FC<MissionBriefingProps> = ({ isOpen, onClos
                     <p className="text-zinc-400 text-[14px] font-bold leading-relaxed uppercase tracking-tight">
                        This environment is the centralized source of truth for the <span className="text-blue-400">Layer 0.5</span> standard.
                     </p>
-                    <p className="text-zinc-600 text-[10px] font-black uppercase tracking-widest">Auth_Ref: 0x8821_Sovereign</p>
+                    <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">Auth_Ref: 0x8821_Sovereign</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="lg:col-span-4 flex items-center justify-center">
-               <div className="w-full aspect-square bg-zinc-900/40 border border-zinc-800 rounded-[3rem] flex flex-col items-center justify-center gap-6 text-zinc-600 group relative shadow-inner">
+               <div className="w-full aspect-square bg-zinc-900/40 border border-zinc-800 rounded-[3rem] flex flex-col items-center justify-center gap-6 text-zinc-500 group relative shadow-inner">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05),transparent_70%)]" />
                   <Terminal size={64} className="opacity-30 group-hover:scale-110 transition-transform duration-700" />
                   <span className="text-[10px] font-black uppercase tracking-[0.6em]">Hub_Audit</span>
@@ -299,7 +299,7 @@ export const MissionBriefing: React.FC<MissionBriefingProps> = ({ isOpen, onClos
                         {p.l === 'Signatures' ? <ShieldCheck size={18} /> : React.cloneElement(p.i as React.ReactElement<{ size?: number }>, { size: 18 })}
                      </div>
                      <h6 className="text-[11px] font-black text-white uppercase tracking-widest">{p.l}</h6>
-                     <p className="text-[9px] text-zinc-600 font-bold uppercase italic">{p.d}</p>
+                     <p className="text-[9px] text-zinc-500 font-bold uppercase italic">{p.d}</p>
                   </div>
                 ))}
              </div>
@@ -326,8 +326,8 @@ export const MissionBriefing: React.FC<MissionBriefingProps> = ({ isOpen, onClos
               </div>
               <div className="h-6 w-px bg-zinc-800 hidden md:block" />
               <div className="hidden md:flex items-center gap-3">
-                 <Lock size={14} className="text-zinc-600" />
-                 <span className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em]">AES-256 Enabled</span>
+                 <Lock size={14} className="text-zinc-300" />
+                 <span className="text-[10px] font-black text-zinc-300 uppercase tracking-[0.2em]">AES-256 Enabled</span>
               </div>
            </div>
         </div>

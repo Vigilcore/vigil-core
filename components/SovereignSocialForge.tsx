@@ -34,7 +34,7 @@ const ENGINES: { id: ForgeEngine; label: string; bg: string; accent: string; pat
   { id: 'PRISM', label: 'Prism Refract', bg: 'bg-[#050505]', accent: 'text-white', pattern: 'prism' },
   { id: 'HUD', label: 'Hologram HUD', bg: 'bg-[#050505]', accent: 'text-cyan-500', pattern: 'hud' },
   { id: 'CARBON', label: 'Carbon Woven', bg: 'bg-[#0a0a0a]', accent: 'text-zinc-300', pattern: 'carbon' },
-  { id: 'VECTOR', label: 'Vector Core', bg: 'bg-[#050505]', accent: 'text-zinc-600', pattern: 'vector' },
+  { id: 'VECTOR', label: 'Vector Core', bg: 'bg-[#050505]', accent: 'text-zinc-500', pattern: 'vector' },
   { id: 'FINALITY', label: 'Finality Std', bg: 'bg-white', accent: 'text-black' },
   { id: 'FRAME', label: 'Sentinel Frame', bg: 'bg-[#050505]', accent: 'text-white', pattern: 'frame' },
   { id: 'GLOW', label: 'Radiant Glow', bg: 'bg-[#050505]', accent: 'text-blue-500', pattern: 'glow' },
@@ -102,10 +102,10 @@ export const SovereignSocialForge: React.FC = () => {
         </div>
 
         <div className="p-1 bg-[#0a0a0a] border border-zinc-900 rounded-2xl flex">
-          <button onClick={() => setActiveTab('BANNER')} className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'BANNER' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+          <button onClick={() => setActiveTab('BANNER')} className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'BANNER' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
             <Layout className="w-3.5 h-3.5 inline mr-2" /> Banner Lab
           </button>
-          <button onClick={() => setActiveTab('THREADS')} className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'THREADS' ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+          <button onClick={() => setActiveTab('THREADS')} className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'THREADS' ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
             <Hash className="w-3.5 h-3.5 inline mr-2" /> Thread Architect
           </button>
         </div>
@@ -129,7 +129,7 @@ export const SovereignSocialForge: React.FC = () => {
                         <button 
                           key={eng.id}
                           onClick={() => setActiveEngine(eng.id)}
-                          className={`p-3 rounded-xl border text-[8px] font-black uppercase transition-all flex items-center justify-between ${activeEngine === eng.id ? 'bg-blue-600 border-blue-500 text-white shadow-lg' : 'bg-black border-zinc-900 text-zinc-600 hover:border-zinc-700'}`}
+                          className={`p-3 rounded-xl border text-[8px] font-black uppercase transition-all flex items-center justify-between ${activeEngine === eng.id ? 'bg-blue-600 border-blue-500 text-white shadow-lg' : 'bg-black border-zinc-900 text-zinc-500 hover:border-zinc-700'}`}
                         >
                           {eng.label}
                           {activeEngine === eng.id && <Zap size={10} className="fill-current" />}
@@ -246,7 +246,7 @@ export const SovereignSocialForge: React.FC = () => {
                     </div>
                   </div>
                </div>
-               <p className="text-zinc-600 text-[10px] font-black uppercase tracking-widest">Preview Scale: 0.5x // Output: 1500x500 PNG</p>
+               <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">Preview Scale: 0.5x // Output: 1500x500 PNG</p>
              </div>
            ) : (
              <div className="space-y-6">
@@ -254,7 +254,7 @@ export const SovereignSocialForge: React.FC = () => {
                   <div className="h-[600px] bg-[#080808] border-2 border-zinc-900 border-dashed rounded-[3rem] flex flex-col items-center justify-center text-center p-12 space-y-6">
                      <TerminalIcon className="w-16 h-16 text-zinc-800" strokeWidth={1} />
                      <div className="space-y-2">
-                        <h4 className="text-xl font-black text-zinc-600 uppercase tracking-widest">Awaiting Narrative Input</h4>
+                        <h4 className="text-xl font-black text-zinc-500 uppercase tracking-widest">Awaiting Narrative Input</h4>
                         <p className="text-zinc-700 text-[10px] font-bold uppercase tracking-widest italic">The architect is offline.</p>
                      </div>
                   </div>
@@ -265,7 +265,7 @@ export const SovereignSocialForge: React.FC = () => {
                         <div className="flex justify-between items-center border-b border-zinc-900 pb-6">
                            <div className="flex items-center gap-3">
                               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-zinc-500 font-black text-xs">{i + 1}</div>
-                              <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Segment {i + 1} / {threadChunks.length}</span>
+                              <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Segment {i + 1} / {threadChunks.length}</span>
                            </div>
                            <button 
                              onClick={() => {

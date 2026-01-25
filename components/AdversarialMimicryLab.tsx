@@ -181,7 +181,7 @@ export const AdversarialMimicryLab: React.FC<{ onGameComplete?: () => void }> = 
                    <p className="text-zinc-400 text-xs italic">"{autopsy?.autopsy}"</p>
                  )}
               </div>
-              <button onClick={reset} className="w-full py-4 border border-zinc-800 text-zinc-500 text-[9px] font-black uppercase tracking-[0.4em] rounded-xl hover:text-white hover:bg-zinc-900 transition-all">RETRY TRIAL</button>
+              <button onClick={reset} className="w-full py-4 border border-zinc-800 text-zinc-500 text-xs font-black uppercase tracking-[0.4em] rounded-xl hover:text-white hover:bg-zinc-900 transition-all">RETRY TRIAL</button>
             </div>
           )}
         </div>
@@ -199,7 +199,7 @@ export const AdversarialMimicryLab: React.FC<{ onGameComplete?: () => void }> = 
                   <div className="grid grid-cols-1 gap-3 w-full max-w-md">
                      {options.map((opt, i) => (
                        <button key={i} onClick={() => handleSelection(opt)} className="p-5 bg-black border border-zinc-900 rounded-2xl hover:border-red-600 transition-all group active:scale-95">
-                          <div className="font-mono text-[10px] text-zinc-600 group-hover:text-zinc-200 truncate">{opt}</div>
+                          <div className="font-mono text-[10px] text-zinc-500 group-hover:text-zinc-200 truncate">{opt}</div>
                        </button>
                      ))}
                   </div>
@@ -212,11 +212,11 @@ export const AdversarialMimicryLab: React.FC<{ onGameComplete?: () => void }> = 
                    </div>
                    <div className="space-y-4">
                       <div className="p-4 bg-black border border-zinc-900 rounded-xl">
-                        <span className="text-[7px] text-zinc-600 font-black uppercase mb-1 block">Reference</span>
+                        <span className="text-[7px] text-zinc-500 font-black uppercase mb-1 block">Reference</span>
                         <div className="font-mono text-[10px] text-zinc-400 break-all">{realAddress}</div>
                       </div>
                       <div className="p-4 bg-black border border-zinc-900 rounded-xl">
-                        <span className="text-[7px] text-zinc-600 font-black uppercase mb-1 block">Selection</span>
+                        <span className="text-[7px] text-zinc-500 font-black uppercase mb-1 block">Selection</span>
                         {renderCollisionAddress(selected || options[0], realAddress)}
                       </div>
                    </div>

@@ -100,8 +100,8 @@ export const IntelligenceForge: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => voi
                 <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-1000" style={{ width: `${progressToNextLevel}%` }} />
              </div>
              <div className="flex justify-between items-center px-1">
-                <p className="text-[8px] md:text-[9px] text-zinc-600 font-bold uppercase tracking-widest">Mesh Delta: +2.1%</p>
-                <p className="text-[8px] md:text-[9px] text-zinc-600 font-bold uppercase tracking-widest">Rank: Sentinel</p>
+                <p className="text-[8px] md:text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Mesh Delta: +2.1%</p>
+                <p className="text-[8px] md:text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Rank: Sentinel</p>
              </div>
           </div>
         </div>
@@ -118,12 +118,12 @@ export const IntelligenceForge: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => voi
              <div className="space-y-6 md:space-y-8 h-full flex flex-col">
                 <div className="space-y-2">
                    <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tight">Saccadic Profile</h3>
-                   <p className="text-zinc-600 text-[10px] md:text-[11px] font-bold uppercase tracking-widest">Mapping visual verification patterns across nodes.</p>
+                   <p className="text-zinc-500 text-[10px] md:text-[11px] font-bold uppercase tracking-widest">Mapping visual verification patterns across nodes.</p>
                    <div className="flex gap-2 md:gap-4 mt-4 md:mt-6">
                       <div className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded text-[7px] md:text-[8px] font-black text-cyan-500 uppercase tracking-widest flex items-center gap-2">
                          <Scan className="w-3 h-3" /> EYE_SYNC
                       </div>
-                      <div className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-[7px] md:text-[8px] font-black text-zinc-600 uppercase tracking-widest flex items-center gap-2">
+                      <div className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-[7px] md:text-[8px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
                          <User className="w-3 h-3" /> IDENTITY_OK
                       </div>
                    </div>
@@ -150,7 +150,7 @@ export const IntelligenceForge: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => voi
                      { label: 'Rejection', val: '99.1%' }
                    ].map((item, i) => (
                      <div key={i} className="space-y-1">
-                        <div className="text-[7px] md:text-[8px] font-black text-zinc-600 uppercase tracking-widest">{item.label}</div>
+                        <div className="text-[7px] md:text-[8px] font-black text-zinc-500 uppercase tracking-widest">{item.label}</div>
                         <div className="text-lg md:text-2xl font-black text-white italic">{item.val}</div>
                      </div>
                    ))}
@@ -199,7 +199,7 @@ export const IntelligenceForge: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => voi
                 </div>
 
                 <div className="pt-4 md:pt-6 border-t border-zinc-900 space-y-4">
-                   <button className="w-full py-4 bg-zinc-950 border border-zinc-900 text-zinc-500 text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] rounded-xl hover:text-white transition-all flex items-center justify-center gap-2">
+                   <button className="w-full py-4 bg-zinc-950 border border-zinc-900 text-zinc-500 text-xs font-black uppercase tracking-[0.4em] rounded-xl hover:text-white transition-all flex items-center justify-center gap-2">
                       <Terminal className="w-3.5 h-3.5" /> RAW_TELEMETRY
                    </button>
                 </div>

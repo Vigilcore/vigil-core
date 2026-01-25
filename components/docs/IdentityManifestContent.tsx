@@ -103,7 +103,7 @@ export const IdentityManifestContent = () => (
                    <div className="space-y-4">
                       <div className="flex items-center gap-4">
                         <h4 className="text-2xl font-black text-white italic uppercase tracking-tighter leading-none">{pill.t}</h4>
-                        <div className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-[7px] font-black text-zinc-600 uppercase tracking-widest">{pill.tag}</div>
+                        <div className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-[7px] font-black text-zinc-500 uppercase tracking-widest">{pill.tag}</div>
                       </div>
                       <p className="text-zinc-500 text-base md:text-lg font-medium leading-relaxed italic max-w-2xl">"{pill.d}"</p>
                    </div>

@@ -153,7 +153,7 @@ const LatencyDiagram = ({ accentColor, mode }: { accentColor: string; mode: 'DAR
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 relative z-10">
        <div className="space-y-6">
           <div className="flex items-center justify-between px-1">
-             <span className={`text-[10px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-600'} uppercase tracking-widest`}>Screen Refresh</span>
+             <span className={`text-[10px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-500'} uppercase tracking-widest`}>Screen Refresh</span>
              <span className={`text-[12px] font-black ${mode === 'LIGHT' ? 'text-zinc-800' : 'text-zinc-200'}`}>16.6ms</span>
           </div>
           <div className={`h-4 w-full ${mode === 'LIGHT' ? 'bg-zinc-100' : 'bg-zinc-900'} rounded-full overflow-hidden`}>
@@ -175,12 +175,12 @@ const LatencyDiagram = ({ accentColor, mode }: { accentColor: string; mode: 'DAR
     <div className="flex justify-center">
        <div className={`px-12 py-6 ${mode === 'LIGHT' ? 'bg-white' : 'bg-[#0a0a0a]'} border-2 rounded-full flex items-center gap-6 shadow-2xl`} style={{ borderColor: `${accentColor}44` }}>
           <div className="text-center">
-             <div className={`text-[8px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-600'} uppercase mb-1`}>Time Saved</div>
+             <div className={`text-[8px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-500'} uppercase mb-1`}>Time Saved</div>
              <div className="text-3xl font-black italic tracking-tighter" style={{ color: accentColor }}>-4.6ms</div>
           </div>
           <div className="h-8 w-[1px] bg-zinc-800" />
           <div className="text-center">
-             <div className={`text-[8px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-600'} uppercase mb-1`}>Fidelity</div>
+             <div className={`text-[8px] font-black ${mode === 'LIGHT' ? 'text-zinc-400' : 'text-zinc-500'} uppercase mb-1`}>Fidelity</div>
              <div className={`text-xl font-black ${mode === 'LIGHT' ? 'text-black' : 'text-white'}`}>ULTRA</div>
           </div>
        </div>
@@ -368,7 +368,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                                         </>
                                     )}
                                  </div>
-                                 <p className={`text-4xl ${isLight ? 'text-zinc-400' : 'text-zinc-600'} font-black uppercase italic px-6 leading-[1.1]`}>
+                                 <p className={`text-4xl ${isLight ? 'text-zinc-400' : 'text-zinc-500'} font-black uppercase italic px-6 leading-[1.1]`}>
                                     {leftValue === 'Moonshot Hype' ? '"Retina fixed on candle velocity. Scrutiny threshold: bypassed."' : leftValue === '1yr Maturity' ? '"The brain assumes safety based on provenance, skipping structural verification."' : '"The eye prioritized edge anchors, assuming historical parity."'}
                                  </p>
                               </div>
@@ -493,7 +493,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                      <div className="pt-8 flex items-center gap-10">
                         <div className="flex items-center gap-4">
                            <Lock className="w-8 h-8 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
-                           <span className={`text-[14px] font-black ${isLight ? 'text-zinc-400' : 'text-zinc-600'} uppercase tracking-[0.4em]`}>{statusCode}</span>
+                           <span className={`text-[14px] font-black ${isLight ? 'text-zinc-400' : 'text-zinc-500'} uppercase tracking-[0.4em]`}>{statusCode}</span>
                         </div>
                      </div>
                   </div>
@@ -517,7 +517,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                         <div className="space-y-6">
                            <div className="flex items-center gap-4">
                               <div className={`h-0.5 flex-1 ${isLight ? 'bg-zinc-100' : 'bg-zinc-900'}`} />
-                              <span className={`text-[14px] font-black ${isLight ? 'text-zinc-400' : 'text-zinc-600'} uppercase tracking-[0.4em]`}>{leftLabel}</span>
+                              <span className={`text-[14px] font-black ${isLight ? 'text-zinc-400' : 'text-zinc-500'} uppercase tracking-[0.4em]`}>{leftLabel}</span>
                            </div>
                            <div className={`p-12 ${isLight ? 'bg-white border-zinc-200' : 'bg-[#0a0a0a] border-zinc-800'} border rounded-[3rem] shadow-inner relative group`}>
                               <p className={`text-4xl font-black ${isLight ? 'text-zinc-300' : 'text-zinc-500'} uppercase italic leading-none`}>{leftValue}</p>
@@ -592,7 +592,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                               { l: 'VERDICT_STATE', v: 'ISOLATED', i: <ShieldCheck size={24} /> }
                            ].map((pod, i) => (
                              <div key={i} className={`p-8 ${isLight ? 'bg-white border-zinc-200' : 'bg-black/40 border-zinc-900'} border rounded-2xl space-y-2 flex flex-col items-center text-center group hover:border-zinc-700 transition-all`}>
-                                <div className={`mb-2 group-hover:text-cyan-500 transition-colors ${isLight ? 'text-zinc-300' : 'text-zinc-600'}`}>{pod.i}</div>
+                                <div className={`mb-2 group-hover:text-cyan-500 transition-colors ${isLight ? 'text-zinc-300' : 'text-zinc-500'}`}>{pod.i}</div>
                                 <div className={`text-[12px] font-black ${isLight ? 'text-zinc-400' : 'text-zinc-700'} uppercase tracking-widest`}>{pod.l}</div>
                                 <div className={`text-2xl font-bold ${isLight ? 'text-zinc-800' : 'text-zinc-300'} uppercase`}>{pod.v}</div>
                              </div>
@@ -662,7 +662,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                         <button 
                           key={eng.id}
                           onClick={() => setActiveEngine(eng.id as EngineType)}
-                          className={`p-3 rounded-xl border text-[9px] font-black uppercase transition-all flex items-center justify-between ${activeEngine === eng.id ? (eng.id === 'PAPER' ? 'bg-white border-white text-black shadow-lg' : 'bg-blue-600 border-blue-500 text-white shadow-lg') : 'bg-black border-zinc-900 text-zinc-600 hover:border-zinc-700'}`}
+                          className={`p-3 rounded-xl border text-[9px] font-black uppercase transition-all flex items-center justify-between ${activeEngine === eng.id ? (eng.id === 'PAPER' ? 'bg-white border-white text-black shadow-lg' : 'bg-blue-600 border-blue-500 text-white shadow-lg') : 'bg-black border-zinc-900 text-zinc-500 hover:border-zinc-700'}`}
                         >
                           {eng.icon} {eng.label}
                         </button>
@@ -672,7 +672,7 @@ export const SocialIntelligenceLab: React.FC = () => {
 
                 <div className="space-y-4">
                    <div className="flex items-center gap-3">
-                      <Bookmark className="w-3.5 h-3.5 text-zinc-600" />
+                      <Bookmark className="w-3.5 h-3.5 text-zinc-500" />
                       <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Narrative Presets</span>
                    </div>
                    <div className="grid grid-cols-1 gap-2">
@@ -681,7 +681,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                           key={p.id}
                           onClick={() => applyPreset(p)}
                           className={`p-4 text-left rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all flex justify-between items-center ${
-                            title === p.title ? 'bg-red-600 border-red-500 text-white shadow-lg' : 'bg-black border-zinc-900 text-zinc-600 hover:border-zinc-700'
+                            title === p.title ? 'bg-red-600 border-red-500 text-white shadow-lg' : 'bg-black border-zinc-900 text-zinc-500 hover:border-zinc-700'
                           }`}
                         >
                           {p.label}
@@ -694,7 +694,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                 <div className="space-y-6">
                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                         <Settings2 className="w-4 h-4 text-zinc-600" />
+                         <Settings2 className="w-4 h-4 text-zinc-500" />
                          <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Canvas Variables</span>
                       </div>
                       <div className="p-1 bg-black border border-zinc-900 rounded-lg flex gap-1">
@@ -720,7 +720,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                               <button 
                                 key={l}
                                 onClick={() => setActiveLayout(l)}
-                                className={`py-2 px-1 rounded-lg border text-[8px] font-black uppercase tracking-all ${activeLayout === l ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-black border-zinc-900 text-zinc-600'}`}
+                                className={`py-2 px-1 rounded-lg border text-[8px] font-black uppercase tracking-all ${activeLayout === l ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-black border-zinc-900 text-zinc-500'}`}
                               >
                                 {l.replace('_', ' ')}
                               </button>
@@ -844,7 +844,7 @@ export const SocialIntelligenceLab: React.FC = () => {
                        <Video className="w-5 h-5 text-blue-500" />
                        <span className="text-[12px] font-black text-white uppercase tracking-widest">Motion Controller</span>
                     </div>
-                    <button onClick={() => setIsMotionFocus(false)} className="text-zinc-600 hover:text-white transition-colors">
+                    <button onClick={() => setIsMotionFocus(false)} className="text-zinc-500 hover:text-white transition-colors">
                        <X size={20} />
                     </button>
                  </div>

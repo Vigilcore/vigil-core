@@ -20,8 +20,15 @@ import { HubHeader } from './HubHeader';
 import { VigilScanner } from './VigilScanner';
 import { UsageData } from '../services/geminiService';
 import { TechLabel, SectionHeader, DocCard } from './docs/DocHelpers';
+import { VideoProductionStudio } from './VideoProductionStudio';
+import { CommunityChallenge } from './CommunityChallenge';
+import { ChronicleNarrativeLibrary } from './ChronicleNarrativeLibrary';
+import { FlagshipHeaderArchitect } from './FlagshipHeaderArchitect';
+import { NarrativeGlitchForge } from './NarrativeGlitchForge';
+import { SocialIntelligenceLab } from './SocialIntelligenceLab';
+import { MeshQueryTerminal } from './MeshQueryTerminal';
 
-export type RegistryDoc = 'how_to_use' | 'privacy' | 'terms' | 'docs' | 'audit' | 'disclaimer' | 'pricing' | 'research_01' | 'technical_spec' | 'technical_doc' | 'press_kit' | 'whitepaper' | 'threat_model' | 'challenge' | 'comms_terminal' | 'social_forge' | 'prd_10_a' | 'master_broadcast' | 'chronicle_library' | 'identity_manifest' | 'mesh_intel' | 'narrative_forge' | 'header_architect' | 'leaderboard' | null;
+export type RegistryDoc = 'how_to_use' | 'privacy' | 'terms' | 'docs' | 'audit' | 'disclaimer' | 'pricing' | 'research_01' | 'technical_spec' | 'technical_doc' | 'press_kit' | 'whitepaper' | 'threat_model' | 'challenge' | 'comms_terminal' | 'social_forge' | 'prd_10_a' | 'master_broadcast' | 'chronicle_library' | 'identity_manifest' | 'mesh_intel' | 'narrative_forge' | 'header_architect' | 'leaderboard' | 'production_studio' | 'daily_distraction' | null;
 
 const PressKitContent = () => (
   <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-purple-500/20 relative">
@@ -184,72 +191,18 @@ const DocContent = ({ type, onOpenDoc, userWallet, userBri, userXp, lightMode }:
       </div>
     );
     case 'challenge': return (
-      <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-emerald-500/20 relative">
-        <SectionHeader 
-          id="DOC: VG-CHALLENGE-2026.01"
-          category="Community Unit"
-          title="Active Challenge."
-          subtitle="Competitive engagement and merit acquisition"
-          colorClass="text-emerald-500"
-          bgGlow="bg-emerald-600/10"
-          lightMode={lightMode}
-        />
-        <div className="space-y-12 px-6 md:px-12 relative z-10">
-          <DocCard border="emerald" glow lightMode={lightMode}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-white italic uppercase">Challenge Interface</h3>
-              <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                Active challenges are available through the Active Challenge section in the main navigation. Access requires admin privileges.
-              </p>
-            </div>
-          </DocCard>
-        </div>
+      <div className="animate-in zoom-in duration-700">
+        <CommunityChallenge />
       </div>
     );
     case 'comms_terminal': return (
-      <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-cyan-500/20 relative">
-        <SectionHeader 
-          id="DOC: VG-COMMS-2026.01"
-          category="Communication Unit"
-          title="Comms Terminal."
-          subtitle="Network communication and messaging interface"
-          colorClass="text-cyan-500"
-          bgGlow="bg-cyan-600/10"
-          lightMode={lightMode}
-        />
-        <div className="space-y-12 px-6 md:px-12 relative z-10">
-          <DocCard border="cyan" glow lightMode={lightMode}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-white italic uppercase">Communication Interface</h3>
-              <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                The Comms Terminal is available through the main navigation. Access requires admin privileges.
-              </p>
-            </div>
-          </DocCard>
-        </div>
+      <div className="animate-in zoom-in duration-700">
+        <SocialIntelligenceLab />
       </div>
     );
     case 'social_forge': return (
-      <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-blue-500/20 relative">
-        <SectionHeader 
-          id="DOC: VG-SOCIAL-2026.01"
-          category="Content Generation Unit"
-          title="Social Forge."
-          subtitle="Social media asset generation and distribution"
-          colorClass="text-blue-500"
-          bgGlow="bg-blue-600/10"
-          lightMode={lightMode}
-        />
-        <div className="space-y-12 px-6 md:px-12 relative z-10">
-          <DocCard border="blue" glow lightMode={lightMode}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-white italic uppercase">Social Media Interface</h3>
-              <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                The Social Forge interface is available through the Sovereign Social Forge section in the main navigation. Access requires admin privileges.
-              </p>
-            </div>
-          </DocCard>
-        </div>
+      <div className="animate-in zoom-in duration-700">
+        <SocialIntelligenceLab />
       </div>
     );
     case 'master_broadcast': return (
@@ -276,26 +229,8 @@ const DocContent = ({ type, onOpenDoc, userWallet, userBri, userXp, lightMode }:
       </div>
     );
     case 'chronicle_library': return (
-      <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-amber-500/20 relative">
-        <SectionHeader 
-          id="DOC: VG-CHRONICLE-2026.01"
-          category="Archive Unit"
-          title="Chronicle Library."
-          subtitle="Historical record and narrative repository"
-          colorClass="text-amber-500"
-          bgGlow="bg-amber-600/10"
-          lightMode={lightMode}
-        />
-        <div className="space-y-12 px-6 md:px-12 relative z-10">
-          <DocCard border="zinc" glow lightMode={lightMode}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-white italic uppercase">Chronicle Interface</h3>
-              <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                The Chronicle Repository is available through the Chronicle Repository section in the main navigation. Access requires admin privileges.
-              </p>
-            </div>
-          </DocCard>
-        </div>
+      <div className="animate-in zoom-in duration-700">
+        <ChronicleNarrativeLibrary />
       </div>
     );
     case 'narrative_forge': return (
@@ -322,26 +257,18 @@ const DocContent = ({ type, onOpenDoc, userWallet, userBri, userXp, lightMode }:
       </div>
     );
     case 'header_architect': return (
-      <div className="space-y-16 pb-40 max-w-6xl mx-auto selection:bg-blue-500/20 relative">
-        <SectionHeader 
-          id="DOC: VG-HEADER-2026.01"
-          category="Brand Unit"
-          title="Header Architect."
-          subtitle="Institutional visual logic and brand asset generation"
-          colorClass="text-blue-500"
-          bgGlow="bg-blue-600/10"
-          lightMode={lightMode}
-        />
-        <div className="space-y-12 px-6 md:px-12 relative z-10">
-          <DocCard border="blue" glow lightMode={lightMode}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-white italic uppercase">Brand Architect Interface</h3>
-              <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                The Header Architect interface is available through the Brand Architect section in the main navigation. Access requires admin privileges.
-              </p>
-            </div>
-          </DocCard>
-        </div>
+      <div className="animate-in zoom-in duration-700">
+        <FlagshipHeaderArchitect />
+      </div>
+    );
+    case 'production_studio': return (
+      <div className="animate-in zoom-in duration-700">
+        <VideoProductionStudio />
+      </div>
+    );
+    case 'daily_distraction': return (
+      <div className="animate-in zoom-in duration-700">
+        <NarrativeGlitchForge />
       </div>
     );
     default: return (

@@ -49,7 +49,7 @@ export const TraderAssistantSim: React.FC = () => {
                  </div>
                  <div className="space-y-0.5">
                     <h4 className="text-sm font-black text-white uppercase tracking-widest">Discovery Simulation</h4>
-                    <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest italic">VIGIL_ALPHA_SHIELD: ONLINE</p>
+                    <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest italic">VIGIL_ALPHA_SHIELD: ONLINE</p>
                  </div>
               </div>
               
@@ -93,7 +93,7 @@ export const TraderAssistantSim: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                    <h5 className="text-xl font-black text-white italic uppercase tracking-tight">{card.t}</h5>
-                   <p className="text-zinc-600 text-sm leading-relaxed font-medium italic">{card.d}</p>
+                   <p className="text-zinc-500 text-sm leading-relaxed font-medium italic">{card.d}</p>
                 </div>
              </div>
            ))}

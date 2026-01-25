@@ -268,7 +268,7 @@ export const CommunityChallenge: React.FC = () => {
                   <input type="text" value={solanaAddress} onChange={(e) => setSolanaAddress(e.target.value)} placeholder="SOL_ADDRESS" className="w-full bg-[#080808] border-2 border-zinc-900 rounded-3xl py-5 px-8 text-sm font-mono text-white placeholder:text-zinc-500 focus:outline-none focus:border-amber-600 transition-all uppercase" />
                 </div>
                 {registrationError && <div className="p-5 bg-red-600 border border-red-500 rounded-2xl flex items-center gap-4 animate-pulse"><AlertTriangle className="w-5 h-5 text-white" /><span className="text-[10px] font-black text-white uppercase tracking-widest">{registrationError}</span></div>}
-                <button type="submit" className="w-full py-6 bg-white text-black text-[11px] font-black uppercase tracking-[0.4em] rounded-3xl hover:bg-amber-600 hover:text-white transition-all">INITIATE ASSESSMENT</button>
+                <button type="submit" className="w-full py-6 bg-white text-black text-xs font-black uppercase tracking-[0.4em] rounded-3xl hover:bg-amber-600 hover:text-white transition-all">INITIATE ASSESSMENT</button>
               </form>
            </div>
         </div>
@@ -285,10 +285,10 @@ export const CommunityChallenge: React.FC = () => {
             
             <div className="flex items-center gap-4">
                <div className="p-1 bg-[#0a0a0a] border border-zinc-900 rounded-2xl flex">
-                  <button onClick={() => setView('INTEL')} className={`px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${view === 'INTEL' ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+                  <button onClick={() => setView('INTEL')} className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${view === 'INTEL' ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
                     <TerminalIcon className="w-3.5 h-3.5 inline mr-2" /> Decryption
                   </button>
-                  <button onClick={() => setView('GLOBAL')} className={`px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${view === 'GLOBAL' ? 'bg-blue-600 text-white shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}>
+                  <button onClick={() => setView('GLOBAL')} className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${view === 'GLOBAL' ? 'bg-blue-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}>
                     <Globe className="w-3.5 h-3.5 inline mr-2" /> Global Shield
                   </button>
                </div>
@@ -304,12 +304,12 @@ export const CommunityChallenge: React.FC = () => {
                      </div>
                   </div>
                   <div className="space-y-0.5 pr-2">
-                     <div className="text-[7px] font-black text-zinc-600 uppercase tracking-widest">Resilience Index</div>
+                     <div className="text-[7px] font-black text-zinc-500 uppercase tracking-widest">Resilience Index</div>
                      <div className={`text-[11px] font-black italic tracking-tighter leading-none ${bri > 80 ? 'text-emerald-500' : bri > 50 ? 'text-amber-500' : 'text-red-500'}`}>{userRank} Rank</div>
                   </div>
                </div>
 
-               <button onClick={terminateSession} className="group flex items-center justify-center w-14 h-20 bg-zinc-900 border border-zinc-800 rounded-[1.5rem] text-zinc-600 hover:text-red-500 transition-all">
+               <button onClick={terminateSession} className="group flex items-center justify-center w-14 h-20 bg-zinc-900 border border-zinc-800 rounded-[1.5rem] text-zinc-500 hover:text-red-500 transition-all">
                   <LogOut className="w-5 h-5" />
                </button>
             </div>
@@ -349,7 +349,7 @@ export const CommunityChallenge: React.FC = () => {
                 <div className="h-14 bg-zinc-950 border-b border-zinc-900 flex items-center px-8 justify-between shrink-0">
                    <div className="flex items-center gap-3">
                       <HeartPulse className={`w-3.5 h-3.5 ${bri > 50 ? 'text-emerald-500' : 'text-red-500'} animate-pulse`} />
-                      <span className="text-[9px] font-mono text-zinc-600 font-bold uppercase tracking-widest italic">FRAGMENT_{puzzles[currentStep]?.id || 'DONE'} // BRI: {bri}%</span>
+                      <span className="text-[9px] font-mono text-zinc-500 font-bold uppercase tracking-widest italic">FRAGMENT_{puzzles[currentStep]?.id || 'DONE'} // BRI: {bri}%</span>
                    </div>
                 </div>
 
@@ -361,7 +361,7 @@ export const CommunityChallenge: React.FC = () => {
                               <h3 className="text-xl md:text-2xl font-black text-zinc-100 italic uppercase tracking-tight">{puzzles[currentStep].question}</h3>
                               <form onSubmit={handlePuzzleSubmit} className="space-y-6">
                                   <input autoFocus type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="ENTER_FRAGMENT_SECRET..." className="w-full bg-black border-2 border-zinc-900 rounded-2xl py-5 px-6 text-sm font-mono text-white focus:outline-none focus:border-amber-600 uppercase" />
-                                  <button type="submit" className="px-10 py-4 bg-amber-600 text-white text-[9px] font-black uppercase tracking-[0.4em] rounded-xl hover:bg-amber-500 transition-all shadow-xl active:scale-95">AUTHENTICATE FRAGMENT</button>
+                                  <button type="submit" className="px-10 py-4 bg-amber-600 text-white text-xs font-black uppercase tracking-[0.4em] rounded-xl hover:bg-amber-500 transition-all shadow-xl active:scale-95">AUTHENTICATE FRAGMENT</button>
                               </form>
                             </div>
                         )}
@@ -369,7 +369,7 @@ export const CommunityChallenge: React.FC = () => {
                           <div className="text-center space-y-10">
                             <h3 className="text-2xl font-black text-white italic uppercase">Memorize Target.</h3>
                             <p className="font-mono text-xs text-emerald-500 bg-zinc-950 p-4 border border-zinc-800 rounded-xl">{puzzles[currentStep].referenceAddr}</p>
-                            <button onClick={initiateTrial} className="px-12 py-5 bg-white text-black text-[11px] font-black uppercase tracking-[0.5em] rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-2xl active:scale-95 flex items-center gap-3">
+                            <button onClick={initiateTrial} className="px-12 py-5 bg-white text-black text-xs font-black uppercase tracking-[0.5em] rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-2xl active:scale-95 flex items-center gap-3">
                               <Zap size={14} className="fill-current" /> INITIATE_TRIAL
                             </button>
                           </div>
@@ -379,7 +379,7 @@ export const CommunityChallenge: React.FC = () => {
                              <div className="text-4xl font-black text-white">{timeLeft.toFixed(1)}s</div>
                              <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
                                {trialOptions.map((opt, i) => (
-                                 <button key={i} onClick={() => handleTrialSelection(opt)} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl font-mono text-[9px] text-zinc-400 hover:text-white hover:border-amber-600 transition-all text-center truncate">{opt}</button>
+                                 <button key={i} onClick={() => handleTrialSelection(opt)} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl font-mono text-xs text-zinc-400 hover:text-white hover:border-amber-600 transition-all text-center truncate">{opt}</button>
                                ))}
                              </div>
                           </div>

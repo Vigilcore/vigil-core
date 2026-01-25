@@ -48,7 +48,7 @@ export const PathBriefing: React.FC<PathBriefingProps> = ({
                     <Target className={`w-5 h-5 ${colorClass}`} />
                  </div>
                  <div className="space-y-0.5">
-                    <span className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em] block">Objective</span>
+                    <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.3em] block">Objective</span>
                     <span className="text-[13px] font-bold text-zinc-200 uppercase tracking-tight leading-tight group-hover/btn:text-white transition-colors">{objective}</span>
                  </div>
               </div>

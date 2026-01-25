@@ -19,7 +19,7 @@ export const DisclaimerContent = () => (
        
        <DocCard border="zinc">
           <div className="flex items-center gap-4 border-b border-zinc-900 pb-6 mb-8">
-             <Scale className="w-6 h-6 text-zinc-600" />
+             <Scale className="w-6 h-6 text-zinc-500" />
              <h3 className="text-2xl font-black text-white italic uppercase tracking-tight">General Information and Scope</h3>
           </div>
           <div className="space-y-6 text-zinc-400 text-lg leading-relaxed font-medium">

@@ -116,7 +116,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
              <div className="lg:col-span-4 flex items-center justify-center">
                 <div className="text-center p-8 bg-red-600/5 border border-red-500/20 rounded-[2.5rem] w-full">
                    <div className="text-5xl font-black text-red-500 italic mb-2">82k+</div>
-                   <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Mimics per campaign</div>
+                   <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Mimics per campaign</div>
                 </div>
              </div>
           </div>
@@ -178,11 +178,11 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                  <div className="h-[1px] w-full bg-zinc-900" />
                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                       <div className="text-xs font-black text-zinc-600 uppercase">Expected Trials (d=20)</div>
+                       <div className="text-xs font-black text-zinc-500 uppercase">Expected Trials (d=20)</div>
                        <div className="text-xl font-black text-white italic">2^4d / r</div>
                     </div>
                     <div className="space-y-1 text-right">
-                       <div className="text-xs font-black text-zinc-600 uppercase">Economic Breach</div>
+                       <div className="text-xs font-black text-zinc-500 uppercase">Economic Breach</div>
                        <div className="text-xl font-black text-red-500 italic">$1.7M Cap</div>
                     </div>
                  </div>
@@ -192,7 +192,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
            <div className="lg:col-span-5 space-y-6">
               <div className="p-8 bg-zinc-900/30 border border-zinc-800 rounded-[2.5rem] space-y-6">
                  <div className="flex items-center gap-3">
-                    <Server className="w-5 h-5 text-zinc-600" />
+                    <Server className="w-5 h-5 text-zinc-500" />
                     <h4 className="text-[11px] font-black text-white uppercase tracking-widest">APS Benchmarks</h4>
                  </div>
                  <div className="space-y-3">
@@ -230,14 +230,14 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
             <div className="grid grid-cols-2 gap-4">
                <a href={LINKS.CERTIK} target="_blank" rel="noopener noreferrer" className="block p-10 bg-zinc-950 border border-zinc-900 rounded-3xl text-center relative overflow-hidden group hover:border-blue-500/30 transition-colors">
                   <div className="text-5xl font-black text-white italic">94.2%</div>
-                  <div className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] mt-3">Suffix Reliance Rate</div>
+                  <div className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mt-3">Suffix Reliance Rate</div>
                   <span className="absolute bottom-2 right-4 text-[7px] text-zinc-800 flex items-center gap-1">
                     [Source: CertiK Research Lab] <ExternalLink className="w-2 h-2" />
                   </span>
                </a>
                <div className="p-10 bg-zinc-950 border border-zinc-900 rounded-3xl text-center relative overflow-hidden">
                   <div className="text-5xl font-black text-red-500 italic">1.2s</div>
-                  <div className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] mt-3">Avg Verification Window</div>
+                  <div className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mt-3">Avg Verification Window</div>
                   <span className="absolute bottom-2 right-4 text-[7px] text-zinc-800">[Source: UX-Sec Psychology Study]</span>
                </div>
             </div>
@@ -293,7 +293,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
               ))}
            </div>
            <div className="mt-8 pt-8 border-t border-zinc-900 flex justify-between items-center">
-              <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-[0.4em] italic">
+              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.4em] italic">
                 Data calibrated against RTX-4090 (x8 Cluster) benchmarks.
               </p>
               <div className="text-[8px] font-black text-zinc-800 uppercase">BIB_ID: COMP-SEC-24-01</div>
@@ -329,7 +329,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
               {/* Propagating lightMode to ClauseFrame */}
               <ClauseFrame id="DATA-PB-09" lightMode={lightMode}>
                  <h5 className="text-white font-black uppercase tracking-widest text-xs flex items-center gap-3">
-                   Case Study: The $71M WBTC Loss <ExternalLink className="w-3 h-3 text-zinc-600" />
+                   Case Study: The $71M WBTC Loss <ExternalLink className="w-3 h-3 text-zinc-500" />
                  </h5>
                  <p className="text-zinc-500 text-base italic leading-relaxed">
                    "The victim utilized a high-security wallet with active warnings, yet bypassed the check in less than 2.1 seconds due to repetitive workflow fatigue." <br/>
@@ -365,7 +365,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                    { label: "Risk Signal Render", value: "3ms", status: "STABLE" }
                  ].map((item, i) => (
                    <div key={i} className="p-8 bg-zinc-950 border border-zinc-900 rounded-[2rem] space-y-4">
-                      <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">{item.label}</div>
+                      <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">{item.label}</div>
                       <div className="text-4xl font-black text-cyan-500 italic tracking-tighter">{item.value}</div>
                       <div className="h-1 w-8 bg-cyan-900/30 rounded-full" />
                    </div>
@@ -432,7 +432,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                  <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-1">
                        <div className="text-4xl font-black text-white italic">H+336</div>
-                       <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Peak Success Hour (T+14d)</div>
+                       <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Peak Success Hour (T+14d)</div>
                     </div>
                     <a href={LINKS.CHAINALYSIS} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-blue-500 uppercase tracking-[0.4em] italic flex items-center gap-2 hover:text-blue-400">
                       [Source: On-chain Forensics Unit] <ExternalLink className="w-3 h-3" />
@@ -463,12 +463,12 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                  <div className="p-8 border border-zinc-800 rounded-3xl bg-zinc-950/50 space-y-4 group hover:border-cyan-500/30 transition-all">
                     <Globe className="w-6 h-6 text-cyan-500" />
                     <h5 className="text-white font-black uppercase text-xs">Ecosystem Deployment</h5>
-                    <p className="text-zinc-600 text-[11px] leading-relaxed italic">AI bots now poisoning non-financial repos (GitHub/Notion).</p>
+                    <p className="text-zinc-500 text-[11px] leading-relaxed italic">AI bots now poisoning non-financial repos (GitHub/Notion).</p>
                  </div>
                  <div className="p-8 border border-zinc-800 rounded-3xl bg-zinc-950/50 space-y-4 group hover:border-purple-500/30 transition-all">
                     <Network className="w-6 h-6 text-purple-500" />
                     <h5 className="text-white font-black uppercase text-xs">Dynamic Clusters</h5>
-                    <p className="text-zinc-600 text-[11px] leading-relaxed italic">Automated rotation prevents static blacklisting. Ref: Heuristic Detection v4.</p>
+                    <p className="text-zinc-500 text-[11px] leading-relaxed italic">Automated rotation prevents static blacklisting. Ref: Heuristic Detection v4.</p>
                  </div>
               </div>
            </div>
@@ -514,14 +514,14 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                     <TrendingUp className="w-3 h-3" /> Growth Metric
                   </div>
                   <p className="text-white text-xl font-black italic">$17B ESTIMATED LOSS</p>
-                  <p className="text-zinc-600 text-[9px] uppercase font-bold tracking-widest">PROJECTED CUMULATIVE 2025</p>
+                  <p className="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">PROJECTED CUMULATIVE 2025</p>
                 </div>
                 <div className="p-6 bg-black border border-zinc-900 rounded-2xl space-y-2">
                   <div className="flex items-center gap-2 text-cyan-500 text-[10px] font-black uppercase tracking-widest">
                     <Cpu className="w-3 h-3" /> Efficiency Factor
                   </div>
                   <p className="text-white text-xl font-black italic">4.5x AI MULTIPLIER</p>
-                  <p className="text-zinc-600 text-[9px] uppercase font-bold tracking-widest">REVENUE EXTRACTION VS LEGACY</p>
+                  <p className="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">REVENUE EXTRACTION VS LEGACY</p>
                 </div>
               </div>
             </div>
@@ -537,7 +537,7 @@ export const ResearchBriefingContent: React.FC<ResearchBriefingProps> = ({ light
                    </p>
                    <div className="pt-4 border-t border-zinc-900">
                       <div className="flex justify-between items-center mb-2">
-                         <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Impersonation Surge</span>
+                         <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Impersonation Surge</span>
                          <span className="text-[10px] font-black text-red-500">1400% YoY</span>
                       </div>
                       <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">

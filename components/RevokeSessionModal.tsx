@@ -65,7 +65,7 @@ export const RevokeSessionModal: React.FC<RevokeSessionModalProps> = ({ isOpen, 
           </button>
           <button 
             onClick={onClose}
-            className="w-full py-4 bg-zinc-950 border border-zinc-900 rounded-2xl text-[9px] font-black text-zinc-600 uppercase tracking-widest hover:text-white transition-all flex items-center justify-center gap-3 active:scale-95"
+            className="w-full py-4 bg-zinc-950 border border-zinc-900 rounded-2xl text-[9px] font-black text-zinc-500 uppercase tracking-widest hover:text-white transition-all flex items-center justify-center gap-3 active:scale-95"
           >
             <RotateCcw size={12} /> ABORT_DISCONNECT
           </button>

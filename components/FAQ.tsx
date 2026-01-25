@@ -37,7 +37,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, category, index, ic
       </div>
 
       <div className={`w-8 h-8 rounded-lg border border-zinc-700 flex items-center justify-center transition-all duration-500 shrink-0 ${isOpen ? 'rotate-180 bg-zinc-800' : 'group-hover:border-zinc-600'}`}>
-        <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-blue-500' : 'text-zinc-600'}`} />
+        <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-blue-500' : 'text-zinc-500'}`} />
       </div>
     </button>
     

@@ -134,7 +134,7 @@ const IntentIntegrityDiagram = () => (
           <h4 className="text-zinc-300 font-black uppercase italic tracking-tighter text-base">Signature</h4>
           <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed">"Malicious Payload"</p>
           <div className="h-[1px] w-12 bg-zinc-800 mx-auto" />
-          <p className="text-[11px] text-zinc-600 font-bold uppercase tracking-tighter">Irreversible Finality</p>
+          <p className="text-[11px] text-zinc-300 font-bold uppercase tracking-tighter">Irreversible Finality</p>
         </div>
       </div>
     </div>
@@ -228,7 +228,7 @@ export const ThreatResearch: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-0 opacity-100 translate-y-0`}>
           {researchCards.map((card, i) => (
             <div key={i} className="p-10 bg-[#080808] border border-zinc-800 rounded-3xl space-y-5 transition-all duration-500 group shadow-lg relative overflow-hidden hover:border-zinc-600 hover:-translate-y-1">
-              <div className={`flex items-center gap-3 text-zinc-600 transition-colors ${ card.color === 'blue' ? 'group-hover:text-blue-500' : card.color === 'red' ? 'group-hover:text-red-500' : card.color === 'cyan' ? 'group-hover:text-cyan-500' : card.color === 'amber' ? 'group-hover:text-amber-500' : card.color === 'orange' ? 'group-hover:text-orange-500' : 'group-hover:text-emerald-500' }`}>
+              <div className={`flex items-center gap-3 text-zinc-500 transition-colors ${ card.color === 'blue' ? 'group-hover:text-blue-500' : card.color === 'red' ? 'group-hover:text-red-500' : card.color === 'cyan' ? 'group-hover:text-cyan-500' : card.color === 'amber' ? 'group-hover:text-amber-500' : card.color === 'orange' ? 'group-hover:text-orange-500' : 'group-hover:text-emerald-500' }`}>
                 {card.icon}
                 <h4 className="text-[11px] font-black uppercase tracking-[0.3em] italic">{card.title}</h4>
               </div>
@@ -241,7 +241,7 @@ export const ThreatResearch: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }
                 <div className="space-y-6 relative z-10">
                   {[ { label: "History Integrity", val: "History can be poisoned" }, { label: "Visual Sufficiency", val: "Suffix matching is insufficient" }, { label: "Execution = Intent", val: "Wallet UI != User Intent" } ].map((item, j) => (
                     <div key={j} className="space-y-1">
-                      <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest flex items-center gap-2">
+                      <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
                         <ChevronRight className="w-2 h-2 text-zinc-800" /> {item.label}
                       </div>
                       <div className="text-[11px] font-black text-red-500 uppercase tracking-tight italic">{item.val}</div>

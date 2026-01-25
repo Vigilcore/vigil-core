@@ -106,7 +106,7 @@ export const SovereignAssetVault: React.FC<SovereignAssetVaultProps> = ({ onInit
                 <button 
                   key={f}
                   onClick={() => setActiveFilter(f)}
-                  className={`px-6 py-2.5 rounded-lg md:rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-white text-black shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
+                  className={`px-6 py-2.5 rounded-lg md:rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-white text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}
                 >
                   {f}
                 </button>
@@ -167,7 +167,7 @@ export const SovereignAssetVault: React.FC<SovereignAssetVaultProps> = ({ onInit
             <div className="p-8 space-y-6">
                <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                     <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">{asset.id}</span>
+                     <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{asset.id}</span>
                      <span className="text-[9px] font-mono text-zinc-800">{asset.timestamp}</span>
                   </div>
                   <h4 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tight">{asset.label}</h4>

@@ -21,7 +21,7 @@ export const About: React.FC = () => (
               <div className="w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
                 <Users className="w-6 h-6 text-blue-500" />
               </div>
-              <div className="text-xs font-black text-white uppercase tracking-widest">
+              <div className="text-lg md:text-xl font-black text-white uppercase tracking-widest">
                 4 Specialists
               </div>
             </div>
@@ -32,7 +32,7 @@ export const About: React.FC = () => (
 
           <div className="p-8 border border-zinc-900 rounded-3xl bg-zinc-950/50 space-y-6">
             <div className="flex items-center gap-3">
-              <Info className="w-5 h-5 text-zinc-600" />
+              <Info className="w-5 h-5 text-zinc-500" />
               <h4 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">System Boundaries</h4>
             </div>
             <div className="space-y-4">
@@ -47,7 +47,7 @@ export const About: React.FC = () => (
                   "No Financial Insurance Standard",
                   "No Unauthenticated State Mutation"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-zinc-600 text-[14.5px] font-black uppercase tracking-widest">
+                  <li key={i} className="flex items-center gap-3 text-zinc-500 text-[14.5px] font-black uppercase tracking-widest">
                     <XCircle className="w-3 h-3 text-red-900/40" /> {item}
                   </li>
                 ))}

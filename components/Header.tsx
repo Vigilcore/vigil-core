@@ -4,7 +4,7 @@ import {
   Shield, Scan, Terminal as TerminalIcon, Target, Fingerprint, 
   Globe, Search, Layout, Filter, Cpu, Brain, Eye, 
   ShieldCheck, HelpCircle, Trophy, Video, History, Edit3, 
-  MessageSquare, Flame, X, Lock, ChevronRight, Trash2, RefreshCw, Zap, Monitor, Compass, List, LayoutGrid, Wallet, LogOut
+  MessageSquare, Flame, X, Lock, ChevronRight, Trash2, RefreshCw, Zap, Monitor, Compass, List, LayoutGrid, Wallet, LogOut, Binary, ShieldX, Database
 } from 'lucide-react';
 import { TacticalHUD } from './TacticalHUD';
 import { RegistryDoc } from './OperationalRegistry';
@@ -17,6 +17,7 @@ interface NavItem {
   level?: number;
   type: 'item' | 'header' | 'subitem' | 'subsubitem';
   adminOnly?: boolean;
+  mediaOnly?: boolean;
 }
 
 interface HeaderProps {
@@ -39,15 +40,34 @@ interface HeaderProps {
   isGuest?: boolean;
   onConnectWallet?: () => void;
   onDisconnectWallet?: () => void;
+  onSelectSilo?: (siloId: number) => void;
+  activeSpoke?: number | null;
 }
 
+// Silo definitions matching TacticalAtrium
+const TACTICAL_SILOS = [
+  { id: 1, label: 'IDENTITY', icon: <Fingerprint size={14} />, desc: 'Neural Link Calibration & Intent Origination.', color: 'blue', tag: 'CORE_SYNC' },
+  { id: 2, label: 'INTEL', icon: <Search size={14} />, desc: 'Threat Vector Analysis & The 8-Char Blind Spot.', color: 'blue', tag: 'THREAT_MAP' },
+  { id: 3, label: 'LOGIC', icon: <Binary size={14} />, desc: 'Heuristic Operational Flow & Layer 0.5 Primitives.', color: 'cyan', tag: 'L0.5_LOGIC' },
+  { id: 4, label: 'EXECUTION', icon: <Target size={14} />, desc: 'Interception Sandbox & Intent Validator Demos.', color: 'orange', tag: 'SANDBOX' },
+  { id: 5, label: 'PURITY', icon: <ShieldX size={14} />, desc: 'Strategic Refusals & Definitive Non-Goals.', color: 'red', tag: 'RESTRICTIONS' },
+  { id: 6, label: 'EVOLUTION', icon: <Activity size={14} />, desc: 'Scalability Roadmap & Ecosystem Expansion.', color: 'blue', tag: 'ROADMAP' },
+  { id: 7, label: 'LOG', icon: <Database size={14} />, desc: 'Technical Knowledge Base & Master Registry FAQ.', color: 'zinc', tag: 'TECHNICAL_REF' },
+  { id: 8, label: 'AUDIT', icon: <Brain size={14} />, desc: 'Final Proficiency Certification & Neural Audit.', color: 'purple', tag: 'CERTIFICATION' },
+  { id: 9, label: 'MESH', icon: <Globe size={14} />, desc: 'Sentinel AI Intelligence & Mesh Terminal.', color: 'emerald', tag: 'KERNEL_QUERY' },
+  { id: 10, label: 'VOID', icon: <LogOut size={14} />, desc: 'Final Notice & Secure Disengagement.', color: 'zinc', tag: 'DISENGAGE' },
+];
+
 export const Header: React.FC<HeaderProps> = ({ 
-  activeAnchor, scrollToSection, isMenuOpen, setIsMenuOpen, releasePhase, onCodeSubmit, ambientStatus, isAdmin = false, bri, xp, rank, onOpenMap, onOpenDoc, viewMode, setViewMode, wallet, isGuest = false, onConnectWallet, onDisconnectWallet
+  activeAnchor, scrollToSection, isMenuOpen, setIsMenuOpen, releasePhase, onCodeSubmit, ambientStatus, isAdmin = false, bri, xp, rank, onOpenMap, onOpenDoc, viewMode, setViewMode, wallet, isGuest = false, onConnectWallet, onDisconnectWallet, onSelectSilo, activeSpoke
 }) => {
   const [code, setCode] = useState('');
   const [codeStatus, setCodeStatus] = useState<'IDLE' | 'ERROR' | 'SUCCESS'>('IDLE');
   const [purgeHold, setPurgeHold] = useState(0);
   const [versionClicks, setVersionClicks] = useState(0);
+  const [isMediaUnlocked, setIsMediaUnlocked] = useState(() => {
+    return localStorage.getItem('vigil_media_unlocked') === 'true';
+  });
   const purgeTimerRef = useRef<number | null>(null);
   const scrollableNavRef = useRef<HTMLDivElement>(null);
 
@@ -91,16 +111,18 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'roadmap', label: 'Ecosystem Expansion', icon: <Globe size={14} />, level: 6, type: 'item' },
     { id: 'faq', label: 'Technical Inquiries', icon: <HelpCircle size={14} />, level: 7, type: 'item' },
     { id: 'final-proficiency-audit', label: 'Final Proficiency', icon: <Activity size={14} />, level: 8, type: 'item' },
+
+    { type: 'header', label: 'Phase: Media', level: 9, mediaOnly: true },
+    { id: 'prod-studio', label: 'Production Studio', icon: <Video size={14} />, level: 9, type: 'item', mediaOnly: true },
+    { id: 'chronicle-repo', label: 'Chronicle Repository', icon: <History size={14} />, level: 9, type: 'item', mediaOnly: true },
+    { id: 'brand-architect', label: 'Brand Architect', icon: <Edit3 size={14} />, level: 10, type: 'item', mediaOnly: true },
+    { id: 'comms-terminal', label: 'Comms Terminal', icon: <MessageSquare size={14} />, level: 10, type: 'item', mediaOnly: true },
+    { id: 'daily-distraction', label: 'Daily Distraction', icon: <Flame size={14} />, level: 10, type: 'item', mediaOnly: true },
+
+    { type: 'header', label: 'Phase: Community', level: 9 },
     { id: 'silo-9', label: 'Sentinel Mesh', icon: <Globe size={14} />, level: 9, type: 'item' },
     { id: 'leaderboard', label: 'Merit Ledger', icon: <Trophy size={14} className="text-amber-500" />, level: 1, type: 'item' },
-
-    { type: 'header', label: 'Phase: Community', level: 9, adminOnly: true },
-    { id: 'prod-studio', label: 'Production Studio', icon: <Video size={14} />, level: 9, type: 'item', adminOnly: true },
-    { id: 'chronicle-repo', label: 'Chronicle Repository', icon: <History size={14} />, level: 9, type: 'item', adminOnly: true },
-    { id: 'brand-architect', label: 'Brand Architect', icon: <Edit3 size={14} />, level: 10, type: 'item', adminOnly: true },
-    { id: 'comms-terminal', label: 'Comms Terminal', icon: <MessageSquare size={14} />, level: 10, type: 'item', adminOnly: true },
-    { id: 'active-challenge', label: 'Active Challenge', icon: <Trophy size={14} className="text-emerald-500" />, level: 10, type: 'item', adminOnly: true },
-    { id: 'daily-distraction', label: 'Daily Distraction', icon: <Flame size={14} />, level: 10, type: 'item', adminOnly: true },
+    { id: 'active-challenge', label: 'Active Challenge', icon: <Trophy size={14} className="text-emerald-500" />, level: 10, type: 'item' },
   ];
 
   const handleSubmitCode = (e: React.FormEvent) => {
@@ -116,12 +138,11 @@ export const Header: React.FC<HeaderProps> = ({
     const nextClicks = versionClicks + 1;
     setVersionClicks(nextClicks);
     if (nextClicks >= 5) {
-      const success = onCodeSubmit('VG-YASHMAL-6202');
-      if (success) {
-        setVersionClicks(0);
-        setCodeStatus('SUCCESS');
-        setTimeout(() => setCodeStatus('IDLE'), 2000);
-      }
+      setIsMediaUnlocked(true);
+      localStorage.setItem('vigil_media_unlocked', 'true');
+      setVersionClicks(0);
+      setCodeStatus('SUCCESS');
+      setTimeout(() => setCodeStatus('IDLE'), 2000);
     }
     // Auto reset after 2 seconds of inactivity
     const timeout = setTimeout(() => setVersionClicks(0), 2000);
@@ -176,7 +197,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Sidebar Identity Button */}
             <div className="md:hidden flex flex-col items-center group/idmob">
               <button 
-                onClick={wallet ? () => { onDisconnectWallet?.(); setIsMenuOpen(false); } : () => { onConnectWallet?.(); setIsMenuOpen(false); }}
+                onClick={isRealWallet ? () => { onDisconnectWallet?.(); setIsMenuOpen(false); } : () => { onConnectWallet?.(); setIsMenuOpen(false); }}
                 className={`w-full py-4 rounded-lg md:rounded-xl text-[10px] font-black uppercase tracking-[0.3em] flex items-center justify-center gap-3 shadow-xl active:scale-95 mb-1 group transition-all relative ${isRealWallet ? 'bg-zinc-900 border border-zinc-800 text-white' : 'bg-blue-600 text-white'}`}
               >
                 {wallet && wallet !== "VISITOR_NODE_UNSYNCED" ? (
@@ -184,7 +205,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className={`w-1.5 h-1.5 rounded-full ${isRealWallet ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-blue-400'}`} />
                     <span className="font-mono">{wallet.slice(0, 4)}...{wallet.slice(-4)}</span>
                     <div className="w-[1px] h-3 bg-zinc-800 mx-1" />
-                    <LogOut size={10} className="text-zinc-600 group-hover:text-red-500 transition-colors" />
+                    <LogOut size={10} className="text-zinc-500 group-hover:text-red-500 transition-colors" />
                   </>
                 ) : (
                   <>
@@ -198,14 +219,14 @@ export const Header: React.FC<HeaderProps> = ({
               {isRealWallet && (
                 <div className="absolute top-0 left-full ml-4 opacity-0 group-hover/idmob:opacity-100 transition-opacity pointer-events-none z-[150] w-64">
                    <div className="bg-[#0a0a0a] border border-zinc-800 p-4 rounded-xl shadow-2xl space-y-2">
-                      <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest block border-b border-zinc-900 pb-1 mb-1">Full_Identity</span>
+                      <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest block border-b border-zinc-900 pb-1 mb-1">Full_Identity</span>
                       <p className="font-mono text-[9px] text-zinc-400 break-all leading-tight">{wallet}</p>
                    </div>
                 </div>
               )}
 
               {wallet && (
-                <span className="text-[7px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-2">
+                <span className="text-[7px] font-black text-zinc-500 uppercase tracking-[0.2em] mb-2">
                   {isRealWallet ? 'SECURE_NODE_SYNCED' : 'VISITOR_UNSYNCED'}
                 </span>
               )}
@@ -219,17 +240,17 @@ export const Header: React.FC<HeaderProps> = ({
             <div id="tour-view-mode" className="mt-4 p-1 bg-[#0a0a0a] border border-zinc-800 rounded-lg md:rounded-xl flex items-center gap-1 shadow-inner relative group/toggle">
                <button 
                  onClick={() => { setViewMode('NARRATIVE'); setIsMenuOpen(false); }}
-                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'NARRATIVE' ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
+                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'NARRATIVE' ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-400'}`}
                >
                  <List size={10} /> Narrative
                </button>
                <button 
                  onClick={() => { setViewMode('TACTICAL'); setIsMenuOpen(false); }}
-                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'TACTICAL' ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]' : 'text-zinc-600 hover:text-zinc-400'}`}
+                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'TACTICAL' ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]' : 'text-zinc-500 hover:text-zinc-400'}`}
                >
                  <LayoutGrid size={10} /> Tactical
                </button>
-               <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-zinc-950 border border-zinc-800 rounded text-[7px] font-black text-zinc-600 uppercase tracking-widest opacity-0 group-hover/toggle:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[200]">
+               <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-zinc-950 border border-zinc-800 rounded text-[7px] font-black text-zinc-500 uppercase tracking-widest opacity-0 group-hover/toggle:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[200]">
                   INTERFACE_PARITY: v1.1.0
                </div>
             </div>
@@ -237,59 +258,130 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div ref={scrollableNavRef} className="flex-1 min-0 relative overflow-y-auto custom-scrollbar px-6 pt-1 pb-4">
-          <nav className="space-y-1 pb-10">
-            {navItems.map((item, idx) => {
-              if (item.adminOnly && !isAdmin) return null;
-              if (item.type === 'header') return (<div key={idx} className="text-[9px] text-zinc-600 font-black uppercase tracking-[0.5em] mt-6 mb-3 px-4">{item.label}</div>);
-              const isLocked = !isAdmin && (item.level || 1) > releasePhase;
-              const isActive = activeAnchor === item.id;
-              const isSubItem = item.type === 'item';
-              const isSubSubItem = item.type === 'subsubitem';
-              
-              return (
-                <button 
-                  key={item.id || idx} 
-                  data-active={isActive} 
-                  disabled={isLocked} 
-                  onClick={() => {
-                    if (item.id === 'leaderboard') {
-                      onOpenDoc('leaderboard');
-                      setIsMenuOpen(false);
-                    } else {
-                      scrollToSection(item.id || '');
-                      setIsMenuOpen(false);
+          <nav className="space-y-1 pb-10" key={viewMode}>
+            {viewMode === 'TACTICAL' ? (
+              // TACTICAL VIEW: Show ONLY silos (no navItems)
+              <>
+                <div className="text-[9px] text-zinc-600 font-black uppercase tracking-[0.5em] mt-6 mb-3 px-4">TACTICAL SILOS</div>
+                {TACTICAL_SILOS.map((silo) => {
+                  const isActive = activeSpoke === silo.id;
+                  
+                  // Get color classes based on silo color
+                  const getColorClasses = (color: string, active: boolean) => {
+                    if (!active) return 'text-zinc-700 border-zinc-800';
+                    switch (color) {
+                      case 'blue': return 'text-blue-500 bg-blue-500/10 border-blue-500/30';
+                      case 'cyan': return 'text-cyan-500 bg-cyan-500/10 border-cyan-500/30';
+                      case 'orange': return 'text-orange-500 bg-orange-500/10 border-orange-500/30';
+                      case 'red': return 'text-red-500 bg-red-500/10 border-red-500/30';
+                      case 'emerald': return 'text-emerald-500 bg-emerald-500/10 border-emerald-500/30';
+                      case 'purple': return 'text-purple-500 bg-purple-500/10 border-purple-500/30';
+                      default: return 'text-zinc-500 bg-zinc-500/10 border-zinc-500/30';
                     }
-                  }} 
-                  className={`w-full text-left px-4 py-3 rounded-lg md:rounded-2xl transition-all duration-500 flex items-center group relative border 
-                    ${isActive ? 'bg-[#0a0a0a] border-zinc-700 scale-[1.02]' : isLocked ? 'opacity-40 cursor-not-allowed border-transparent' : 'text-zinc-500 border-transparent hover:text-zinc-200 hover:bg-zinc-950/40'} 
-                    ${isSubItem && item.type !== 'item' ? 'ml-4 py-2.5' : ''} 
-                    ${item.type === 'subsubitem' ? 'ml-8 py-1.5' : ''}
-                  `}>
-                  <div className={`rounded-lg md:rounded-xl border flex items-center justify-center mr-4 shrink-0 
-                    ${isActive ? 'text-blue-500 bg-blue-500/10 border-blue-500/30' : 'text-zinc-700 border-zinc-800'}
-                    ${item.type === 'subsubitem' ? 'w-5 h-5 mr-3' : 'w-7 h-7'}
-                  `}>
-                    {isLocked ? <Lock size={item.type === 'subsubitem' ? 8 : 10} /> : item.icon}
-                  </div>
-                  <span className={`font-black tracking-[0.2em] uppercase transition-all 
-                    ${isActive ? 'text-white' : ''} 
-                    ${item.type === 'subsubitem' ? 'text-[8px]' : item.type === 'subitem' ? 'text-[9px]' : 'text-[11px]'}
-                  `}>
-                    {isLocked ? 'ENCRYPTED' : item.label}
-                  </span>
-                  {isActive && item.id === 'active-challenge' && (<div className="absolute inset-0 bg-emerald-500/5 rounded-lg md:rounded-2xl animate-pulse -z-10" />)}
-                </button>
-              );
-            })}
+                  };
+                  
+                  return (
+                    <button 
+                      key={`tactical-silo-${silo.id}`} 
+                      onClick={() => {
+                        onSelectSilo?.(silo.id);
+                        setIsMenuOpen(false);
+                      }} 
+                      className={`w-full text-left px-4 py-3 rounded-lg md:rounded-2xl transition-all duration-500 flex items-center group relative border 
+                        ${isActive ? 'bg-[#0a0a0a] border-zinc-700 scale-[1.02]' : 'text-zinc-500 border-transparent hover:text-zinc-200 hover:bg-zinc-950/40'}
+                      `}>
+                      <div className={`rounded-lg md:rounded-xl border flex items-center justify-center mr-4 shrink-0 w-7 h-7 ${getColorClasses(silo.color, isActive)}`}>
+                        {silo.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className={`font-black tracking-[0.2em] uppercase transition-all text-[11px]
+                          ${isActive ? 'text-white' : ''}
+                        `}>
+                          SILO {silo.id.toString().padStart(2, '0')}: {silo.label}
+                        </div>
+                        <div className="text-[8px] text-zinc-600 mt-0.5 font-mono uppercase tracking-wider">
+                          {silo.tag}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </>
+            ) : (
+              // NARRATIVE VIEW: Show normal navigation items
+              navItems.map((item, idx) => {
+                if (item.adminOnly && !isAdmin) return null;
+                if (item.mediaOnly && !isMediaUnlocked) return null;
+                if (item.type === 'header') return (<div key={idx} className="text-[9px] text-zinc-600 font-black uppercase tracking-[0.5em] mt-6 mb-3 px-4">{item.label}</div>);
+                const isLocked = !isAdmin && (item.level || 1) > releasePhase;
+                const isActive = activeAnchor === item.id;
+                const isSubItem = item.type === 'item';
+                const isSubSubItem = item.type === 'subsubitem';
+                
+                return (
+                  <button 
+                    key={item.id || idx} 
+                    data-active={isActive} 
+                    disabled={isLocked} 
+                    onClick={() => {
+                      // Handle Media items - open in popup
+                      if (item.id === 'prod-studio') {
+                        onOpenDoc('production_studio');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'chronicle-repo') {
+                        onOpenDoc('chronicle_library');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'brand-architect') {
+                        onOpenDoc('header_architect');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'comms-terminal') {
+                        onOpenDoc('comms_terminal');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'daily-distraction') {
+                        onOpenDoc('daily_distraction');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'active-challenge') {
+                        onOpenDoc('challenge');
+                        setIsMenuOpen(false);
+                      } else if (item.id === 'leaderboard') {
+                        onOpenDoc('leaderboard');
+                        setIsMenuOpen(false);
+                      } else {
+                        scrollToSection(item.id || '');
+                        setIsMenuOpen(false);
+                      }
+                    }} 
+                    className={`w-full text-left px-4 py-3 rounded-lg md:rounded-2xl transition-all duration-500 flex items-center group relative border 
+                      ${isActive ? 'bg-[#0a0a0a] border-zinc-700 scale-[1.02]' : isLocked ? 'opacity-40 cursor-not-allowed border-transparent' : 'text-zinc-500 border-transparent hover:text-zinc-200 hover:bg-zinc-950/40'} 
+                      ${isSubItem && item.type !== 'item' ? 'ml-4 py-2.5' : ''} 
+                      ${item.type === 'subsubitem' ? 'ml-8 py-1.5' : ''}
+                    `}>
+                    <div className={`rounded-lg md:rounded-xl border flex items-center justify-center mr-4 shrink-0 
+                      ${isActive ? 'text-blue-500 bg-blue-500/10 border-blue-500/30' : 'text-zinc-700 border-zinc-800'}
+                      ${item.type === 'subsubitem' ? 'w-5 h-5 mr-3' : 'w-7 h-7'}
+                    `}>
+                      {isLocked ? <Lock size={item.type === 'subsubitem' ? 8 : 10} /> : item.icon}
+                    </div>
+                    <span className={`font-black tracking-[0.2em] uppercase transition-all 
+                      ${isActive ? 'text-white' : ''} 
+                      ${item.type === 'subsubitem' ? 'text-[8px]' : item.type === 'subitem' ? 'text-[9px]' : 'text-[11px]'}
+                    `}>
+                      {isLocked ? 'ENCRYPTED' : item.label}
+                    </span>
+                    {isActive && item.id === 'active-challenge' && (<div className="absolute inset-0 bg-emerald-500/5 rounded-lg md:rounded-2xl animate-pulse -z-10" />)}
+                  </button>
+                );
+              })
+            )}
           </nav>
         </div>
         
         <div className="p-6 border-t border-zinc-800 shrink-0 space-y-4 bg-[#050505] z-30 shadow-2xl">
           <div className="space-y-2">
-            <label className="text-[8px] font-black text-zinc-600 uppercase tracking-widest ml-1">Fragment Decryption</label>
+            <label className="text-[8px] font-black text-zinc-500 uppercase tracking-widest ml-1">Fragment Decryption</label>
             <form id="tour-fragment-input" onSubmit={handleSubmitCode} className="relative group">
-              <input type="text" value={code} onChange={(e) => setCode(e.target.value)} placeholder="ENTER_KEY..." className={`w-full bg-black border-2 rounded-lg md:rounded-xl py-3 px-10 text-[10px] font-mono transition-all uppercase outline-none ${codeStatus === 'ERROR' ? 'border-red-600 text-red-500' : codeStatus === 'SUCCESS' ? 'border-emerald-600 text-emerald-500' : 'border-zinc-700 text-zinc-300 focus:border-blue-600 placeholder:text-zinc-600'}`} />
-              <TerminalIcon size={12} className={`absolute left-3.5 top-1/2 -translate-y-1/2 ${codeStatus === 'ERROR' ? 'text-red-500' : codeStatus === 'SUCCESS' ? 'text-emerald-500' : 'text-zinc-600'}`} />
+              <input type="text" value={code} onChange={(e) => setCode(e.target.value)} placeholder="ENTER_KEY..." className={`w-full bg-black border-2 rounded-lg md:rounded-xl py-3 px-10 text-[10px] font-mono transition-all uppercase outline-none ${codeStatus === 'ERROR' ? 'border-red-600 text-red-500' : codeStatus === 'SUCCESS' ? 'border-emerald-600 text-emerald-500' : 'border-zinc-700 text-zinc-300 focus:border-blue-600 placeholder:text-zinc-500'}`} />
+              <TerminalIcon size={12} className={`absolute left-3.5 top-1/2 -translate-y-1/2 ${codeStatus === 'ERROR' ? 'text-red-500' : codeStatus === 'SUCCESS' ? 'text-emerald-500' : 'text-zinc-500'}`} />
               <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:text-white transition-colors"><ChevronRight size={14} /></button>
             </form>
           </div>
@@ -301,7 +393,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
             <button 
               onClick={handleVersionClick}
-              className={`py-3 px-4 rounded-lg md:rounded-xl border transition-all flex items-center justify-center gap-2 ${codeStatus === 'SUCCESS' ? 'border-emerald-500 text-emerald-500 bg-emerald-500/5' : 'border-zinc-700 bg-[#080808] text-zinc-600 hover:text-blue-500'}`}
+              className={`py-3 px-4 rounded-lg md:rounded-xl border transition-all flex items-center justify-center gap-2 ${codeStatus === 'SUCCESS' ? 'border-emerald-500 text-emerald-500 bg-emerald-500/5' : 'border-zinc-700 bg-[#080808] text-zinc-500 hover:text-blue-500'}`}
             >
               <RefreshCw size={10} className={versionClicks > 0 ? 'animate-spin' : ''} /> 
               <span className="text-[8px] font-black uppercase tracking-widest italic">v0.0.0.1</span>

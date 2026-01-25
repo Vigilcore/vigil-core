@@ -103,7 +103,7 @@ export const NeuralProficiencyAudit: React.FC<{ onCompleteExit: () => void }> = 
 
           <div className="w-full lg:w-80 p-8 bg-zinc-900/30 border border-zinc-800 rounded-[2.5rem] space-y-6 shadow-2xl">
              <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Audit Stability</span>
+                <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Audit Stability</span>
                 <span className="text-[10px] font-black text-white uppercase tracking-widest">{Math.round(progressPercent)}%</span>
              </div>
              <div className="h-2 w-full bg-zinc-950 rounded-full overflow-hidden border border-zinc-900">
@@ -147,10 +147,10 @@ export const NeuralProficiencyAudit: React.FC<{ onCompleteExit: () => void }> = 
                     })}
                  </div>
                  <div className="pt-4 space-y-3">
-                    <div className="flex items-center gap-3 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                    <div className="flex items-center gap-3 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Correct Output
                     </div>
-                    <div className="flex items-center gap-3 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                    <div className="flex items-center gap-3 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                        <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Anomalous Signal
                     </div>
                  </div>

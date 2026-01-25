@@ -111,7 +111,7 @@ export const MarketIntelAudit: React.FC<{ ca: string; onDismiss: () => void }> =
         </div>
         <div className="text-right space-y-1">
            <TechLabel text={data.verdict} color={isHighRisk ? 'red' : 'cyan'} />
-           <div className="text-[7px] font-mono text-zinc-600 uppercase tracking-widest">PROVENANCE: {data.tokenAge}</div>
+           <div className="text-[7px] font-mono text-zinc-500 uppercase tracking-widest">PROVENANCE: {data.tokenAge}</div>
         </div>
       </div>
 
@@ -135,7 +135,7 @@ export const MarketIntelAudit: React.FC<{ ca: string; onDismiss: () => void }> =
                ].map((tier, i) => (
                  <div key={i} className="space-y-2">
                     <div className="flex justify-between items-end px-1">
-                       <span className="text-[8px] md:text-[9px] font-black text-zinc-600 uppercase tracking-widest">{tier.label} Supply held by:</span>
+                       <span className="text-[8px] md:text-[9px] font-black text-zinc-500 uppercase tracking-widest">{tier.label} Supply held by:</span>
                        <span className="text-sm md:text-lg font-black text-white italic leading-none">{tier.count} WALLETS</span>
                     </div>
                     <div className="h-1 md:h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
@@ -156,7 +156,7 @@ export const MarketIntelAudit: React.FC<{ ca: string; onDismiss: () => void }> =
                 <div className="flex justify-between items-end">
                    <div className="space-y-1">
                       <div className="text-xl md:text-2xl font-black text-white italic leading-none">{data.tokenAge}</div>
-                      <div className="text-[7px] md:text-[8px] text-zinc-600 font-bold uppercase tracking-widest">SINCE_LAUNCH</div>
+                      <div className="text-[7px] md:text-[8px] text-zinc-500 font-bold uppercase tracking-widest">SINCE_LAUNCH</div>
                    </div>
                    <div className={`px-2 py-0.5 md:px-3 md:py-1 rounded text-[8px] md:text-[10px] font-black uppercase ${isSystemicTrap ? 'bg-red-600/20 text-red-500 animate-pulse' : 'bg-blue-600/10 text-blue-500'}`}>
                       {data.concentrationGrade}

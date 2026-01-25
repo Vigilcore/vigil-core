@@ -167,7 +167,7 @@ export const ChronicleNarrativeLibrary: React.FC = () => {
         </div>
         <div>
            <h3 className="text-3xl font-black text-white italic uppercase tracking-tighter">Tactical Loops.</h3>
-           <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em]">High-Fidelity Visual Evidence</p>
+           <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">High-Fidelity Visual Evidence</p>
         </div>
       </div>
 
@@ -195,7 +195,7 @@ export const ChronicleNarrativeLibrary: React.FC = () => {
              </div>
 
              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                    <Target size={12} /> Render Directive (Veo 3.1)
                 </div>
                 <div className={`text-[10px] italic leading-relaxed bg-black/40 p-4 rounded-xl border ${g.metadata.status === 'GENERATED' ? 'border-emerald-900/40 text-zinc-400' : 'border-zinc-900 text-zinc-500'}`}>
@@ -214,7 +214,7 @@ export const ChronicleNarrativeLibrary: React.FC = () => {
         </div>
         <div>
            <h3 className="text-3xl font-black text-white italic uppercase tracking-tighter">Chronicle Repository.</h3>
-           <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em]">30 Days of Sovereignty // Act I: Genesis</p>
+           <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">30 Days of Sovereignty // Act I: Genesis</p>
         </div>
       </div>
 
@@ -237,7 +237,7 @@ export const ChronicleNarrativeLibrary: React.FC = () => {
              </div>
 
              <div className="space-y-3">
-                <div className="flex items-center justify-between text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                <div className="flex items-center justify-between text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                    <div className="flex items-center gap-2">
                      <Target size={12} /> Visual Directive (Veo 3.1)
                    </div>

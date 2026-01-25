@@ -9,7 +9,7 @@ interface IdentitySelectionModalProps {
 
 const BRAND_ASSETS = {
   PHANTOM: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSIxMjAwIiB2aWV3Qm94PSIwIDAgMTIwMCAxMjAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMjU5Nl8xMzg1NzIpIj4KPHJlY3QgeT0iMC4wMDEwMDcwOCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iMTIwMCIgZmlsbD0iI0FCOUZGMiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTUyMi4yMTggNzY0LjgxNUM0NzUuMTAxIDgzNy4wMTMgMzk2LjE0NyA5MjguMzggMjkxLjA4OSA5MjguMzhDMjQxLjQyNSA5MjguMzggMTkzLjY3MSA5MDcuOTM0IDE5My42NzEgODE5LjEyNEMxOTMuNjcxIDU5Mi45NDQgNTAyLjQ3OSAyNDIuODE0IDc4OS4wMDMgMjQyLjgxNEM5NTIuMDAzIDI0Mi44MTQgMTAxNi45NSAzNTUuOTA0IDEwMTYuOTUgNDg0LjMyN0MxMDE2Ljk1IDY0OS4xNyA5MDkuOTc5IDgzNy42NTIgODAzLjY0NyA4MzcuNjUyQzc2OS45MDEgODM3LjY1MiA3NTMuMzQ2IDgxOS4xMjQgNzUzLjM0NiA3ODkuNzMzQzc1My4zNDYgNzgyLjA2NiA3NTQuNjIgNzczLjc2IDc1Ny4xNjcgNzY0LjgxNUM3MjAuODc0IDgyNi43OTEgNjUwLjgzNSA4ODQuMjk0IDU4NS4yNTMgODg0LjI5NEM1MzcuNDk5IDg4NC4yOTQgNTEzLjMwNCA4NTQuMjY0IDUxMy4zMDQgODEyLjA5NUM1MTMuMzA0IDc5Ni43NjEgNTE2LjQ4NyA3ODAuNzg4IDUyMi4yMTggNzY0LjgxNVpNNzY5LjAzNSA0NzkuODY5Qzc2OS4wMzUgNTE3LjI5MSA3NDYuOTU2IDUzNi4wMDIgNzIyLjI1OCA1MzYuMDAyQzY5Ny4xODUgNTM2LjAwMiA2NzUuNDgxIDUxNy4yOTEgNjc1LjQ4MSA0NzkuODY5QzY3NS40ODEgNDQyLjQ0OCA2OTcuMTg1IDQyMy43MzcgNzIyLjI1OCA0MjMuNzM3Qzc0Ni45NTYgNDIzLjczNyA3NjkuMDM1IDQ0Mi40NDggNzY5LjAzNSA0NzkuODY5Wk05MDkuMzY3IDQ3OS44N0M5MDkuMzY3IDUxNy4yOTEgODg3LjI4OCA1MzYuMDAyIDg2Mi41OSA1MzYuMDAyQzgzNy41MTcgNTM2LjAwMiA4MTUuODEzIDUxNy4yOTEgODE1LjgxMyA0NzkuODdDODE1LjgxMyA0NDIuNDQ4IDgzNy41MTcgNDIzLjczNyA4NjIuNTkgNDIzLjczN0M4ODcuMjg4IDQyMy43MzcgOTA5LjM2NyA0NDIuNDQ4IDkwOS4zNjcgNDc5LjgxWiIgZmlsbD0iI0ZGRkRGOCIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzI1OTZfMTM4NTcyIj4KPHJlY3QgeT0iMC4wMDEwMDcwOCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iMTIwMCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K",
-  SOLFLARE: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjkwIiBoZWlnaHQ9IjI5MCIgdmlld0JveD0iMCAwIDI5MCAyOTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8xNDZfMjk5KSI+CjxwYXRoIGQ9Ik02My4yOTUxIDFIMjI2LjcwNUMyNjEuMTEgMSAyODkgMjguODkwNSAyODkgNjMuMjk1MVYyMjYuNzA1QzI4OSAyNjEuMTEgMjYxLjExIDI4OSAyMjYuNzA1IDI4OUg2My4yOTUxQzI4Ljg5MDUgMjg5IDEgMjYxLjExIDEgMjI2LjcwNVY2My4yOTUxQzEgMjguODkwNSAyOC44OTA1IDEgNjMuMjk1MSAxWiIgZmlsbD0iI0ZGRUY0NiIgc3Ryb2tlPSIjRUVEQTBGIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTE0MC41NDggMTUzLjIzMUwxNTQuODMyIDEzOS40MzJMMTgxLjQ2MiAxNDguMTQ3QzE5OC44OTMgMTUzLjk1OCAyMDcuNjA5IDE2NC42MSAyMDcuNjA5IDE3OS42MkMyMDcuNjA5IDE5MC45OTkgMjAzLjI1MSAxOTguNTA0IDE5NC41MzYgMjA4LjE4OEwxOTEuODczIDIxMS4wOTNMMTkyLjg0MSAyMDQuMzE0QzE5Ni43MTQgMTc5LjYyIDE4OS40NTIgMTY4Ljk2OCAxNjUuNDg0IDE2MS4yMkwxNDAuNTQ4IDE1My4yMzFaTTEwNC43MTcgNjguNzM5TDE3Ny4zNDcgOTIuOTQ4OEwxNjEuNjEgMTA3Ljk1OUwxMjMuODQzIDk1LjM2OThDMTEwLjc3IDkxLjAxMiAxMDYuNDEyIDgzLjk5MTEgMTA0LjcxNyA2OS4yMjMyVjY4LjczOVpNMTAwLjM1OSAxOTEuNzI1TDExNi44MjIgMTc1Ljk4OEwxNDcuODExIDE4Ni4xNTdDMTY0LjAzMSAxOTEuNDgzIDE2OS41OTkgMTk4LjUwNCAxNjcuOTA1IDIxNi4xNzdMMTAwLjM1OSAxOTEuNzI1Wk03OS41MzkgMTExLjUxNkM3OS41MzkgMTE2LjkxNyA4MS45NTk5IDExMi41NTkgODYuMDc1NiAxMDguOTI3QzkwLjQzMzQgMTE1LjIyMiA5Ny45Mzg0IDEyMC43OSAxMDkuODAxIDEyNC42NjRMMTM1LjQ2NCAxMzMuMTM3TDEyMS4xOCAxNDYuOTM3TDk2LjAwMTYgMTM4LjcwNUM4NC4zODA5IDEzNC44MzIgNzkuNTM5IDEyOS4wMjEgNzkuNTM5IDEyMS41MTZaTTE1NS41NTggMjQ4LjYxOEMyMDguODE5IDIxMy4yNzIgMjM3LjM4NyAxODkuMzA0IDIzNy4zODcgMTU5Ljc2OEMyMzcuMzg3IDE0MC4xNTggMjI1Ljc2NiAxMjkuMjYzIDIwMC4xMDQgMTIwLjc5TDE4MC43MzYgMTE0LjI1M0wyMzMuNzU2IDYzLjQxMjhMMjIzLjEwMyA1Mi4wMzQyTDIwNy4zNjcgNjUuODMzN0wxMzMuMDQzIDQxLjM4MThDMTEwLjA0MyA0OC44ODY5IDgwLjk5MTYgNzAuOTE3OCA4MC45OTE2IDkyLjk0ODdDODAuOTkxNiA5NS4zNjk3IDgxLjIzMzcgOTcuNzkwNyA4MS45NiAxMDAuNDU0QzYyLjgzNDIgMTExLjM0OCA1NS4wODcxIDEyMS41MTYgNTUuMDg3MSAxMzQuMTA1QzU1LjA4NzEgMTQ1Ljk2OCA2MS4zODE2IDE1Ny44MzEgODEuNDc1OCAxNjQuMzY4TDk3LjQ1NDIgMTY5LjY5NEw0Mi4yNTU5IDIyMi43MTNMNTIuOTA4MiAyMzQuMDkyTDcwLjA5NzIgMjE4LjM1NkwxNTUuNTU4IDI0OC42MThaIiBmaWxsPSIjMDIwNTBBIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMTQ2XzI5OSI+CjxyZWN0IHdpZHRoPSIyOTAiIGhlaWdodD0iMjkwIiBmaWxsPSJ3aGl0ZSIvPgo8L2c+CjwvZGVmcz4KPC9zdmc+Cg=="
+  SOLFLARE: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjkwIiBoZWlnaHQ9IjI5MCIgdmlld0JveD0iMCAwIDI5MCAyOTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8xNDZfMjk5KSI+CjxwYXRoIGQ9Ik02My4yOTUxIDFIMjI2LjcwNUMyNjEuMTEgMSAyODkgMjguODkwNSAyODkgNjMuMjk1MVYyMjYuNzA1QzI4OSAyNjEuMTEgMjYxLjExIDI4OSAyMjYuNzA1IDI4OUg2My4yOTUxQzI4Ljg5MDUgMjg5IDEgMjYxLjExIDEgMjI2LjcwNVY2My4yOTUxQzEgMjguODkwNSAyOC44OTA1IDEgNjMuMjk1MSAxWiIgZmlsbD0iI0ZGRUY0NiIgc3Ryb2tlPSIjRUVEQTBGIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTE0MC41NDggMTUzLjIzMUwxNTQuODMyIDEzOS40MzJMMTgxLjQ2MiAxNDguMTQ3QzE5OC44OTMgMTUzLjk1OCAyMDcuNjA5IDE2NC42MSAyMDcuNjA5IDE3OS42MkMyMDcuNjA5IDE5MC45OTkgMjAzLjI1MSAxOTguNTA0IDE5NC41MzYgMjA4LjE4OEwxOTEuODczIDIxMS4wOTNMMTkyLjg0MSAyMDQuMzE0QzE5Ni43MTQgMTc5LjYyIDE4OS40NTIgMTY4Ljk2OCAxNjUuNDg0IDE2MS4yMkwxNDAuNTQ4IDE1My4yMzFaTTEwNC43MTcgNjguNzM5TDE3Ny4zNDcgOTIuOTQ4OEwxNjEuNjEgMTA3Ljk1OUwxMjMuODQzIDk1LjM2OThDMTEwLjc3IDkxLjAxMiAxMDYuNDEyIDgzLjk5MTEgMTA0LjcxNyA2OS4yMjMyVjY4LjczOVpNMTAwLjM1OSAxOTEuNzI1TDExNi44MjIgMTc1Ljk4OEwxNDcuODExIDE4Ni4xNTdDMTY0LjAzMSAxOTEuNDgzIDE2OS41OTkgMTk4LjUwNCAxNjcuOTA1IDIxNi4xNzdMMTAwLjM1OSAxOTEuNzI1Wk03OS41MzkgMTExLjUxNkM3OS41MzkgMTE2LjkxNyA4MS45NTk5IDExMi41NTkgODYuMDc1NiAxMDguOTI3QzkwLjQzMzQgMTE1LjIyMiA5Ny45Mzg0IDEyMC43OSAxMDkuODAxIDEyNC42NjRMMTM1LjQ2NCAxMzMuMTM3TDEyMS4xOCAxNDYuOTM3TDk2LjAwMTYgMTM4LjcwNUM4NC4zODA5IDEzNC44MzIgNzkuNTM5IDEyOS4wMjEgNzkuNTM5IDEyMS41MTZaTTE1NS41NTggMjQ4LjYxOEMyMDguODE5IDIxMy4yNzIgMjM3LjM4NyAxODkuMzA0IDIzNy4zODcgMTU5Ljc2OEMyMzcuMzg3IDE0MC4xNTggMjI1Ljc2NiAxMjkuMjYzIDIwMC4xMDQgMTIwLjc5TDE4MC43MzYgMTE0LjI1M0wyMzMuNzU2IDYzLjQxMjhMMjIzLjEwMyA1Mi4wMzQyTDIwNy4zNjcgNjUuODMzN0wxMzMuMDQzIDQxLjM4MThDMTEwLjA0MyA0OC44ODY5IDgwLjk5MTYgNzAuOTE3OCA4MC45OTE2IDkyLjk0ODdDODAuOTkxNiA5NS4zNjk3IDgxLjIzMzcgOTcuNzkwNyA4MS45NiAxMDAuNDU0QzYyLjgzNDIgMTExLjM0OCA1NS4wODcxIDEyMS41MTYgNTUuMDg3MSAxMzQuMTA1QzU1LjA4NzEgMTQ1Ljk2OCA2MS4zODE2IDE1Ny44MzEgODEuNDc1OCAxNjQuMzY4TDk3LjQ1NDIgMTY5LjY5NEw0Mi4yNTU5IDIyMi43MTNMNTIuOTA4MiAyMzQuMDkyTDcwLjA5NzIgMjE4LjM1NkwxNTUuNTU4IDI0OC42MThaIiBmaWxsPSIjMDIwNTBBIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMTQ2XzI5OSI+CjxyZWN0IHdpZHRoPSIyOTAiIGhlaWdodD0iMjkwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo="
 };
 
 const PhantomIcon = () => (
@@ -21,12 +21,12 @@ const PhantomIcon = () => (
   />
 );
 
-const SolflareIcon = () => (
+const SolflareIcon = ({ size = 28 }: { size?: number }) => (
   <img 
     src={BRAND_ASSETS.SOLFLARE} 
-    className="w-7 h-7" 
-    alt="Solflare Logo" 
-    style={{ objectFit: 'contain' }}
+    style={{ width: size, height: size, objectFit: 'contain', display: 'block' }} 
+    alt="Solflare Logo"
+    loading="eager"
   />
 );
 
@@ -112,7 +112,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
         <div className="flex items-center justify-between p-8 border-b border-zinc-900 bg-gradient-to-b from-white/[0.02] to-transparent">
           <button 
             onClick={() => setView(view === 'LIST' ? 'INFO' : 'LIST')}
-            className={`transition-colors ${view === 'LIST' ? 'text-blue-500 animate-pulse-subtle' : 'text-zinc-600 hover:text-zinc-300'}`}
+            className={`transition-colors ${view === 'LIST' ? 'text-blue-500 animate-pulse-subtle' : 'text-zinc-500 hover:text-zinc-300'}`}
           >
             {view === 'LIST' ? <HelpCircle size={18} strokeWidth={1.5} /> : <ChevronLeft size={18} strokeWidth={1.5} />}
           </button>
@@ -124,7 +124,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                {view === 'LIST' ? 'Identity_Link_Portal' : 'SOVEREIGN_INTEL_ACCESS'}
              </h3>
           </div>
-          <button onClick={onClose} className="text-zinc-600 hover:text-white transition-colors">
+          <button onClick={onClose} className="text-zinc-500 hover:text-white transition-colors">
             <X size={18} strokeWidth={1.5} />
           </button>
         </div>
@@ -142,7 +142,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                   <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] animate-pulse">{linkingStatus}</span>
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-1 h-1 rounded-full bg-zinc-800" />
-                    <p className="text-[9px] font-mono text-zinc-600 uppercase tracking-widest">Handshake: {isLinking}</p>
+                    <p className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest">Handshake: {isLinking}</p>
                     <div className="w-1 h-1 rounded-full bg-zinc-800" />
                   </div>
                </div>
@@ -213,7 +213,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                   </div>
                   <div className="text-left">
                     <span className="text-sm font-black text-zinc-200 tracking-widest uppercase italic group-hover:text-white">Phantom</span>
-                    <p className="text-[8px] font-mono text-zinc-600 uppercase tracking-tighter mt-0.5">NODE_PROVIDER_01</p>
+                    <p className="text-[8px] font-mono text-zinc-500 uppercase tracking-tighter mt-0.5">NODE_PROVIDER_01</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 relative z-10">
@@ -223,7 +223,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                        <span className="text-[8px] font-mono font-black text-emerald-500 uppercase tracking-widest">INSTALLED</span>
                     </div>
                   ) : (
-                    <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[8px] font-black text-zinc-600 uppercase tracking-widest">ABSENT</span>
+                    <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[8px] font-black text-zinc-500 uppercase tracking-widest">ABSENT</span>
                   )}
                   <ChevronRight size={14} className="text-zinc-800 group-hover:text-blue-500 transition-colors" />
                 </div>
@@ -252,7 +252,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                   </div>
                   <div className="text-left">
                     <span className="text-sm font-black text-zinc-200 tracking-widest uppercase italic group-hover:text-white">Solflare</span>
-                    <p className="text-[8px] font-mono text-zinc-600 uppercase tracking-tighter mt-0.5">NODE_PROVIDER_02</p>
+                    <p className="text-[8px] font-mono text-zinc-500 uppercase tracking-tighter mt-0.5">NODE_PROVIDER_02</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 relative z-10">
@@ -262,7 +262,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                        <span className="text-[8px] font-mono font-black text-emerald-500 uppercase tracking-widest">INSTALLED</span>
                     </div>
                   ) : (
-                    <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[8px] font-black text-zinc-600 uppercase tracking-widest">ABSENT</span>
+                    <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[8px] font-black text-zinc-500 uppercase tracking-widest">ABSENT</span>
                   )}
                   <ChevronRight size={14} className="text-zinc-800 group-hover:text-blue-500 transition-colors" />
                 </div>
@@ -275,7 +275,7 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
                    </div>
                    <div className="space-y-1">
                       <h4 className="text-[10px] font-black text-white uppercase tracking-widest">Link Failure</h4>
-                      <p className="text-[10px] text-zinc-600 font-bold uppercase italic leading-relaxed px-4">No compatible identity providers detected on this host.</p>
+                      <p className="text-[10px] text-zinc-500 font-bold uppercase italic leading-relaxed px-4">No compatible identity providers detected on this host.</p>
                    </div>
                 </div>
               )}
@@ -286,18 +286,18 @@ export const IdentitySelectionModal: React.FC<IdentitySelectionModalProps> = ({ 
         <div className="p-8 border-t border-zinc-900 flex flex-col items-center gap-6 shrink-0">
            <div className="flex items-center gap-3 opacity-40">
               <div className="flex items-center gap-2">
-                 <Wifi size={10} className="text-zinc-600" />
-                 <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest">Sovereign Relay</span>
+                 <Wifi size={10} className="text-zinc-500" />
+                 <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest">Sovereign Relay</span>
               </div>
               <div className="w-[1px] h-3 bg-zinc-800" />
               <div className="flex items-center gap-2">
-                 <Cpu size={10} className="text-zinc-600" />
-                 <span className="text-[7px] font-black text-zinc-600 uppercase tracking-widest">Local Heuristics</span>
+                 <Cpu size={10} className="text-zinc-500" />
+                 <span className="text-[7px] font-black text-zinc-500 uppercase tracking-widest">Local Heuristics</span>
               </div>
            </div>
            
            <div className="flex items-center gap-2 p-1.5 bg-zinc-950 border border-zinc-800 rounded-lg md:rounded-xl">
-              <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest px-3 py-1">Protocol Standard</span>
+              <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest px-3 py-1">Protocol Standard</span>
               <div className="flex items-center gap-2 bg-zinc-900 px-3 py-1 rounded-md md:rounded-lg">
                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_#3b82f6]" />
                  <span className="text-zinc-400 font-mono text-[8px] font-bold">VIG-INT-01-S</span>

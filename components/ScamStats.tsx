@@ -65,7 +65,7 @@ const StickyCard: React.FC<StickyCardProps> = ({
                 {description}
               </p>
             </div>
-            <div className="flex items-center gap-2 text-[8px] md:text-[12px] font-black text-zinc-600 uppercase tracking-widest pt-4 md:pt-10 border-t border-zinc-800">
+            <div className="flex items-center gap-2 text-[8px] md:text-[12px] font-black text-zinc-500 uppercase tracking-widest pt-4 md:pt-10 border-t border-zinc-800">
               <ExternalLink size={12} className="opacity-50" />
               {source}
             </div>

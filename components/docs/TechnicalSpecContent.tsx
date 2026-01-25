@@ -71,7 +71,7 @@ export const TechnicalSpecContent = () => (
                {["Custody of private keys", "Transaction modification", "Protocol-level consensus", "Smart contract auditing"].map(item => (
                  <div key={item} className="px-6 py-4 bg-red-950/10 border border-red-900/20 rounded-2xl flex items-center gap-4">
                     <TechLabel text="OUT-OF-SCOPE" color="red" />
-                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">{item}</span>
+                    <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{item}</span>
                  </div>
                ))}
             </div>
@@ -86,7 +86,7 @@ export const TechnicalSpecContent = () => (
                     <div className="text-4xl font-black text-white italic tracking-tighter">&lt; 12ms</div>
                     <div className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.4em] mt-2">Target Latency</div>
                  </div>
-                 <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest leading-relaxed">
+                 <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed">
                    Analysis is executed on the client-side event loop to ensure zero perceived friction.
                  </p>
               </div>

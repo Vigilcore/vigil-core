@@ -172,7 +172,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
         const bulletText = line.replace('-', '').trim();
         return (
           <div key={idx} className="ml-4 mb-1.5 flex gap-3 items-start">
-            <span className="text-zinc-600 mt-1 shrink-0">•</span>
+            <span className="text-zinc-500 mt-1 shrink-0">•</span>
             <span className="text-zinc-400 text-[12px] leading-relaxed">
               {renderInlines(bulletText)}
             </span>
@@ -369,7 +369,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
            <button 
              onClick={createNewSession}
              disabled={isProcessing}
-             className="w-full py-4 bg-zinc-900/50 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-600/5 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-20"
+             className="w-full py-4 bg-zinc-900/50 border border-white/10 rounded-xl text-xs font-black uppercase tracking-widest text-zinc-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-600/5 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-20"
            >
               <Plus size={14} /> New Directive
            </button>
@@ -377,13 +377,13 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
 
         <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-1">
            <div className="px-3 mb-4 mt-2 flex items-center justify-between">
-              <span className="text-[8px] font-black text-zinc-700 uppercase tracking-[0.4em] flex items-center gap-2">
+              <span className="text-xs font-black text-zinc-700 uppercase tracking-[0.4em] flex items-center gap-2">
                  <History size={10} /> Local_Silos
               </span>
               {isSavedIndicator && (
                 <div className="flex items-center gap-1.5 animate-in fade-in slide-in-from-right-2 duration-300">
                    <div className="w-1 h-1 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
-                   <span className="text-[7px] font-black text-emerald-500 uppercase tracking-widest">SAVED</span>
+                   <span className="text-xs font-black text-emerald-500 uppercase tracking-widest">SAVED</span>
                 </div>
               )}
            </div>
@@ -391,7 +391,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
              <div 
                key={s.id}
                onClick={() => loadSession(s)}
-               className={`group flex items-center justify-between p-4 rounded-xl border-2 transition-all cursor-pointer ${currentSessionId === s.id ? 'bg-blue-600/10 border-blue-500/40 text-white' : 'bg-transparent border-transparent text-zinc-600 hover:bg-zinc-900/40 hover:text-zinc-400'}`}
+               className={`group flex items-center justify-between p-4 rounded-xl border-2 transition-all cursor-pointer ${currentSessionId === s.id ? 'bg-blue-600/10 border-blue-500/40 text-white' : 'bg-transparent border-transparent text-zinc-500 hover:bg-zinc-900/40 hover:text-zinc-400'}`}
              >
                 <div className="flex items-center gap-3 overflow-hidden">
                    <MessageSquare size={12} className={currentSessionId === s.id ? 'text-blue-500' : 'text-zinc-800'} />
@@ -407,7 +407,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
         <div className="p-6 border-t border-zinc-900 bg-black/40">
            <div className="flex items-center gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Sys_Relay: Stable</span>
+              <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Sys_Relay: Stable</span>
            </div>
         </div>
       </aside>
@@ -417,13 +417,13 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5 border border-zinc-800 px-2 py-0.5 rounded bg-zinc-900/50">
-                 <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest leading-none">MESH INTELLIGENCE</span>
+                 <span className="text-xs font-black text-zinc-500 uppercase tracking-widest leading-none">MESH INTELLIGENCE</span>
                  <div className="h-1.5 w-px bg-zinc-800" />
-                 <span className="text-[7px] font-mono text-blue-500/80">VK-1</span>
+                 <span className="text-xs font-mono text-blue-500/80">VK-1</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
-                <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Sys: Hardened</span>
+                <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Sys: Hardened</span>
               </div>
             </div>
             <div className="h-4 w-px bg-zinc-900 hidden sm:block" />
@@ -433,8 +433,8 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
           </div>
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden sm:flex items-center gap-3">
-              <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest">Kernel Heat:</span>
-              <span className={`text-[10px] font-mono font-bold ${kernelHeat > 70 ? 'text-red-500' : 'text-zinc-500'}`}>{kernelHeat.toFixed(1)}°C</span>
+              <span className="text-xs font-black text-zinc-700 uppercase tracking-widest">Kernel Heat:</span>
+              <span className={`text-xs font-mono font-bold ${kernelHeat > 70 ? 'text-red-500' : 'text-zinc-500'}`}>{kernelHeat.toFixed(1)}°C</span>
             </div>
             <div className="hidden sm:flex items-center gap-3">
               <Timer size={12} className="text-zinc-700" />
@@ -458,7 +458,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
               {msg.role === 'USER' ? (
                 <div className="space-y-2 max-w-[90%] md:max-w-[80%] text-right">
                    <div className="flex items-center justify-end gap-2 text-zinc-800">
-                      <span className="text-[8px] font-black uppercase tracking-widest italic">Operator Directive</span>
+                      <span className="text-xs font-black uppercase tracking-widest italic">Operator Directive</span>
                       <Fingerprint size={10} />
                    </div>
                    <div className="px-6 py-4 bg-black border border-zinc-500/60 rounded-l-[2rem] rounded-br-[2rem] shadow-2xl">
@@ -474,8 +474,8 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
                          <Cpu size={16} />
                       </div>
                       <div className="flex flex-col">
-                         <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest leading-none">VIGIL_MESH_KERNEL</span>
-                         <span className="text-[7px] font-mono text-zinc-800 uppercase tracking-tighter">NODE: VK-1_STABLE</span>
+                         <span className="text-xs font-black text-zinc-500 uppercase tracking-widest leading-none">VIGIL_MESH_KERNEL</span>
+                         <span className="text-xs font-mono text-zinc-800 uppercase tracking-tighter">NODE: VK-1_STABLE</span>
                       </div>
                    </div>
                    <div className={`p-4 md:p-6 rounded-r-[2rem] rounded-bl-[2rem] border transition-all duration-700 bg-black ${
@@ -492,7 +492,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
                         <div className="mt-6 pt-4 border-t border-zinc-900 animate-in fade-in duration-1000">
                           <div className="flex items-center gap-2 mb-3">
                              <Globe size={10} className="text-blue-500" />
-                             <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Intelligence Sources</span>
+                             <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Intelligence Sources</span>
                           </div>
                           <div className="flex flex-wrap gap-2">
                              {msg.sources.map((s, si) => (
@@ -501,9 +501,9 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
                                  href={s.uri} 
                                  target="_blank" 
                                  rel="noopener noreferrer"
-                                 className="px-3 py-1.5 bg-zinc-900/50 border border-zinc-800 rounded-lg flex items-center gap-2 text-[9px] font-bold text-zinc-400 hover:text-white hover:border-blue-500/30 transition-all group/src"
+                                 className="px-3 py-1.5 bg-zinc-900/50 border border-zinc-800 rounded-lg flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-white hover:border-blue-500/30 transition-all group/src"
                                >
-                                 <ExternalLink size={10} className="text-zinc-600 group-hover/src:text-blue-500" />
+                                 <ExternalLink size={10} className="text-zinc-500 group-hover/src:text-blue-500" />
                                  <span className="truncate max-w-[200px]">{s.title || "External Fragment"}</span>
                                </a>
                              ))}
@@ -531,7 +531,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
                <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
                   <Loader2 size={14} className="text-blue-500 animate-spin" />
                </div>
-               <span className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.5em]">Grounded_Search_Active...</span>
+               <span className="text-xs font-black text-zinc-700 uppercase tracking-[0.5em]">Grounded_Search_Active...</span>
             </div>
           )}
         </div>
@@ -543,12 +543,12 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
                 <button 
                   key={term}
                   onClick={() => setInput(term)}
-                  className="px-3 md:px-4 py-1.5 md:py-2 bg-zinc-950/50 border border-white/5 rounded-full text-[8px] md:text-[9px] font-black text-zinc-500 uppercase tracking-widest hover:text-cyan-400 hover:border-cyan-900/50 transition-all active:scale-95"
+                  className="px-3 md:px-4 py-1.5 md:py-2 bg-zinc-950/50 border border-white/5 rounded-full text-xs font-black text-zinc-500 uppercase tracking-widest hover:text-cyan-400 hover:border-cyan-900/50 transition-all active:scale-95"
                 >
                   {term}
                 </button>
               ))}
-              <button onClick={handleExport} className="px-3 md:px-4 py-1.5 md:py-2 bg-zinc-950/80 border border-zinc-900 rounded-full text-[8px] md:text-[9px] font-black text-zinc-700 uppercase tracking-widest hover:text-white flex items-center gap-2">
+              <button onClick={handleExport} className="px-3 md:px-4 py-1.5 md:py-2 bg-zinc-950/80 border border-zinc-900 rounded-full text-xs font-black text-zinc-700 uppercase tracking-widest hover:text-white flex items-center gap-2">
                  <Download size={10} /> .LOG
               </button>
             </div>
@@ -556,7 +556,7 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
             <form onSubmit={handleSubmit} className="relative">
               <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-600/20 via-cyan-500/20 to-blue-600/20 rounded-full blur-[10px] opacity-0 group-focus-within:opacity-100 transition-opacity" />
               <div className="relative flex items-center bg-zinc-950/80 backdrop-blur-3xl border-2 border-white/10 rounded-full p-1.5 md:p-2 group transition-all focus-within:border-cyan-500/5 shadow-2xl shadow-blue-500/5">
-                <div className="pl-4 md:pl-6 text-zinc-600">
+                <div className="pl-4 md:pl-6 text-zinc-500">
                   <Terminal size={16} />
                 </div>
                 <input 

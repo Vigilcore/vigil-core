@@ -237,19 +237,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDoc, onVersionClick }) => 
             </h4>
             <ul className="space-y-5">
               <li>
-                <button onClick={() => onOpenDoc('terms')} className="flex items-center gap-4 text-[11px] font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
+                <button onClick={() => onOpenDoc('terms')} className="flex items-center gap-4 text-xs font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
                   <Gavel className="w-4 h-4 text-zinc-500 transition-all group-hover/gov:text-zinc-100 group-hover/gov:scale-110" /> 
                   Operational Terms
                 </button>
               </li>
               <li>
-                <button onClick={() => onOpenDoc('privacy')} className="flex items-center gap-4 text-[11px] font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
+                <button onClick={() => onOpenDoc('privacy')} className="flex items-center gap-4 text-xs font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
                   <Lock className="w-4 h-4 text-zinc-500 transition-all group-hover/gov:text-blue-500 group-hover/gov:drop-shadow-[0_0_8px_rgba(59,130,246,0.3)] group-hover/gov:scale-110" /> 
                   Privacy Protocol
                 </button>
               </li>
               <li>
-                <button onClick={() => onOpenDoc('disclaimer')} className="flex items-center gap-4 text-[11px] font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
+                <button onClick={() => onOpenDoc('disclaimer')} className="flex items-center gap-4 text-xs font-black text-zinc-500 hover:text-white transition-all text-left uppercase tracking-[0.2em] group/gov">
                   <AlertTriangle className="w-4 h-4 text-red-500/60 drop-shadow-[0_0_8px_rgba(239,68,68,0.1)] transition-all group-hover/gov:text-red-500 group-hover/gov:drop-shadow-[0_0_8px_rgba(239,68,68,0.4)] group-hover/gov:scale-110" /> 
                   Disclaimer
                 </button>

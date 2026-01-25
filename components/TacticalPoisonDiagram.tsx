@@ -116,7 +116,7 @@ export const TacticalPoisonDiagram: React.FC = () => {
               </div>
               <div className="space-y-1">
                  <h6 className="text-[12px] font-black text-white uppercase tracking-widest italic">VIGIL INTERCEPTION STANDARD</h6>
-                 <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">Sovereign standard for neutralizing history injections.</p>
+                 <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Sovereign standard for neutralizing history injections.</p>
               </div>
            </div>
            <div className="text-right opacity-20 group-hover:opacity-100 transition-opacity">
@@ -141,7 +141,7 @@ export const TacticalPoisonDiagram: React.FC = () => {
               </div>
            </div>
            <div className="text-right">
-              <div className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Audit_Cost</div>
+              <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Audit_Cost</div>
               <div className="text-[11px] font-black text-red-500 italic uppercase">$1.7M FORGE</div>
            </div>
         </div>

@@ -156,7 +156,7 @@ export const NarrativeGlitchForge: React.FC = () => {
                      <button 
                        key={l}
                        onClick={() => setLevel(l)}
-                       className={`w-full p-4 rounded-xl border text-[9px] font-black uppercase tracking-[0.4em] text-left transition-all ${level === l ? 'bg-zinc-800 border-zinc-600 text-white' : 'bg-black border-zinc-900 text-zinc-600 hover:text-zinc-400'}`}
+                       className={`w-full p-4 rounded-xl border text-[9px] font-black uppercase tracking-[0.4em] text-left transition-all ${level === l ? 'bg-zinc-800 border-zinc-600 text-white' : 'bg-black border-zinc-900 text-zinc-500 hover:text-zinc-400'}`}
                      >
                        {l.replace('_', ' ')}
                      </button>
@@ -168,7 +168,7 @@ export const NarrativeGlitchForge: React.FC = () => {
                  <div className="flex items-center gap-3 text-[9px] font-black text-zinc-700 uppercase tracking-widest">
                     <Terminal className="w-3" /> System Logs
                  </div>
-                 <div className="p-4 bg-black rounded-xl font-mono text-[9px] text-zinc-600 space-y-1">
+                 <div className="p-4 bg-black rounded-xl font-mono text-[9px] text-zinc-500 space-y-1">
                     <p>NODE_{day}_LOADED...</p>
                     <p>GLITCH_ENGINE: {level}</p>
                     <p>STATUS: READY_FOR_DEPLOY</p>

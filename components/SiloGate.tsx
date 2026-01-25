@@ -135,7 +135,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
         return (
           <div className="space-y-8 animate-in fade-in duration-500">
             <div className="text-center space-y-2"><span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">Identify Real Target</span><div className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl font-mono text-white text-lg">{gameState.target}</div></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">{gameState.options.map((opt: string, i: number) => (<button key={i} onClick={() => opt === gameState.target ? handleWin() : handleFail()} className="p-4 bg-black border border-zinc-800 rounded-lg font-mono text-[11px] text-zinc-500 hover:text-white hover:border-cyan-500 transition-all uppercase">{opt}</button>))}</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">{gameState.options.map((opt: string, i: number) => (<button key={i} onClick={() => opt === gameState.target ? handleWin() : handleFail()} className="p-4 bg-black border border-zinc-800 rounded-lg font-mono text-xs text-zinc-500 hover:text-white hover:border-cyan-500 transition-all uppercase">{opt}</button>))}</div>
           </div>
         );
       case 'SIGNAL_ROUTING':
@@ -143,7 +143,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
         return (
           <div className="space-y-8 text-center animate-in zoom-in duration-500">
              <p className="text-zinc-500 text-sm italic">Route the signal from intent to settlement.</p>
-             <div className="flex flex-wrap justify-center gap-4">{nodes.map(n => { const isPressed = gameState.sequence.includes(n.id); return (<button key={n.id} onClick={() => { if (isPressed) return; const next = [...gameState.sequence, n.id]; setGameState({...gameState, sequence: next}); if (next[next.length - 1] !== gameState.target[next.length - 1]) handleFail(); else if (next.length === 3) handleWin(); }} className={`p-6 rounded-lg md:rounded-2xl border-2 font-black uppercase tracking-widest text-[10px] transition-all ${isPressed ? 'bg-blue-600 border-blue-400 text-white' : 'bg-zinc-950 border-zinc-900 text-zinc-600 hover:border-blue-500'}`}>{n.label}</button>); })}</div>
+             <div className="flex flex-wrap justify-center gap-4">{nodes.map(n => { const isPressed = gameState.sequence.includes(n.id); return (<button key={n.id} onClick={() => { if (isPressed) return; const next = [...gameState.sequence, n.id]; setGameState({...gameState, sequence: next}); if (next[next.length - 1] !== gameState.target[next.length - 1]) handleFail(); else if (next.length === 3) handleWin(); }} className={`p-6 rounded-lg md:rounded-2xl border-2 font-black uppercase tracking-widest text-xs transition-all ${isPressed ? 'bg-blue-600 border-blue-400 text-white' : 'bg-zinc-950 border-zinc-900 text-zinc-500 hover:border-blue-500'}`}>{n.label}</button>); })}</div>
           </div>
         );
       case 'THREAT_NEUTRAL':
@@ -160,7 +160,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
       case 'PURITY_SCRUB':
         return (
           <div className="space-y-8 animate-in slide-in-from-bottom-2 duration-500">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">{gameState.items.map((item: any) => (<button key={item.id} disabled={gameState.cleared.includes(item.id)} onClick={() => { if (item.type === 'BAD') { const next = [...gameState.cleared, item.id]; setGameState({...gameState, cleared: next}); if (next.length === 3) handleWin(); } else handleFail(); }} className={`p-4 rounded-lg md:rounded-xl border-2 font-black text-[9px] uppercase tracking-widest transition-all ${gameState.cleared.includes(item.id) ? 'opacity-0 scale-90 pointer-events-none' : 'bg-zinc-950 border-zinc-900 text-zinc-400 hover:border-red-500/50'}`}>{item.label}</button>))}</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">{gameState.items.map((item: any) => (<button key={item.id} disabled={gameState.cleared.includes(item.id)} onClick={() => { if (item.type === 'BAD') { const next = [...gameState.cleared, item.id]; setGameState({...gameState, cleared: next}); if (next.length === 3) handleWin(); } else handleFail(); }} className={`p-4 rounded-lg md:rounded-xl border-2 font-black text-xs uppercase tracking-widest transition-all ${gameState.cleared.includes(item.id) ? 'opacity-0 scale-90 pointer-events-none' : 'bg-zinc-950 border-zinc-900 text-zinc-400 hover:border-red-500/50'}`}>{item.label}</button>))}</div>
             <p className="text-center text-zinc-500 text-[10px] uppercase tracking-widest">Scrub the system non-goals.</p>
           </div>
         );
@@ -190,7 +190,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
       case 'SYNC_SEQUENCE':
         return (
           <div className="space-y-12 py-10 animate-in fade-in duration-500">
-            {gameState.shown ? (<div className="flex flex-col items-center gap-6"><span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest animate-pulse">Memorize Sequence</span><div className="flex gap-4">{gameState.words.map((w: string, i: number) => (<div key={i} className="px-6 py-4 bg-zinc-900 border border-cyan-500/30 rounded-lg md:rounded-xl font-black text-white text-sm tracking-widest">{w}</div>))}</div></div>) : (<div className="flex flex-col items-center gap-8"><span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Input Sequence in Order</span><div className="grid grid-cols-2 gap-3 w-full max-w-md">{['HEURISTIC', 'SACCADE', 'ENTROPY', 'PROVENANCE'].map(w => { const isPressed = gameState.sequence.includes(w); return (<button key={w} disabled={isPressed} onClick={() => { const next = [...gameState.sequence, w]; setGameState({...gameState, sequence: next}); if (next[next.length - 1] !== gameState.words[next.length - 1]) handleFail(); else if (next.length === 3) handleWin(); }} className={`p-4 rounded-lg md:rounded-xl border-2 font-black text-[10px] tracking-widest transition-all ${isPressed ? 'opacity-20' : 'bg-zinc-950 border-zinc-900 text-zinc-400 hover:border-cyan-500 hover:text-white'}`}>{w}</button>); })}</div></div>)}
+            {gameState.shown ? (<div className="flex flex-col items-center gap-6"><span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest animate-pulse">Memorize Sequence</span><div className="flex gap-4">{gameState.words.map((w: string, i: number) => (<div key={i} className="px-6 py-4 bg-zinc-900 border border-cyan-500/30 rounded-lg md:rounded-xl font-black text-white text-sm tracking-widest">{w}</div>))}</div></div>) : (<div className="flex flex-col items-center gap-8"><span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Input Sequence in Order</span><div className="grid grid-cols-2 gap-3 w-full max-w-md">{['HEURISTIC', 'SACCADE', 'ENTROPY', 'PROVENANCE'].map(w => { const isPressed = gameState.sequence.includes(w); return (<button key={w} disabled={isPressed} onClick={() => { const next = [...gameState.sequence, w]; setGameState({...gameState, sequence: next}); if (next[next.length - 1] !== gameState.words[next.length - 1]) handleFail(); else if (next.length === 3) handleWin(); }} className={`p-4 rounded-lg md:rounded-xl border-2 font-black text-xs tracking-widest transition-all ${isPressed ? 'opacity-20' : 'bg-zinc-950 border-zinc-900 text-zinc-400 hover:border-cyan-500 hover:text-white'}`}>{w}</button>); })}</div></div>)}
           </div>
         );
       case 'CORE_RESONANCE':
@@ -204,7 +204,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
              </div>
              <div className="w-full max-w-sm space-y-6">
                 <button onMouseDown={() => { if (gameState.pulse > 80 && gameState.pulse < 95) handleWin(); else handleFail('SYNC_MISMATCH: TEMPORAL_DRIFT_DETECTED'); }} className="w-full py-6 bg-white text-black font-black rounded-lg md:rounded-[2rem] uppercase tracking-[0.5em] hover:bg-blue-600 hover:text-white transition-all shadow-2xl active:scale-95">TRIGGER RESONANCE</button>
-                <div className="flex justify-between items-center px-4"><span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest italic">Phase: Alignment</span><div className="flex gap-2"><div className={`w-1.5 h-1.5 rounded-full transition-colors ${gameState.pulse > 80 && gameState.pulse < 95 ? 'bg-blue-500 animate-pulse' : 'bg-zinc-900'}`} /><div className={`w-1.5 h-1.5 rounded-full transition-colors ${gameState.pulse > 85 && gameState.pulse < 92 ? 'bg-emerald-500 animate-ping' : 'bg-zinc-900'}`} /></div></div>
+                <div className="flex justify-between items-center px-4"><span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest italic">Phase: Alignment</span><div className="flex gap-2"><div className={`w-1.5 h-1.5 rounded-full transition-colors ${gameState.pulse > 80 && gameState.pulse < 95 ? 'bg-blue-500 animate-pulse' : 'bg-zinc-900'}`} /><div className={`w-1.5 h-1.5 rounded-full transition-colors ${gameState.pulse > 85 && gameState.pulse < 92 ? 'bg-emerald-500 animate-ping' : 'bg-zinc-900'}`} /></div></div>
              </div>
              <p className="text-center text-zinc-500 text-[10px] font-bold uppercase tracking-widest italic">INTERSECT AT ZERO POINT [80-95%]</p>
           </div>
@@ -246,7 +246,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
              <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-zinc-900 pb-10">
                 <div className="flex items-center gap-5">
                   <div className={`w-14 h-14 bg-zinc-950 border-2 rounded-lg md:rounded-2xl flex items-center justify-center transition-all duration-1000 ${phase === 'PLAYING' ? 'border-cyan-500 animate-pulse' : 'border-zinc-800'}`}>
-                     {phase === 'FAIL' ? <AlertTriangle className="text-red-500" /> : <Terminal size={24} className="text-zinc-600" />}
+                     {phase === 'FAIL' ? <AlertTriangle className="text-red-500" /> : <Terminal size={24} className="text-zinc-500" />}
                   </div>
                   <div className="space-y-1">
                      <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.5em]">Proficiency Audit</span>
@@ -263,7 +263,7 @@ export const SiloGate: React.FC<SiloGateProps> = ({ currentLevel, gateLevel, onU
              {phase === 'READY' ? (
                 <div className="py-12 flex flex-col items-center gap-8 text-center">
                   <div className="space-y-4"><h4 className="text-2xl font-black text-white uppercase italic tracking-widest">Calibration: {gameMode.replace('_', ' ')}</h4><p className="text-zinc-500 text-sm font-medium italic max-w-md mx-auto">"Prove technical alignment with the core system standard to proceed."</p></div>
-                  <button onClick={startChallenge} className="px-16 py-6 bg-white text-black rounded-lg md:rounded-2xl text-[11px] font-black uppercase tracking-[0.6em] shadow-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95 flex items-center gap-4"><Zap size={14} className="fill-current" /> INITIATE_CHALLENGE</button>
+                  <button onClick={startChallenge} className="px-16 py-6 bg-white text-black rounded-lg md:rounded-2xl text-xs font-black uppercase tracking-[0.6em] shadow-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95 flex items-center gap-4"><Zap size={14} className="fill-current" /> INITIATE_CHALLENGE</button>
                 </div>
              ) : (
                 <div className="relative">

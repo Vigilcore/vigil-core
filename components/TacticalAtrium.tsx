@@ -44,12 +44,96 @@ const TelemetryStream = ({ side }: { side: 'left' | 'right' }) => (
 
 export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, isAdmin, bri, xp, rank, historyCount, onSelectSilo }) => {
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const [visibleRows, setVisibleRows] = useState<Set<number>>(new Set()); // Start with no rows visible
+  const [columnsPerRow, setColumnsPerRow] = useState(5); // Default to desktop (5 cols)
   const containerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
   
   // Realtime Registry Parameters - Reset to Zero Baseline
   const downloadCount = 0;
   const trainedCount = currentLevel >= 10 ? 1 : 0;
   const isSyncing = false;
+
+  // Calculate columns per row based on viewport
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
+      let newCols: number;
+      if (width >= 1024) {
+        newCols = 5; // lg:grid-cols-5
+      } else if (width >= 640) {
+        newCols = 3; // sm:grid-cols-3
+      } else {
+        newCols = 2; // grid-cols-2
+      }
+      
+      setColumnsPerRow(prevCols => {
+        if (newCols !== prevCols) {
+          // Reset visible rows when columns change (will be re-triggered by main useEffect)
+          setVisibleRows(new Set());
+          return newCols;
+        }
+        return prevCols;
+      });
+    };
+
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
+
+  // Trigger Row 0 animation immediately on mount, then set up observers for Row 1+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      // Show all rows immediately
+      const allRows = new Set<number>();
+      const totalRows = Math.ceil(SILOS.length / columnsPerRow);
+      for (let i = 0; i < totalRows; i++) {
+        allRows.add(i);
+      }
+      setVisibleRows(allRows);
+      return;
+    }
+
+    // Trigger Row 0 animation after a small delay (allows cards to render first)
+    const row0Timeout = setTimeout(() => {
+      setVisibleRows(prev => new Set([...prev, 0]));
+    }, 50);
+
+    // Set up IntersectionObserver for Row 1+ (scroll-triggered)
+    const observers: IntersectionObserver[] = [];
+    const totalRows = Math.ceil(SILOS.length / columnsPerRow);
+
+    const observerTimeout = setTimeout(() => {
+      for (let rowIndex = 1; rowIndex < totalRows; rowIndex++) {
+        // First card index of this row
+        const firstCardIndex = rowIndex * columnsPerRow;
+        const cardElement = cardRefs.current.get(firstCardIndex);
+        if (!cardElement) continue;
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setVisibleRows(prev => new Set([...prev, rowIndex]));
+              observer.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
+        );
+
+        observer.observe(cardElement);
+        observers.push(observer);
+      }
+    }, 100);
+
+    return () => {
+      clearTimeout(row0Timeout);
+      clearTimeout(observerTimeout);
+      observers.forEach(obs => obs.disconnect());
+    };
+  }, [columnsPerRow]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -155,7 +239,7 @@ export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, is
       <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-900/50 pb-6 gap-4 relative z-10">
          <div className="flex items-center gap-4 md:gap-6">
             <div className="flex items-center gap-3">
-               <Settings2 size={16} className="text-zinc-600" />
+               <Settings2 size={16} className="text-zinc-500" />
                <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-widest leading-none">Command Interface</h3>
             </div>
             <div className="hidden sm:block h-6 w-[1px] bg-zinc-800" />
@@ -171,7 +255,7 @@ export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, is
       </div>
 
       {/* THE SILO MATRIX - ADVANCED GLASS EDITION */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 relative z-10 pb-12">
+      <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 relative z-10 pb-12">
          {SILOS.map((silo, idx) => {
             const isUnlocked = isAdmin || currentLevel >= silo.id;
             const accentHex = silo.color === 'blue' ? '#3b82f6' : 
@@ -181,21 +265,45 @@ export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, is
                              silo.color === 'emerald' ? '#10b981' :
                              silo.color === 'purple' ? '#a855f7' : '#71717a';
 
+            // Calculate which row this card belongs to
+            const rowIndex = Math.floor(idx / columnsPerRow);
+            const cardIndexInRow = idx % columnsPerRow;
+            
+            // Check if this row is visible
+            const isRowVisible = visibleRows.has(rowIndex);
+            
+            const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            // Stagger delay: 80-120ms between cards in the same row
+            const cardDelay = prefersReducedMotion ? 0 : (isRowVisible ? 80 + (cardIndexInRow * 100) : 0);
+            const cardDuration = prefersReducedMotion ? 0 : 500;
+
             return (
               <button 
                 key={silo.id}
+                ref={(el) => {
+                  // Store ref for first card of each row (row 1+) for IntersectionObserver
+                  if (el && cardIndexInRow === 0 && rowIndex > 0) {
+                    cardRefs.current.set(idx, el);
+                  }
+                }}
                 onClick={() => isUnlocked && onSelectSilo(silo.id)}
                 className={`group relative p-4 md:p-8 rounded-3xl md:rounded-[3rem] border transition-all duration-700 h-[220px] md:h-[340px] flex flex-col justify-between overflow-hidden shadow-2xl refractive-edge
                   ${isUnlocked 
                     ? 'glass-morphism border-white/5 active:scale-[0.97] hover:border-white/20' 
                     : 'bg-black/80 border-zinc-900/50 opacity-40 cursor-not-allowed grayscale blur-[0.5px]'}
-                  animate-in fade-in slide-in-from-bottom-12
                 `}
                 style={{ 
-                   animationDelay: `${idx * 100}ms`,
                    '--accent-low': `${accentHex}15`,
-                   '--accent-mid': `${accentHex}33`
-                } as any}
+                   '--accent-mid': `${accentHex}33`,
+                   opacity: isRowVisible || prefersReducedMotion ? 1 : 0,
+                   transform: isRowVisible || prefersReducedMotion ? 'translateY(0)' : 'translateY(12px)',
+                   transitionProperty: prefersReducedMotion ? 'none' : 'opacity, transform',
+                   transitionDuration: prefersReducedMotion ? '0ms' : `${cardDuration}ms`,
+                   transitionTimingFunction: prefersReducedMotion ? 'ease' : 'cubic-bezier(0.16, 1, 0.3, 1)',
+                   transitionDelay: prefersReducedMotion ? '0ms' : `${cardDelay}ms`,
+                   pointerEvents: 'auto'
+                } as React.CSSProperties}
               >
                  {/* Localized Back Glow */}
                  <div className="absolute inset-0 bg-gradient-to-br from-black/[0.01] to-transparent pointer-events-none" />
@@ -229,7 +337,7 @@ export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, is
                           )}
                        </div>
                        <div className="text-right">
-                          <div className={`text-[6px] md:text-[10px] font-black uppercase tracking-widest ${isUnlocked ? 'text-zinc-600 group-hover:text-white transition-colors' : 'text-zinc-900'}`}>{isUnlocked ? `SILO 0${silo.id}` : 'ENCRYPTED'}</div>
+                          <div className={`text-[6px] md:text-[10px] font-black uppercase tracking-widest ${isUnlocked ? 'text-zinc-500 group-hover:text-white transition-colors' : 'text-zinc-900'}`}>{isUnlocked ? `SILO 0${silo.id}` : 'ENCRYPTED'}</div>
                           {isUnlocked && <div className="text-[5px] md:text-[7px] font-mono text-zinc-700 mt-1 uppercase">{silo.tag}</div>}
                        </div>
                     </div>
@@ -266,7 +374,7 @@ export const TacticalAtrium: React.FC<TacticalAtriumProps> = ({ currentLevel, is
          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8">
             <div className="flex items-center gap-3 px-4 py-3 md:px-6 md:py-4 glass-morphism rounded-3xl md:rounded-2xl group transition-all hover:border-blue-500/20 shadow-xl">
                <div className="p-1.5 md:p-2 rounded-lg bg-zinc-950/50 border border-zinc-800">
-                  <Cpu size={12} className="text-zinc-600 group-hover:text-blue-500 transition-colors" />
+                  <Cpu size={12} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
                </div>
                <div className="space-y-0.5">
                   <span className="text-[7px] md:text-[8px] font-black text-zinc-700 uppercase tracking-widest">Core</span>

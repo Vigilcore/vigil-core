@@ -86,7 +86,7 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({ progress, onScro
     <div className="fixed right-0 top-10 bottom-0 w-12 md:w-16 z-[110] hidden md:flex flex-col items-center pointer-events-none border-l border-zinc-900/50 bg-black/20 backdrop-blur-[2px]">
       {/* Percentage Readout at Top */}
       <div className="pt-8 flex flex-col items-center gap-2">
-         <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest rotate-90 mb-8 whitespace-nowrap origin-center">
+         <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest rotate-90 mb-8 whitespace-nowrap origin-center">
            Sync Depth
          </div>
          <div className={`text-sm font-black italic tabular-nums transition-colors duration-700 ${isDragging ? 'scale-110 text-white' : colorClass}`}>

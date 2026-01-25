@@ -68,11 +68,11 @@ export const SovereignPrimitive: React.FC = () => {
              <div className="grid grid-cols-2 gap-3 w-full">
                 <div className="p-5 bg-zinc-950 border border-zinc-900 rounded-2xl space-y-2 group hover:border-blue-500/20 transition-all">
                    <Lock size={16} className="text-zinc-700 group-hover:text-blue-500 transition-colors" />
-                   <h5 className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">KEYS: LOCAL</h5>
+                   <h5 className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">KEYS: LOCAL</h5>
                 </div>
                 <div className="p-5 bg-zinc-950 border border-zinc-900 rounded-2xl space-y-2 group hover:border-emerald-500/20 transition-all">
                    <Globe size={16} className="text-zinc-700 group-hover:text-emerald-500 transition-colors" />
-                   <h5 className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">NET: ISOLATED</h5>
+                   <h5 className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">NET: ISOLATED</h5>
                 </div>
              </div>
           </div>

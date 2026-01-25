@@ -62,7 +62,7 @@ export const ContextualReputationSearch: React.FC = () => {
 
           <form onSubmit={handleSynthesize} className="space-y-6">
             <div className="space-y-3">
-               <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest ml-1">Target Identity</label>
+               <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Target Identity</label>
                <div className="relative group">
                   <div className="absolute -inset-[2px] bg-cyan-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="relative flex items-center bg-[#080808] border-2 border-zinc-900 rounded-2xl overflow-hidden focus-within:border-cyan-600 transition-all">
@@ -90,7 +90,7 @@ export const ContextualReputationSearch: React.FC = () => {
           </form>
 
           {/* LOGS PANEL */}
-          <div className="flex-1 bg-black/40 border border-zinc-900 rounded-[2rem] p-6 font-mono text-[9px] text-zinc-600 space-y-2 overflow-hidden min-h-[120px]">
+          <div className="flex-1 bg-black/40 border border-zinc-900 rounded-[2rem] p-6 font-mono text-[9px] text-zinc-500 space-y-2 overflow-hidden min-h-[120px]">
              {logs.length === 0 && <div className="animate-pulse">Awaiting search parameters...</div>}
              {logs.map((log, i) => (
                <div key={i} className="flex gap-3 animate-in slide-in-from-left-2 duration-300">
@@ -153,12 +153,12 @@ export const ContextualReputationSearch: React.FC = () => {
                       <div className="space-y-1">
                          <div className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em]">Mesh Identification</div>
                          <h3 className="text-4xl font-black text-white italic tracking-tighter leading-none">Identity Profile</h3>
-                         <div className="font-mono text-[10px] text-zinc-600 mt-1">{address.slice(0, 16)}...{address.slice(-16)}</div>
+                         <div className="font-mono text-[10px] text-zinc-500 mt-1">{address.slice(0, 16)}...{address.slice(-16)}</div>
                       </div>
                    </div>
                    
                    <div className="text-right">
-                      <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-1">Resilience Score</div>
+                      <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Resilience Score</div>
                       <div className={`text-6xl font-black italic tracking-tighter ${result.reputationScore > 80 ? 'text-emerald-500' : result.reputationScore > 50 ? 'text-amber-500' : 'text-red-500'}`}>
                          {result.reputationScore}%
                       </div>
@@ -224,10 +224,10 @@ export const ContextualReputationSearch: React.FC = () => {
                       </div>
                    </div>
                    <div className="flex gap-4">
-                      <button className="px-6 py-3 bg-red-600/10 border border-red-500/30 text-red-500 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-red-600 hover:text-white transition-all">
+                      <button className="px-6 py-3 bg-red-600/10 border border-red-500/30 text-red-500 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-red-600 hover:text-white transition-all">
                         REPORT IDENTITY CLASH
                       </button>
-                      <button onClick={() => setResult(null)} className="px-6 py-3 border border-zinc-800 text-zinc-500 text-[9px] font-black uppercase tracking-widest rounded-xl hover:text-white hover:bg-zinc-900 transition-all">
+                      <button onClick={() => setResult(null)} className="px-6 py-3 border border-zinc-800 text-zinc-500 text-xs font-black uppercase tracking-widest rounded-xl hover:text-white hover:bg-zinc-900 transition-all">
                         NEW SCAN
                       </button>
                    </div>

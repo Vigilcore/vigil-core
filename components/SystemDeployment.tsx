@@ -47,7 +47,7 @@ export const SystemDeployment: React.FC<SystemDeploymentProps> = ({ onOpenDoc })
 
             {/* Action Row */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full mb-10">
-              <button className="w-full md:w-auto px-10 py-5 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-[0_0_50px_rgba(255,255,255,0.1)] active:scale-95 flex items-center justify-center gap-3 group">
+              <button className="w-full md:w-auto px-10 py-5 bg-white text-black text-xs font-black uppercase tracking-[0.3em] rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-[0_0_50px_rgba(255,255,255,0.1)] active:scale-95 flex items-center justify-center gap-3 group">
                 <Chrome className="w-4 h-4" />
                 INSTALL VIGIL EXTENSION
               </button>
@@ -62,7 +62,7 @@ export const SystemDeployment: React.FC<SystemDeploymentProps> = ({ onOpenDoc })
             </div>
 
             {/* Sub-Action Info */}
-            <div className="text-[7px] md:text-[9px] font-black text-zinc-600 uppercase tracking-[0.4em] mb-10">
+            <div className="text-[7px] md:text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em] mb-10">
               RUNS LOCALLY · NO WALLET ACCESS · NO PRIVATE KEYS
             </div>
 

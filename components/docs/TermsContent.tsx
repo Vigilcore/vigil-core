@@ -148,7 +148,7 @@ export const TermsContent = () => (
         <div className="h-[2px] w-48 bg-blue-900/30 mx-auto" />
         <div className="space-y-8">
            <div className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center mx-auto">
-              <HelpCircle className="w-8 h-8 text-zinc-600" />
+              <HelpCircle className="w-8 h-8 text-zinc-500" />
            </div>
            <h3 className="text-5xl font-black text-white italic uppercase tracking-tighter">Legal Finality</h3>
            <div className="p-10 bg-zinc-950 border border-zinc-900 rounded-[2.5rem] max-w-3xl mx-auto shadow-2xl relative overflow-hidden group">

@@ -392,7 +392,7 @@ export const SystemBoot: React.FC<SystemBootProps> = ({ onComplete, skipGame = f
               )}
               
               <div className="p-4 bg-zinc-950/50 border border-zinc-900 rounded-xl animate-pulse max-w-lg mx-auto w-[85%]">
-                 <p className="text-[9px] md:text-[12px] font-mono text-zinc-600 uppercase tracking-widest leading-relaxed italic font-bold">
+                 <p className="text-[9px] md:text-[12px] font-mono text-zinc-500 uppercase tracking-widest leading-relaxed italic font-bold">
                     Synchronizing biological parameters...
                  </p>
               </div>
@@ -406,7 +406,7 @@ export const SystemBoot: React.FC<SystemBootProps> = ({ onComplete, skipGame = f
                      <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
                      <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Registry Init Log</span>
                   </div>
-                  <div className="space-y-1.5 font-mono text-[9px] text-zinc-600 uppercase">
+                  <div className="space-y-1.5 font-mono text-[9px] text-zinc-500 uppercase">
                      {activeLogs.map((log, i) => (
                        <div key={i} className="animate-in slide-in-from-left-2 duration-300">
                          <span className="text-zinc-800 mr-2">{'>>'}</span> {log}
@@ -418,7 +418,7 @@ export const SystemBoot: React.FC<SystemBootProps> = ({ onComplete, skipGame = f
                <div className="absolute top-1/2 -translate-y-1/2 right-12 space-y-4 hidden md:block">
                   <div className="flex items-center justify-end gap-3">
                      <div className="text-right">
-                        <div className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Resilience Threshold</div>
+                        <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Resilience Threshold</div>
                         <div className="text-xl font-black text-emerald-500 italic uppercase">Optimal_Sync</div>
                      </div>
                      <div className="w-12 h-12 bg-emerald-600/10 border border-emerald-500/30 rounded-xl flex items-center justify-center">
@@ -439,7 +439,7 @@ export const SystemBoot: React.FC<SystemBootProps> = ({ onComplete, skipGame = f
                </div>
 
                <div className="absolute bottom-12 right-12 text-right space-y-3 hidden md:block">
-                  <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Kernel Telemetry Stream</span>
+                  <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Kernel Telemetry Stream</span>
                   <div className="space-y-1 font-mono text-[8px] text-zinc-800 uppercase">
                      {telemetryStream.map((t, i) => <div key={i}>{t}</div>)}
                   </div>

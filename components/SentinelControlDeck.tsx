@@ -68,7 +68,7 @@ export const SentinelControlDeck: React.FC = () => {
                   </div>
                   <div className="space-y-1">
                     <h3 className="text-2xl font-black text-white italic uppercase tracking-tight">Asset Authenticity</h3>
-                    <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Verify Token Mint Integrity</p>
+                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Verify Token Mint Integrity</p>
                   </div>
                 </div>
                 <TechLabel text="MESH_VERIFIED" color="cyan" />
@@ -229,7 +229,7 @@ export const SentinelControlDeck: React.FC = () => {
                                 <div className="font-mono text-[10px] text-zinc-300">
                                    {tx.isPoison && sanitizerView === 'VIGIL' ? '••••••••••••••••••••••••••••' : tx.addr.slice(0, 16) + '...'}
                                 </div>
-                                <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Value: {tx.amount}</div>
+                                <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Value: {tx.amount}</div>
                              </div>
                           </div>
                           <div className="text-right space-y-1">

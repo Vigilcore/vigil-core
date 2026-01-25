@@ -86,7 +86,7 @@ export const ExitProtocolOverlay: React.FC<ExitProtocolOverlayProps> = ({ exitTy
              <h2 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tighter leading-[0.8] drop-shadow-[0_10px_20px_rgba(0,0,0,1)]">
                {content.title}
              </h2>
-             <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em]">{content.sub}</p>
+             <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">{content.sub}</p>
           </div>
 
           {/* Terminal Pod */}

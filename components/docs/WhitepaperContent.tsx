@@ -105,7 +105,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
            <div className={`p-8 ${lightMode ? 'bg-[#F5F5F0] border-zinc-200' : 'bg-[#0a0a0a] border-zinc-900'} border rounded-[2rem] space-y-6 shadow-2xl`}>
               <div className={`flex items-center gap-3 border-b ${lightMode ? 'border-zinc-200' : 'border-zinc-900'} pb-4`}>
                  <BookOpenCheck className={`w-4 h-4 ${lightMode ? 'text-blue-600' : 'text-blue-500'}`} />
-                 <h4 className={`text-[10px] font-black ${lightMode ? 'text-zinc-600' : 'text-zinc-400'} uppercase tracking-[0.3em]`}>Table of Contents</h4>
+                 <h4 className={`text-[10px] font-black ${lightMode ? 'text-zinc-500' : 'text-zinc-400'} uppercase tracking-[0.3em]`}>Table of Contents</h4>
               </div>
               <nav className="flex flex-col gap-1.5 max-h-[60vh] overflow-y-auto no-scrollbar">
                  {tableOfContents.map((item) => {
@@ -173,7 +173,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                 <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-400'} text-base leading-relaxed font-medium text-justify`}>
+                 <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-400'} text-base leading-relaxed font-medium text-justify`}>
                    In the early years of crypto, the largest losses were driven by infrastructure failures. Exchanges were hacked, private keys were poorly managed, and smart contracts were deployed without sufficient auditing. Over time, these weaknesses became harder to exploit. <u className={lightMode ? 'decoration-zinc-200' : ''}>Wallet security improved, audits became standard, and master practices matured.</u>
                  </p>
               </div>
@@ -200,7 +200,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                   "A form of crypto scam in which an attacker deliberately injects a malicious wallet address into a user’s transaction history or workflow in order to trick the user into sending funds to the wrong destination."
                 </p>
                 <div className={`h-[1px] w-full ${lightMode ? 'bg-red-100' : 'bg-red-900/20'}`} />
-                <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-500'} text-base leading-relaxed font-medium text-justify`}>
+                <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-base leading-relaxed font-medium text-justify`}>
                   The attack exploits the fact that cryptocurrency addresses are long, non-human-readable strings and that most users rely on copy-paste, transaction history, or partial visual verification when sending funds. By creating an address that closely resembles a legitimate one and ensuring it appears in the user’s recent activity, the attacker increases the likelihood that the user will accidentally reuse it.
                 </p>
                 <TechNote title="CRITICAL DISTINCTION" lightMode={lightMode}>
@@ -222,7 +222,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                 <h5 className={`${lightMode ? 'text-black' : 'text-white'} font-black uppercase tracking-widest flex items-center gap-3`}>
                   <Fingerprint className={`w-4 h-4 ${lightMode ? 'text-blue-600' : 'text-blue-500'}`} /> Phase A: Generation
                 </h5>
-                <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>
+                <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>
                    The attacker generates a look-alike wallet address. Forensic analysis of 2024 mass campaigns identified a **Seeder/Seeded Hierarchy** where 8 "seeder" wallets funded and managed over 82,000 unique mimics. This automated vanity generation allows for near-perfect mirroring of victim destination edges.
                 </p>
               </ClauseFrame>
@@ -230,13 +230,13 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                 <h5 className={`${lightMode ? 'text-black' : 'text-white'} font-black uppercase tracking-widest flex items-center gap-3`}>
                   <History className={`w-4 h-4 ${lightMode ? 'text-purple-600' : 'text-purple-500'}`} /> Phase B: Positioning
                 </h5>
-                <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>The attacker sends a small transaction (dust) to or from the victim’s address. This transaction exists solely to place the attacker’s address into the victim’s transaction history.</p>
+                <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>The attacker sends a small transaction (dust) to or from the victim’s address. This transaction exists solely to place the attacker’s address into the victim’s transaction history.</p>
               </ClauseFrame>
               <ClauseFrame id="WP-ARCH-03" lightMode={lightMode}>
                 <h5 className={`${lightMode ? 'text-black' : 'text-white'} font-black uppercase tracking-widest flex items-center gap-3`}>
                   <ShieldAlert className={`w-4 h-4 ${lightMode ? 'text-red-600' : 'text-red-500'}`} /> Phase C: Execution
                 </h5>
-                <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>Weeks or months later, the victim intends to send funds, selects the poisoned address from history by mistake, and executes the transfer. There is often no immediate feedback loop or suspicious prompt at the moment of error.</p>
+                <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-base leading-relaxed text-justify`}>Weeks or months later, the victim intends to send funds, selects the poisoned address from history by mistake, and executes the transfer. There is often no immediate feedback loop or suspicious prompt at the moment of error.</p>
               </ClauseFrame>
             </div>
           </section>
@@ -255,11 +255,11 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
               ].map((item, i) => (
                 <div key={i} className={`px-4 py-8 md:p-8 ${lightMode ? 'bg-[#F5F5F0] border-zinc-200' : 'bg-[#0a0a0a] border-zinc-900'} border rounded-2xl space-y-3`}>
                   <h4 className={`${lightMode ? 'text-black' : 'text-white'} font-black uppercase tracking-widest text-[10px]`}>{item.t}</h4>
-                  <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-600'} text-[11px] font-medium leading-relaxed uppercase text-justify`}>{item.d}</p>
+                  <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-[11px] font-medium leading-relaxed uppercase text-justify`}>{item.d}</p>
                 </div>
               ))}
             </div>
-            <p className={`${lightMode ? 'text-zinc-600 border-zinc-100' : 'text-zinc-400 border-zinc-800'} text-lg leading-relaxed font-medium italic border-l-2 pl-8 text-justify`}>
+            <p className={`${lightMode ? 'text-zinc-500 border-zinc-100' : 'text-zinc-400 border-zinc-800'} text-lg leading-relaxed font-medium italic border-l-2 pl-8 text-justify`}>
               The attacker’s advantage lies in patience and probability. They are betting that, over time, routine behavior will override vigilance. When the mistake happens, the loss is often large: because victims typically reuse addresses for meaningful transfers.
             </p>
           </section>
@@ -295,7 +295,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
               <p className={`${lightMode ? 'text-black' : 'text-white'} text-2xl font-black italic uppercase tracking-tight leading-tight text-justify`}>
                 "Humans are not designed to verify 42-character hexadecimal strings repeatedly."
               </p>
-              <div className={`space-y-4 ${lightMode ? 'text-zinc-600' : 'text-zinc-400'} text-lg leading-relaxed font-medium`}>
+              <div className={`space-y-4 ${lightMode ? 'text-zinc-500' : 'text-zinc-400'} text-lg leading-relaxed font-medium`}>
                 <p className="text-justify">Cognitive science shows that people rely on pattern recognition, muscle memory, and trust in familiar interfaces. Crypto workflows violate these instincts by requiring perfect accuracy in hostile environments.</p>
                 <p className="text-justify">As users gain experience, they paradoxically become more vulnerable. Repetition breeds confidence, and confidence reduces verification. Address poisoning exploits this exact moment: when users stop double-checking because they believe they are safe.</p>
               </div>
@@ -333,7 +333,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                 <div className={`flex items-center gap-12 px-4 py-8 md:p-8 ${lightMode ? 'bg-[#FAF9F6] border-zinc-200 shadow-sm' : 'bg-zinc-950 border-zinc-900'} border rounded-3xl`}>
                   <div className="space-y-1">
                     <span className={`text-4xl font-black ${lightMode ? 'text-black' : 'text-white'} italic tracking-tighter`}>$100M</span>
-                    <span className={`block text-[8px] font-black ${lightMode ? 'text-zinc-300' : 'text-zinc-600'} uppercase tracking-widest`}>Cumulative Verified</span>
+                    <span className={`block text-[8px] font-black ${lightMode ? 'text-zinc-300' : 'text-zinc-500'} uppercase tracking-widest`}>Cumulative Verified</span>
                   </div>
                   <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-xs font-bold uppercase tracking-widest leading-relaxed text-justify`}>
                     Conservative, on-chain–verifiable estimates place directly attributable address poisoning losses at approximately $80–100 million cumulatively. The true number is significantly higher.
@@ -360,7 +360,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                      <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-400'} text-lg font-medium leading-relaxed italic text-justify`}>
                         Forensic Reconstruction of the $68M Whale Attack:
                      </p>
-                     <div className={`space-y-3 text-sm ${lightMode ? 'text-zinc-600' : 'text-zinc-500'} text-justify`}>
+                     <div className={`space-y-3 text-sm ${lightMode ? 'text-zinc-500' : 'text-zinc-500'} text-justify`}>
                         <p>1. Victim executes a "test payment" to their own destination (**0xd9A1b**).</p>
                         <p>2. Attacker waits for this specific intent signal and deploys a look-alike (**0xd9A1c**) minutes later.</p>
                         <p>3. Victim, intending to send the main balance, copies the **last transaction** from their history—the mimic.</p>
@@ -442,7 +442,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                 <p className={`${lightMode ? 'text-zinc-700' : 'text-zinc-400'} text-lg leading-relaxed font-medium text-justify`}>The industry cannot educate its way out of this problem. Nor can it rely on users to behave perfectly. The only viable path forward is to introduce security systems that operate at the <b>human decision layer</b>, evolving into comprehensive sovereign execution environments that detect intent mismatches before transactions are finalized.</p>
                 <div className={`px-4 py-8 md:p-8 ${lightMode ? 'bg-[#F5F5F0] border-emerald-100 shadow-sm' : 'bg-emerald-950/20 border-emerald-900/30'} border rounded-2xl flex items-center gap-6`}>
                    <Target className={`w-8 h-8 ${lightMode ? 'text-emerald-600' : 'text-emerald-500'}`} />
-                   <p className={`text-[11px] ${lightMode ? 'text-zinc-600' : 'text-zinc-300'} font-black uppercase tracking-widest leading-relaxed text-justify`}>
+                   <p className={`text-[11px] ${lightMode ? 'text-zinc-500' : 'text-zinc-300'} font-black uppercase tracking-widest leading-relaxed text-justify`}>
                      Just as browsers added phishing protection and operating systems added memory safety, crypto must now add human-layer safeguards.
                    </p>
                 </div>
@@ -536,7 +536,7 @@ export const WhitepaperContent: React.FC<WhitepaperProps> = ({ lightMode }) => {
                       <Cpu className="text-red-500 w-5 h-5" />
                       <h4 className={`text-lg font-black ${lightMode ? 'text-black' : 'text-white'} uppercase italic`}>Industrialized Generation</h4>
                     </div>
-                    <p className={`${lightMode ? 'text-zinc-600' : 'text-zinc-400'} text-sm leading-relaxed text-justify`}>
+                    <p className={`${lightMode ? 'text-zinc-500' : 'text-zinc-400'} text-sm leading-relaxed text-justify`}>
                       Sophisticated attack groups leverage high-density GPU clusters to generate billions of addresses per second (APS). Forensic modeling indicates that 16-character matches (8 prefix + 8 suffix) are now computationally inexpensive for well-funded entities.
                     </p>
                   </div>

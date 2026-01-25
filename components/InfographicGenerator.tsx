@@ -82,7 +82,7 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
         <div className="flex-1 p-6 bg-zinc-900/30 border border-zinc-800 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-3">
              <div className="flex items-center gap-2">
-               <Layout className="w-4 h-4 text-zinc-600" />
+               <Layout className="w-4 h-4 text-zinc-500" />
                <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Briefing Mode Selection</h4>
              </div>
              <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
                     className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-all ${
                       mode === item.m 
                         ? 'bg-white text-black border-white shadow-xl' 
-                        : 'bg-zinc-950 text-zinc-600 border-zinc-800 hover:border-zinc-700'
+                        : 'bg-zinc-950 text-zinc-500 border-zinc-800 hover:border-zinc-700'
                     }`}
                   >
                     {item.l}
@@ -164,13 +164,13 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
             {/* Header Area */}
             <div className="relative z-10 flex justify-between items-start">
               <div className="space-y-4">
-                <div className={`flex items-center gap-3 ${mode === 'MASTER' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                <div className={`flex items-center gap-3 ${mode === 'MASTER' ? 'text-zinc-400' : 'text-zinc-500'}`}>
                    <FileText className="w-5 h-5" />
                    <div className="text-[11px] font-mono uppercase tracking-[0.4em]">{styles.label}</div>
                 </div>
                 <div className={`px-4 py-1.5 rounded-lg text-[10px] font-mono uppercase tracking-widest border ${
                    mode === 'MASTER' 
-                    ? 'bg-zinc-100 border-zinc-200 text-zinc-600' 
+                    ? 'bg-zinc-100 border-zinc-200 text-zinc-500' 
                     : 'bg-zinc-900/50 border-zinc-800 text-zinc-400'
                 }`}>
                   DOC_ID: VIG-STRAT-RP-{mode === 'ALERT' ? '01' : mode === 'BLUEPRINT' ? '02' : '03'}
@@ -236,7 +236,7 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
                              </div>
                           </div>
                        </div>
-                       <div className="absolute -top-4 -right-4 w-12 h-12 bg-zinc-950 border border-zinc-800 rounded-full flex items-center justify-center text-zinc-600 font-mono text-[10px]">0.5</div>
+                       <div className="absolute -top-4 -right-4 w-12 h-12 bg-zinc-950 border border-zinc-800 rounded-full flex items-center justify-center text-zinc-500 font-mono text-[10px]">0.5</div>
                     </div>
                  </div>
                ) : (
@@ -271,7 +271,7 @@ export const InfographicGenerator: React.FC<InfographicProps> = ({ tweetText }) 
             {/* Footer Area */}
             <div className="relative z-10 flex justify-between items-end border-t border-zinc-900/50 pt-10">
               <div className="space-y-2">
-                <div className={`text-[10px] font-black uppercase tracking-widest ${mode === 'MASTER' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                <div className={`text-[10px] font-black uppercase tracking-widest ${mode === 'MASTER' ? 'text-zinc-400' : 'text-zinc-500'}`}>
                    OFFICIAL BROADCAST // BLOCKCHAIN SECURITY STANDARD
                 </div>
                 <div className={`text-[16px] font-black uppercase tracking-widest italic ${mode === 'MASTER' ? 'text-black' : 'text-white'}`}>

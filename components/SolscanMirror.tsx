@@ -51,7 +51,7 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
            <div className="w-full max-w-4xl bg-[#080808] border-2 border-zinc-700 rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-10 shadow-[0_50px_100px_rgba(0,0,0,1)] relative overflow-hidden mb-4">
               <button 
                 onClick={() => setIntelCA(null)}
-                className="absolute top-6 right-8 text-zinc-600 hover:text-white transition-colors uppercase font-black text-[9px] tracking-widest z-[210]"
+                className="absolute top-6 right-8 text-zinc-500 hover:text-white transition-colors uppercase font-black text-[9px] tracking-widest z-[210]"
               >
                 CLOSE [X]
               </button>
@@ -72,8 +72,8 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
         </div>
         <div className="flex items-center gap-4">
           <div className="p-1 bg-black border border-zinc-800 rounded-lg flex">
-             <button onClick={() => setViewMode('EXPLORER')} className={`px-4 py-1.5 rounded-md text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'EXPLORER' ? 'bg-zinc-800 text-white' : 'text-zinc-600 hover:text-zinc-400'}`}>Explorer</button>
-             <button onClick={() => setViewMode('DEX_DISCOVERY')} className={`px-4 py-1.5 rounded-md text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'DEX_DISCOVERY' ? 'bg-cyan-600 text-white' : 'text-zinc-600 hover:text-zinc-400'}`}>Market Discovery</button>
+             <button onClick={() => setViewMode('EXPLORER')} className={`px-4 py-1.5 rounded-md text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'EXPLORER' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-400'}`}>Explorer</button>
+             <button onClick={() => setViewMode('DEX_DISCOVERY')} className={`px-4 py-1.5 rounded-md text-[8px] font-black uppercase tracking-widest transition-all ${viewMode === 'DEX_DISCOVERY' ? 'bg-cyan-600 text-white' : 'text-zinc-500 hover:text-zinc-400'}`}>Market Discovery</button>
           </div>
           <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center">
             <Activity size={14} className="text-zinc-500 animate-pulse" />
@@ -84,7 +84,7 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
       {/* Sub Header / Search */}
       <div className="p-6 bg-[#070707] border-b border-zinc-800/50 shrink-0">
         <div className="max-w-xl mx-auto relative group">
-          <div className="absolute inset-y-0 left-4 flex items-center text-zinc-600">
+          <div className="absolute inset-y-0 left-4 flex items-center text-zinc-500">
             <Search size={16} />
           </div>
           <input 
@@ -116,7 +116,7 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
                 {viewMode === 'EXPLORER' ? 'Recent Transactions' : 'Discovery Feed: Moonshots'}
               </h3>
             </div>
-            <button className={`text-[10px] font-black uppercase tracking-widest hover:underline flex items-center gap-2 ${viewMode === 'EXPLORER' ? 'text-blue-500' : 'text-cyan-500'}`}>
+            <button className={`text-xs font-black uppercase tracking-widest hover:underline flex items-center gap-2 ${viewMode === 'EXPLORER' ? 'text-blue-500' : 'text-cyan-500'}`}>
               View All <ArrowUpRight size={12} />
             </button>
           </div>
@@ -125,16 +125,16 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
             <table className="w-full text-left">
               <thead className="bg-[#0c0c0c] border-b border-zinc-800">
                 <tr>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                     {viewMode === 'EXPLORER' ? 'Signature' : 'Ticker'}
                   </th>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">
                     {viewMode === 'EXPLORER' ? 'Slot' : 'Volume (24h)'}
                   </th>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">Age</th>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">Contract Address (CA)</th>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">Dev</th>
-                  <th className="p-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest text-right">MCap</th>
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">Age</th>
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">Contract Address (CA)</th>
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">Dev</th>
+                  <th className="p-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest text-right">MCap</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-800/50">
@@ -181,13 +181,13 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
                       </td>
                       <td className="p-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-[10px] text-zinc-600 italic">0x8821...</span>
+                          <span className="font-mono text-[10px] text-zinc-500 italic">0x8821...</span>
                         </div>
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex flex-col items-end">
                           <span className="text-[11px] font-black text-zinc-200">${tx.amount}k</span>
-                          <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">SOL/USDC</span>
+                          <span className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">SOL/USDC</span>
                         </div>
                       </td>
                     </tr>
@@ -197,7 +197,7 @@ export const SolscanMirror: React.FC<SolscanMirrorProps> = ({ onCopy, activeType
             </table>
           </div>
 
-          <div className="p-4 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex items-center justify-center gap-4 text-zinc-600 italic text-[10px]">
+          <div className="p-4 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex items-center justify-center gap-4 text-zinc-500 italic text-[10px]">
             <Clock size={12} />
             {viewMode === 'EXPLORER' ? 'Auto-refreshing block history every 400ms...' : 'Streaming Discovery Engine: Scoping Alpha...'}
           </div>
