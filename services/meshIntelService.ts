@@ -61,19 +61,39 @@ export const querySentinelMesh = async (
   }
 
   // Call secure API route
-  const response = await fetch('/api/gemini', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      endpoint: 'queryMeshIntelligence',
-      payload: { query }
-    }),
-    signal
-  });
+  let response: Response;
+  try {
+    response = await fetch('/api/gemini', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        endpoint: 'queryMeshIntelligence',
+        payload: { query }
+      }),
+      signal
+    });
+  } catch (fetchError: any) {
+    // Network error or API route doesn't exist
+    if (fetchError.name === 'TypeError' || fetchError.message?.includes('Failed to fetch')) {
+      throw new Error(
+        '[CLASSIFICATION] API_ERROR\n[!] BACKEND_NOT_AVAILABLE: The /api/gemini route is not accessible.\n\n' +
+        'SOLUTION: You must run `npx vercel dev` (not `npm run dev`) to enable serverless functions.\n' +
+        'Vite dev server does not support API routes. Please restart with: npx vercel dev'
+      );
+    }
+    throw fetchError;
+  }
 
   if (!response.ok) {
+    // Check if it's a 404 (route doesn't exist)
+    if (response.status === 404) {
+      throw new Error(
+        '[CLASSIFICATION] API_ERROR\n[!] ROUTE_NOT_FOUND: /api/gemini endpoint not found.\n\n' +
+        'SOLUTION: Run `npx vercel dev` instead of `npm run dev` to enable serverless functions.'
+      );
+    }
     const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(error.error || 'Failed to query mesh intelligence');
+    throw new Error(error.error || `Failed to query mesh intelligence (HTTP ${response.status})`);
   }
 
   const result = await response.json();
@@ -84,18 +104,40 @@ export const querySentinelMesh = async (
 };
 
 /**
- * Streaming Mesh Intelligence query (legacy - currently uses non-streaming)
- * Wraps non-streaming response in async generator for compatibility
+ * Streaming Mesh Intelligence query
+ * Wraps non-streaming response in async generator for streaming compatibility
+ * Guarantees: Always yields at least once OR throws, always terminates cleanly
  */
 export const querySentinelMeshStream = async function* (
   query: string,
   signal?: AbortSignal
 ): AsyncGenerator<{ text: string; usageMetadata?: any }> {
-  // Use non-streaming function and wrap result in generator for compatibility
+  // Check abort before starting - ensures immediate termination if already aborted
+  if (signal?.aborted) {
+    throw new DOMException('Aborted', 'AbortError');
+  }
+
   try {
     const result = await querySentinelMesh(query, signal);
-    yield result;
+    
+    // Always yield a valid chunk - ensures for await loop receives at least one iteration
+    if (result && typeof result.text === 'string') {
+      yield {
+        text: result.text,
+        usageMetadata: result.usageMetadata
+      };
+    } else {
+      // Fallback: yield empty result rather than hanging if result is malformed
+      yield { text: '', usageMetadata: result?.usageMetadata };
+    }
+    // Generator completes naturally here - signals end-of-stream to for await
   } catch (error: any) {
+    // Ensure abort errors are properly typed for consumer detection
+    if (error.name === 'AbortError' || signal?.aborted) {
+      throw new DOMException('Aborted', 'AbortError');
+    }
+    // Re-throw all other errors to propagate to consumer's catch block
     throw error;
   }
+  // Generator terminates here - for await loop will exit
 };

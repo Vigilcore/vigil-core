@@ -320,7 +320,7 @@ export const Header: React.FC<HeaderProps> = ({
                 
                 return (
                   <button 
-                    key={item.id || idx} 
+                    key={`${item.id || 'nav'}-${item.label}-${idx}`} 
                     data-active={isActive} 
                     disabled={isLocked} 
                     onClick={() => {
