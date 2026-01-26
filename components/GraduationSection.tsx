@@ -24,7 +24,7 @@ export const GraduationSection: React.FC<GraduationSectionProps> = ({
         </div>
         
         <div className="space-y-6 md:space-y-8">
-          <h3 className="text-5xl md:text-[8rem] font-black text-white italic uppercase tracking-tighter leading-none drop-shadow-2xl">Graduation.</h3>
+          <h3 className="text-[2.25rem] md:text-[4.5rem] font-black text-white italic uppercase tracking-tighter leading-none drop-shadow-2xl">Graduation.</h3>
           <div className="h-1.5 w-32 bg-emerald-500 rounded-full mx-auto" />
           <p className="text-zinc-500 text-sm md:text-3xl font-medium max-w-4xl mx-auto italic leading-relaxed px-4">
             "Calibration successfully concluded. Operator has reached terminal proficiency. Final disengage sequence active. Your <span className="text-white">resilience</span> is now your permanent shield. Go forth into the wild, Sentinel."

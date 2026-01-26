@@ -12,7 +12,7 @@ interface RoadmapCardProps {
   colorClass: string;
   accentColor: string;
   icon: React.ReactNode;
-  onPointInteraction: (point: string | null, pos?: { x: number; y: number }, sourceVersion?: string) => void;
+  onPointInteraction: (point: string | null, pos?: { x: number; y: number }, sourceVersion?: string, cardRect?: DOMRect) => void;
 }
 
 const RoadmapCard: React.FC<RoadmapCardProps> = ({ 
@@ -21,9 +21,10 @@ const RoadmapCard: React.FC<RoadmapCardProps> = ({
   const isEmerald = accentColor === 'emerald';
   const isAmber = accentColor === 'amber';
   const isRed = accentColor === 'red';
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={`flex-1 min-w-[300px] p-10 bg-[#0B0E12] border border-zinc-900 rounded-[1.5rem] relative group transition-all duration-500 hover:border-${accentColor}-500/40 shadow-2xl flex flex-col`}>
+    <div ref={cardRef} className={`flex-1 min-w-[300px] p-10 bg-[#0B0E12] border border-zinc-900 rounded-[1.5rem] relative group transition-all duration-500 hover:border-${accentColor}-500/40 shadow-2xl flex flex-col`}>
       {/* Background Radial Glow */}
       <div className={`absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_0%_0%,rgba(var(--${accentColor}-rgb),0.08),transparent_70%)] pointer-events-none rounded-[1.5rem]`} />
       
@@ -59,7 +60,8 @@ const RoadmapCard: React.FC<RoadmapCardProps> = ({
               onMouseEnter={(e) => {
                 // Desktop Hover logic
                 if (window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 1024) {
-                  onPointInteraction(point, { x: e.clientX, y: e.clientY }, version);
+                  const cardRect = cardRef.current?.getBoundingClientRect();
+                  onPointInteraction(point, { x: e.clientX, y: e.clientY }, version, cardRect || undefined);
                 }
               }}
               onMouseLeave={() => {
@@ -69,7 +71,8 @@ const RoadmapCard: React.FC<RoadmapCardProps> = ({
               }}
               onClick={(e) => {
                 // Mobile Click logic for Popup
-                onPointInteraction(point, { x: e.clientX, y: e.clientY }, version);
+                const cardRect = cardRef.current?.getBoundingClientRect();
+                onPointInteraction(point, { x: e.clientX, y: e.clientY }, version, cardRect || undefined);
               }}
               className={`flex items-start gap-4 transition-all duration-300 cursor-pointer group/item`}
             >
@@ -243,12 +246,40 @@ const PrimitiveDetailModal: React.FC<{
   primitive: string;
   sourceVersion: string | null;
   mousePos: { x: number; y: number } | null;
-}> = ({ isOpen, onClose, primitive, sourceVersion, mousePos }) => {
+  cardRect: DOMRect | null;
+}> = ({ isOpen, onClose, primitive, sourceVersion, mousePos, cardRect }) => {
+  const [viewportSize, setViewportSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let rafId: number | null = null;
+    const updateViewport = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+        setScrollY(window.scrollY);
+        rafId = null;
+      });
+    };
+
+    updateViewport();
+    window.addEventListener('scroll', updateViewport, { passive: true });
+    window.addEventListener('resize', updateViewport);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', updateViewport);
+      window.removeEventListener('resize', updateViewport);
+    };
+  }, [isOpen]);
+
   if (!isOpen || !PRIMITIVE_DETAILS[primitive]) return null;
   const detail = PRIMITIVE_DETAILS[primitive];
   
   // High fidelity mobile detection
-  const isMobile = window.innerWidth < 1024;
+  const isMobile = viewportSize.width < 1024;
 
   const getTheme = () => {
     if (sourceVersion === "01") return { color: "emerald", hex: "#10b981", bg: "bg-emerald-600/10", panelBg: "#041008" };
@@ -257,6 +288,42 @@ const PrimitiveDetailModal: React.FC<{
   };
 
   const theme = getTheme();
+
+  // Calculate scale factor based on available space (needed for height estimation)
+  const getContentScale = (): { padding: string; fontSize: string } => {
+    if (isMobile || !cardRect) {
+      return { padding: 'p-8 md:p-12', fontSize: 'text-base' };
+    }
+
+    const viewportPadding = 16;
+    const safeTop = viewportPadding;
+    const safeBottom = viewportPadding;
+    const viewportHeight = viewportSize.height;
+    const maxViewportHeight = viewportHeight - safeTop - safeBottom;
+    
+    // Estimate content needs ~500px, scale down if constrained
+    const scaleFactor = Math.min(1, maxViewportHeight / 500);
+    
+    if (scaleFactor < 0.85) {
+      // Very constrained - reduce padding and font size
+      return { 
+        padding: 'p-6 md:p-10', 
+        fontSize: 'text-sm md:text-base' 
+      };
+    } else if (scaleFactor < 0.95) {
+      // Moderately constrained - slight reduction
+      return { 
+        padding: 'p-7 md:p-11', 
+        fontSize: 'text-base md:text-lg' 
+      };
+    }
+    
+    // Normal size
+    return { 
+      padding: 'p-8 md:p-12', 
+      fontSize: 'text-base md:text-lg' 
+    };
+  };
 
   const getStyle = (): React.CSSProperties => {
     if (isMobile) {
@@ -275,18 +342,112 @@ const PrimitiveDetailModal: React.FC<{
       };
     }
     
-    if (!mousePos) return {};
+    if (!mousePos || !cardRect) return {};
 
     const modalWidth = 480; 
-    const modalHeight = 400; 
-    const headerGuard = 480; 
-
-    let left = sourceVersion === "01" ? (window.innerWidth / 2) - (modalWidth / 2) : 100;
-    let top = Math.max(headerGuard, mousePos.y);
+    const gap = 20; // Gap between card and HUD
+    const viewportPadding = 16; // Padding from viewport edges
+    const safeTop = viewportPadding;
+    const safeBottom = viewportPadding;
+    const viewportHeight = viewportSize.height;
+    const maxViewportHeight = viewportHeight - safeTop - safeBottom;
     
-    if (top + (modalHeight / 2) > window.innerHeight - 40) {
-      top = window.innerHeight - (modalHeight / 2) - 40;
+    // Recalculate card position in current viewport (accounts for scroll)
+    // Try to find the card element to get fresh coordinates
+    let currentCardRect = cardRect;
+    try {
+      // Find the card by looking for milestone cards in the DOM
+      const milestoneCards = document.querySelectorAll('[class*="Milestone"]');
+      if (milestoneCards.length > 0) {
+        // Use the card that matches our source version (01, 02, or 03)
+        const cardIndex = sourceVersion === "01" ? 0 : sourceVersion === "02" ? 1 : 2;
+        if (milestoneCards[cardIndex]) {
+          const freshRect = milestoneCards[cardIndex].getBoundingClientRect();
+          if (freshRect.width > 0 && freshRect.height > 0) {
+            currentCardRect = freshRect;
+          }
+        }
+      }
+    } catch (e) {
+      // Fallback to original cardRect if query fails
     }
+    
+    const cardRight = currentCardRect.right;
+    const cardLeft = currentCardRect.left;
+    const cardTop = currentCardRect.top;
+    const cardCenterY = cardTop + (currentCardRect.height / 2);
+    
+    // Calculate available space on right and left
+    const spaceOnRight = viewportSize.width - cardRight - gap - viewportPadding;
+    const spaceOnLeft = cardLeft - gap - viewportPadding;
+    
+    // Determine placement: left column (01) opens right, middle (02) and right (03) open left
+    let openOnRight = false;
+    if (sourceVersion === "01") {
+      // Left column: prefer right, but check if there's enough space
+      openOnRight = spaceOnRight >= modalWidth;
+    } else {
+      // Middle and right columns: prefer left, but check if there's enough space
+      openOnRight = spaceOnLeft < modalWidth && spaceOnRight >= modalWidth;
+    }
+    
+    // Calculate horizontal position
+    let left: number;
+    if (openOnRight) {
+      left = cardRight + gap;
+      // Ensure it doesn't overflow viewport
+      if (left + modalWidth > viewportSize.width - viewportPadding) {
+        left = viewportSize.width - modalWidth - viewportPadding;
+      }
+    } else {
+      left = cardLeft - modalWidth - gap;
+      // Ensure it doesn't overflow viewport
+      if (left < viewportPadding) {
+        left = viewportPadding;
+      }
+    }
+    
+    // Calculate vertical position - viewport-aware, not card-bottom-aware
+    // Start with card center as preferred position
+    let preferredTop = cardCenterY;
+    
+    // Estimate HUD height based on content scale
+    const contentScale = getContentScale();
+    const isConstrained = contentScale.padding.includes('p-6') || contentScale.padding.includes('p-7');
+    const estimatedHeight = isConstrained ? 450 : 500; // Slightly smaller if constrained
+    const halfHeight = estimatedHeight / 2;
+    
+    // Calculate HUD top edge position (center - half height)
+    let hudTop = preferredTop - halfHeight;
+    const hudHeight = estimatedHeight;
+    const viewportTop = safeTop;
+    const viewportBottom = viewportHeight - safeBottom;
+    
+    // Apply viewport-aware vertical clamping (KEY FIX)
+    // Clamp 1: Ensure HUD top edge is at least 16px from viewport top
+    if (hudTop < viewportTop) {
+      hudTop = viewportTop;
+    }
+    
+    // Clamp 2: Ensure HUD bottom edge is at least 16px from viewport bottom
+    if (hudTop + hudHeight > viewportBottom) {
+      hudTop = viewportBottom - hudHeight;
+    }
+    
+    // Clamp 3: If HUD is taller than viewport (shouldn't happen, but safety check)
+    // Position it at the top with minimum safe margin
+    if (hudTop < viewportTop) {
+      hudTop = viewportTop;
+    }
+    
+    // Convert clamped top edge back to center position for transform: translateY(-50%)
+    const top = hudTop + halfHeight;
+    
+    // Calculate dynamic max-height based on available viewport space
+    // This ensures content never overflows the HUD container
+    const availableHeightAbove = Math.max(0, top - safeTop);
+    const availableHeightBelow = Math.max(0, (viewportHeight - safeBottom) - top);
+    const maxHeight = Math.min(maxViewportHeight, availableHeightAbove + availableHeightBelow);
 
     return {
       position: 'fixed',
@@ -294,11 +455,15 @@ const PrimitiveDetailModal: React.FC<{
       top: `${top}px`,
       transform: 'translateY(-50%)',
       width: `${modalWidth}px`,
+      maxHeight: `${Math.max(300, maxHeight)}px`, // Minimum 300px, but respect viewport
+      height: 'auto',
       pointerEvents: 'auto',
       backgroundColor: `${theme.panelBg}f2`,
       zIndex: 1001
     };
   };
+
+  const contentScale = getContentScale();
 
   const modalContent = (
     <div className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 ${isMobile ? 'bg-black/90 pointer-events-auto backdrop-blur-xl' : 'pointer-events-none'}`}>
@@ -307,27 +472,27 @@ const PrimitiveDetailModal: React.FC<{
       
       <div 
         style={getStyle()}
-        className={`relative backdrop-blur-3xl border-2 rounded-[2.5rem] p-8 md:p-12 shadow-[0_40px_150px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 animate-in fade-in zoom-in-95 border-${theme.color}-500/40 custom-scrollbar`}
+        className={`relative backdrop-blur-3xl border-2 rounded-[2.5rem] ${contentScale.padding} shadow-[0_40px_150px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 animate-in fade-in zoom-in-95 border-${theme.color}-500/40`}
       >
         <div className={`absolute inset-0 opacity-[0.05] pointer-events-none bg-[size:25px_25px] bg-[linear-gradient(rgba(var(--${theme.color}-rgb),0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--${theme.color}-rgb),0.2)_1px,transparent_1px)]`} />
         
         <div className={`absolute top-0 left-0 w-full h-[1px] bg-${theme.color}-400 shadow-[0_0_15px_${theme.hex}] animate-pulse`} />
         
-        <button onClick={onClose} className="absolute top-8 right-8 p-3 text-zinc-500 hover:text-white transition-colors z-50 rounded-full hover:bg-white/5">
+        <button onClick={onClose} className="absolute top-6 right-6 md:top-8 md:right-8 p-3 text-zinc-500 hover:text-white transition-colors z-50 rounded-full hover:bg-white/5">
           <X className="w-6 h-6" />
         </button>
 
-        <div className="space-y-8 relative z-10">
-          <div className="space-y-3">
+        <div className="space-y-6 md:space-y-8 relative z-10">
+          <div className="space-y-2 md:space-y-3">
             <TechLabel text="SYSTEM_PRIMITIVE_AUDIT" color={theme.color} />
-            <h3 className="text-2xl md:text-4xl font-black text-white italic uppercase tracking-tighter leading-none">{primitive}</h3>
+            <h3 className="text-xl md:text-3xl font-black text-white italic uppercase tracking-tighter leading-none">{primitive}</h3>
           </div>
 
-          <div className="space-y-8">
-            <div className="space-y-6">
+          <div className="space-y-6 md:space-y-8">
+            <div className="space-y-4 md:space-y-6">
               <div>
                 <span className={`text-[10px] font-black uppercase tracking-widest block mb-2 text-${theme.color}-700`}>Definition</span>
-                <p className="text-zinc-200 text-sm md:text-lg leading-relaxed font-medium italic">"{detail.definition}"</p>
+                <p className={`text-zinc-200 ${contentScale.fontSize} leading-relaxed font-medium italic`}>"{detail.definition}"</p>
               </div>
               <div>
                 <span className={`text-[10px] font-black uppercase tracking-widest block mb-2 text-${theme.color}-700`}>Integration</span>
@@ -335,14 +500,14 @@ const PrimitiveDetailModal: React.FC<{
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-5">
-              <div className="p-6 bg-black/60 border border-zinc-800 rounded-2xl shadow-inner">
+            <div className="grid grid-cols-1 gap-4 md:gap-5">
+              <div className="p-4 md:p-6 bg-black/60 border border-zinc-800 rounded-2xl shadow-inner">
                  <span className={`text-[10px] font-black uppercase tracking-widest block mb-2 text-${theme.color}-500`}>Behavioral Example</span>
-                 <p className="text-zinc-400 text-xs md:text-sm italic leading-relaxed font-medium">"{detail.example}"</p>
+                 <p className={`text-zinc-400 text-xs md:text-sm italic leading-relaxed font-medium`}>"{detail.example}"</p>
               </div>
-              <div className={`${theme.bg} border rounded-2xl p-6 border-${theme.color}-500/20`}>
+              <div className={`${theme.bg} border rounded-2xl p-4 md:p-6 border-${theme.color}-500/20`}>
                  <span className={`text-[10px] font-black uppercase tracking-widest block mb-2 text-${theme.color}-500`}>Primary Benefit</span>
-                 <p className="text-zinc-300 text-xs md:text-sm font-bold uppercase tracking-tight leading-relaxed">{detail.benefit}</p>
+                 <p className={`text-zinc-300 text-xs md:text-sm font-bold uppercase tracking-tight leading-relaxed`}>{detail.benefit}</p>
               </div>
             </div>
           </div>
@@ -360,9 +525,10 @@ export const Roadmap: React.FC = () => {
   const [selectedPrimitive, setSelectedPrimitive] = useState<string | null>(null);
   const [sourceVersion, setSourceVersion] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+  const [cardRect, setCardRect] = useState<DOMRect | null>(null);
   const closeTimeoutRef = useRef<number | null>(null);
 
-  const handleInteraction = (p: string | null, pos?: { x: number; y: number }, version?: string) => {
+  const handleInteraction = (p: string | null, pos?: { x: number; y: number }, version?: string, rect?: DOMRect) => {
     const isMobile = window.innerWidth < 1024;
 
     if (closeTimeoutRef.current) {
@@ -374,17 +540,20 @@ export const Roadmap: React.FC = () => {
       setSelectedPrimitive(p);
       setSourceVersion(version || null);
       if (pos) setMousePos(pos);
+      if (rect) setCardRect(rect);
     } else {
       if (!isMobile) {
         closeTimeoutRef.current = window.setTimeout(() => {
           setSelectedPrimitive(null);
           setSourceVersion(null);
           setMousePos(null);
+          setCardRect(null);
         }, 100);
       } else {
         setSelectedPrimitive(null);
         setSourceVersion(null);
         setMousePos(null);
+        setCardRect(null);
       }
     }
   };
@@ -452,6 +621,7 @@ export const Roadmap: React.FC = () => {
           primitive={selectedPrimitive || ''} 
           sourceVersion={sourceVersion}
           mousePos={mousePos}
+          cardRect={cardRect}
         />
       </div>
     </section>

@@ -129,7 +129,7 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
           ))}
         </div>
 
-        <div className="p-10 md:p-20 bg-white text-black rounded-[16px] md:rounded-[4rem] relative overflow-hidden group shadow-[0_50px_150px_rgba(255,255,255,0.1)]">
+        <div className="p-10 md:px-12 md:py-20 bg-white text-black rounded-[16px] md:rounded-[4rem] relative overflow-hidden group shadow-[0_50px_150px_rgba(255,255,255,0.1)]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05),transparent_70%)] pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-12 md:gap-24">
             <div className="w-16 h-16 md:w-32 md:h-32 rounded-[2rem] md:rounded-[3rem] bg-black flex items-center justify-center shrink-0 shadow-2xl transform group-hover:rotate-12 transition-transform duration-700">
@@ -140,10 +140,10 @@ export const CalibrationJourneySection: React.FC<CalibrationJourneySectionProps>
                 <span className="text-zinc-500 font-black text-[14px] uppercase tracking-[1em]">Final_Mandate</span>
                 <div className="h-[2px] flex-1 bg-zinc-100" />
               </div>
-              <p className="text-xl md:text-[3.8rem] font-black italic uppercase tracking-tighter leading-[0.85]">
-                "The Sandbox teaches you <span className="text-blue-600">how they attack</span>;<br/>
-                Synthesis teaches you <span className="text-cyan-600">who is attacking</span>;<br/>
-                Calibration teaches you <span className="text-purple-600">how to see</span>;<br/>
+              <p className="text-[16px] md:text-[32px] font-black italic uppercase tracking-tighter leading-[0.85] whitespace-pre-line">
+                "Sandbox teaches you <span className="text-blue-600">how they attack</span>;{"\n\n"}
+                Synthesis teaches you <span className="text-cyan-600">who is attacking</span>;{"\n\n"}
+                Calibration teaches you <span className="text-purple-600">how to see</span>;{"\n\n"}
                 And the Terminal ensures you <span className="text-amber-600">survive.</span>"
               </p>
             </div>

@@ -40,7 +40,7 @@ export const Problem: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
   ];
 
   return (
-    <section id="the-threat" className="flex flex-col items-center justify-center p-1 md:p-12 py-8 relative overflow-hidden bg-[#020202]">
+    <section id="the-threat" className="flex flex-col items-center justify-center px-6 md:px-12 py-8 relative overflow-x-hidden bg-[#020202]">
       <div ref={containerRef} className="w-full max-w-6xl space-y-10 md:space-y-12 relative z-10">
         <div className={`text-center space-y-6 max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
           <span className="text-red-500 mono text-[10px] font-black tracking-[0.3em] uppercase">Vulnerability Matrix</span>
@@ -59,7 +59,7 @@ export const Problem: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
           {matrixCards.map((card, i) => (
             <div 
               key={i} 
@@ -67,7 +67,7 @@ export const Problem: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
                 transitionDelay: `${(i * 150) + 300}ms`,
                 transitionTimingFunction: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
               }}
-              className={`p-6 md:p-10 bg-zinc-950/40 border border-zinc-700 rounded-3xl transition-all duration-1000 relative overflow-hidden will-change-transform ${
+              className={`p-5 md:p-7 bg-zinc-950/40 border border-zinc-700 rounded-3xl transition-all duration-1000 relative overflow-hidden will-change-transform ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               } hover:border-zinc-500 hover:-translate-y-1.5 group`}
             >
@@ -79,7 +79,7 @@ export const Problem: React.FC<{ onOpenDoc?: (doc: RegistryDoc) => void }> = ({ 
           ))}
         </div>
 
-        <div className={`p-8 md:p-16 bg-blue-600/5 border border-blue-500/30 rounded-3xl text-center relative group overflow-hidden transition-all duration-1000 delay-[800ms] ${isVisible ? 'opacity-100' : 'opacity-0 scale-[0.98]'}`}>
+        <div className={`p-6 md:p-10 bg-blue-600/5 border border-blue-500/30 rounded-3xl text-center relative group overflow-hidden transition-all duration-1000 delay-[800ms] max-w-5xl mx-auto ${isVisible ? 'opacity-100' : 'opacity-0 scale-[0.98]'}`}>
           <p className="text-lg md:text-2xl font-bold text-white leading-relaxed italic relative z-10 max-w-4xl mx-auto tracking-tight">
             "The critical exploit surface is the cognitive gap between the visual representation of an intent and the cryptographic execution of a signature."
           </p>

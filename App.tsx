@@ -1138,6 +1138,40 @@ const App: React.FC = () => {
           50% { border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 80px rgba(16, 185, 129, 0.6); transform: translateZ(50px) scale(1.02); } 
         }
         .animate-fracture-pulse { animation: fracture-pulse 0.4s infinite ease-in-out; }
+        
+        @keyframes mission-briefing-pulse {
+          0%, 100% { 
+            border-color: rgba(59, 130, 246, 0.6); 
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4), 0 0 40px rgba(37, 99, 235, 0.2);
+            transform: scale(1);
+          }
+          50% { 
+            border-color: rgba(96, 165, 250, 0.9); 
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.8), 0 0 80px rgba(37, 99, 235, 0.6);
+            transform: scale(1.02);
+          }
+        }
+        .animate-mission-briefing-pulse {
+          animation: mission-briefing-pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes mission-briefing-radar {
+          0% { 
+            transform: scale(1); 
+            opacity: 0.3; 
+          }
+          50% { 
+            transform: scale(1.15); 
+            opacity: 0.5; 
+          }
+          100% { 
+            transform: scale(1); 
+            opacity: 0.3; 
+          }
+        }
+        .animate-mission-briefing-radar {
+          animation: mission-briefing-radar 2s infinite ease-in-out;
+        }
 
         /* HIGH-FIDELITY SHARD PHYSICS ENGINE (RESTORED) */
         @keyframes shard-chaos-0 { 0% { transform: translate3d(0, 0, 0) rotate(0); opacity: 1; } 100% { transform: translate3d(-350%, -450%, 1500px) rotateX(720deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }

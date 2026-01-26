@@ -356,14 +356,14 @@ export const Hero: React.FC<HeroProps> = ({ scrollToSection, onOpenDoc, powerSav
                 </div>
                 <div className="flex items-center gap-4">
                   <button id="tour-mission-briefing" onClick={onOpenBriefing} className="relative group active:scale-95 transition-all duration-300">
-                    <div className="absolute inset-0 bg-blue-500/30 md:rounded-full rounded-lg animate-radar-pulse" />
-                    <div className="relative px-6 py-4 md:py-2.5 bg-black border border-blue-500/60 md:rounded-full rounded-lg flex items-center gap-3 shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:border-blue-400 animate-button-breathe">
+                    <div className="absolute inset-0 bg-blue-500/30 md:rounded-full rounded-lg animate-mission-briefing-radar" />
+                    <div className="relative px-6 py-4 md:py-2.5 bg-black border border-blue-500/60 md:rounded-full rounded-lg flex items-center gap-3 shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:border-blue-400 animate-mission-briefing-pulse">
                       <Zap size={14} className="text-blue-400 fill-blue-400/20" />
                       <span className="text-[11px] md:text-[9px] font-black text-white uppercase tracking-[0.4em] italic">Mission Briefing</span>
                     </div>
                   </button>
                   <div className="h-[1px] w-8 md:w-32 bg-zinc-800 relative overflow-hidden">
-                    <div className="absolute inset-0 animate-flowing-signal" />
+                    <div className="absolute top-0 w-1/6 h-full bg-cyan-500 shadow-[0_0_8px_#22d3ee] animate-flowing-signal" />
                     <div className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_15px_#22d3ee] animate-pulse" />
                   </div>
                   <div className="flex items-center gap-2">
@@ -381,7 +381,7 @@ export const Hero: React.FC<HeroProps> = ({ scrollToSection, onOpenDoc, powerSav
                   onComplete={onValidatorTypingComplete}
                 />
               </div>
-              <div className="pt-4 md:pt-6 space-y-6 md:space-y-8 max-w-2xl">
+              <div className="pt-2 md:pt-3 space-y-6 md:space-y-8 max-w-2xl">
                 <div className="space-y-4 md:space-y-6">
                    <h4 className="text-11px font-black text-cyan-500 uppercase tracking-[0.5em]">Introducing Layer 0.5 Security</h4>
                    <p className="text-xl md:text-3xl text-zinc-300 font-medium leading-relaxed italic border-l-4 border-cyan-500/50 pl-6 md:pl-8">

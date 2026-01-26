@@ -185,11 +185,11 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="p-6 shrink-0 relative z-[101] bg-[#050505] pb-0 overflow-visible">
           <div className="flex flex-col gap-3 overflow-visible">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center space-X-4 cursor-pointer group" onClick={() => { scrollToSection('silo-1'); setIsMenuOpen(false); }}>
+              <div className="flex items-center gap-3 cursor-pointer group" onClick={() => { scrollToSection('silo-1'); setIsMenuOpen(false); }}>
                 <div className="w-6 h-6 bg-white flex items-center justify-center rounded-sm shadow-xl">
-                  <div className="w-3 h-3 bg-black rotate-45" />
+                  <div className="w-3 h-3 bg-black animate-rotate-logo" />
                 </div>
-                <span className="text-xl font-black tracking-tighter uppercase italic text-white leading-none">Vigil</span>
+                <span className="text-xl font-black tracking-tighter uppercase italic text-white leading-none">V I G I L · C O R E</span>
               </div>
               <button onClick={() => setIsMenuOpen(false)} className="md:hidden text-zinc-400 p-2"><X className="w-6 h-6" /></button>
             </div>
