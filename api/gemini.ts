@@ -239,6 +239,67 @@ export default async function handler(req: any, res: any) {
         return res.status(200).json(JSON.parse(text || '{}'));
       }
 
+      case 'queryMeshIntelligence': {
+        const { query } = payload;
+        const lowerQuery = query.toLowerCase();
+        
+        // High-level Gate for Market/Financial terms
+        if (['buy', 'sell', 'price', 'moon', 'pump', 'invest'].some(w => lowerQuery.includes(w))) {
+          return res.status(200).json({
+            text: '[CLASSIFICATION] RESTRICTED\n[!] ACCESS_DENIED: VIGIL IS A SECURITY PRIMITIVE. MARKET DATA ACCESS DENIED.',
+            usage: {
+              promptTokens: 0,
+              candidatesTokens: 0,
+              totalTokens: 0,
+              latencyMs: Date.now() - start
+            }
+          });
+        }
+
+        const SYSTEM_INSTRUCTION = `
+ROLE: VIGIL MESH INTELLIGENCE KERNEL (V-K1)
+STATUS: HARDENED // REAL-TIME GROUNDING ACTIVE
+
+DIRECTIVES:
+1. VOICE: Tactical, professional, authoritative, non-emotive. No conversational filler.
+2. GROUNDING (CRITICAL): You have access to GOOGLE SEARCH. Use it to verify contract addresses (CAs), find recent scam reports on X/Twitter, Discord, or security blogs.
+3. EXTENSION SYNERGY: You are the deep forensic layer for the VIGIL Chrome Extension. If a user asks about an address, search for recent activity or flags.
+4. FORMATTING: Use hierarchical Markdown.
+   - Use ### HEADERS for sections.
+   - Use **BOLD** for technical terms.
+   - Use - BULLET POINTS for forensic steps.
+5. OUTPUT STRUCTURE:
+   - [CLASSIFICATION] header.
+   - ### OVERVIEW: High-level summary.
+   - ### REAL_TIME_INTEL: Forensic data found via live search.
+   - ### DIRECTIVE: Actionable security advice.
+6. TOKEN ENQUIRIES: Exactly: "[CLASSIFICATION] RESTRICTED\n[!] ACCESS_DENIED: NO TOKEN EXISTS. VIGIL is a structural security standard. We do not have a token, a pre-sale, or an airdrop. Official data is shared exclusively via the VIGIL Registry (vigil.layer) and our verified communication channel (@Vigil_Research). Treat any other claim as a POISON EVENT."
+7. GRATITUDE: Exactly: "[CLASSIFICATION] HYGIENE\nACKNOWLEDGMENT REGISTERED. VIGILANCE IS THE ONLY PERMANENT SHIELD."
+`;
+
+        response = await ai.models.generateContent({
+          model: 'gemini-3-flash-preview',
+          contents: `${SYSTEM_INSTRUCTION}\n\nQUERY: ${query}`,
+          config: {
+            tools: [{ googleSearch: {} }], // Enable Google Search grounding
+            thinkingConfig: { thinkingBudget: 0 }
+          }
+        });
+        
+        const latency = Date.now() - start;
+        const text = response.text || '';
+        
+        return res.status(200).json({
+          text,
+          usage: {
+            promptTokens: response.usageMetadata?.promptTokenCount || 0,
+            candidatesTokens: response.usageMetadata?.candidatesTokenCount || 0,
+            totalTokens: response.usageMetadata?.totalTokenCount || 0,
+            latencyMs: latency
+          }
+        });
+      }
+
       default:
         return res.status(400).json({ error: `Unknown endpoint: ${endpoint}` });
     }

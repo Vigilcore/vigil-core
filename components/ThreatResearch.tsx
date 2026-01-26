@@ -110,7 +110,8 @@ const IntentIntegrityDiagram = () => (
            <ArrowRight className="w-10 h-10 text-zinc-800/50" />
         </div>
         <div className="inline-block px-6 py-2 bg-red-500/25 border border-red-500/45 rounded-[8px] text-[11px] font-black text-red-500 uppercase tracking-[0.3em] mb-2 animate-pulse">
-          02. Context Loss (The Gap)
+          <div>02. Context Loss</div>
+          <div className="pl-4">(The Gap)</div>
         </div>
         <div className="py-16 px-10 bg-red-600/10 border-2 border-red-500/45 rounded-2xl space-y-6 shadow-[0_0_60px_rgba(239,68,68,0.15)] relative z-10">
           <h4 className="text-red-500 font-black uppercase italic tracking-tighter text-lg">Cognitive Compression</h4>

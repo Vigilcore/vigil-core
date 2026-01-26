@@ -14,8 +14,21 @@
 }
 
 @keyframes flowing-signal {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+  0% { left: -20%; }
+  100% { left: 100%; }
+}
+
+.animate-flowing-signal {
+  animation: flowing-signal 2s infinite linear;
+}
+
+@keyframes rotate-logo {
+  0% { transform: rotate(45deg); }
+  100% { transform: rotate(405deg); }
+}
+
+.animate-rotate-logo {
+  animation: rotate-logo 3s infinite linear;
 }
 
 @keyframes shatter {

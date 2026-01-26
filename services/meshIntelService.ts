@@ -45,14 +45,14 @@ DIRECTIVES:
 7. GRATITUDE: Exactly: "[CLASSIFICATION] HYGIENE\n${VIGIL_DOCTRINE.THANKS_DOCTRINE}"
 `;
 
-export const querySentinelMeshStream = async function* (
+/**
+ * Non-streaming Mesh Intelligence query
+ * Uses secure server-side API route (/api/gemini)
+ */
+export const querySentinelMesh = async (
   query: string,
   signal?: AbortSignal
-): AsyncGenerator<{ text: string; usageMetadata?: any }> {
-  // NOTE: Streaming requires direct API call for now
-  // TODO: Implement streaming API route for full security
-  // For now, this will need API key in client (temporary solution)
-  
+): Promise<{ text: string; usageMetadata?: any }> => {
   const lowerQuery = query.toLowerCase();
   
   // High-level Gate for Market/Financial terms
@@ -60,48 +60,42 @@ export const querySentinelMeshStream = async function* (
     throw new Error(`[CLASSIFICATION] RESTRICTED\n[!] ACCESS_DENIED: VIGIL IS A SECURITY PRIMITIVE. MARKET DATA ACCESS DENIED.`);
   }
 
-  // Call API route for streaming (if we implement it) or use direct call
-  // For now, using direct call - this needs to be secured with API route later
-  try {
-    // Try API route first (if streaming endpoint exists)
-    const response = await fetch('/api/gemini/stream', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-      signal
-    });
+  // Call secure API route
+  const response = await fetch('/api/gemini', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      endpoint: 'queryMeshIntelligence',
+      payload: { query }
+    }),
+    signal
+  });
 
-    if (response.ok && response.body) {
-      // Handle streaming response
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n').filter(line => line.trim());
-        
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              yield { text: data.text || '', usageMetadata: data.usageMetadata };
-            } catch (e) {
-              // Skip invalid JSON
-            }
-          }
-        }
-      }
-      return;
-    }
-  } catch (e) {
-    // Fallback: API route not available, use direct call (temporary)
-    console.warn('Streaming API route not available, using direct call');
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+    throw new Error(error.error || 'Failed to query mesh intelligence');
   }
 
-  // Fallback to direct API call (TEMPORARY - needs to be secured)
-  // This requires API key in client - should be moved to server-side streaming route
-  throw new Error('Streaming not yet fully secured - API route needed');
+  const result = await response.json();
+  return {
+    text: result.text || '',
+    usageMetadata: result.usage
+  };
+};
+
+/**
+ * Streaming Mesh Intelligence query (legacy - currently uses non-streaming)
+ * Wraps non-streaming response in async generator for compatibility
+ */
+export const querySentinelMeshStream = async function* (
+  query: string,
+  signal?: AbortSignal
+): AsyncGenerator<{ text: string; usageMetadata?: any }> {
+  // Use non-streaming function and wrap result in generator for compatibility
+  try {
+    const result = await querySentinelMesh(query, signal);
+    yield result;
+  } catch (error: any) {
+    throw error;
+  }
 };

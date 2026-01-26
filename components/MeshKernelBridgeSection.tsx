@@ -11,19 +11,22 @@ export const MeshKernelBridgeSection: React.FC<MeshKernelBridgeSectionProps> = (
   setActiveDoc
 }) => {
   return (
-    <div className="py-12 md:py-32 flex flex-col items-center justify-center">
-      <div className="w-full max-w-5xl p-12 md:p-24 bg-[#0a0a0a] border-2 border-zinc-800 rounded-[3rem] md:rounded-[5rem] text-center space-y-12 md:space-y-20 shadow-[0_50px_150px_rgba(0,0,0,1)] relative overflow-hidden group">
+    <div className="flex flex-col items-center justify-center px-4 md:px-6" style={{ 
+      paddingTop: 'clamp(1.5rem, 4vh, 3rem)',
+      paddingBottom: 'clamp(1.5rem, 4vh, 3rem)'
+    }}>
+      <div className="w-full max-w-5xl p-6 md:p-12 bg-[#0a0a0a] border-2 border-zinc-800 rounded-[3rem] md:rounded-[5rem] text-center space-y-6 md:space-y-10 shadow-[0_50px_150px_rgba(0,0,0,1)] relative group">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
-        <div className="space-y-10">
+        <div className="space-y-8">
           <div className="relative inline-block">
             <div className="w-24 h-24 md:w-32 h-32 bg-zinc-900 border border-zinc-800 rounded-[2rem] flex items-center justify-center mx-auto text-cyan-500 shadow-inner group-hover:scale-110 transition-transform duration-500">
               <Globe size={48} className="animate-spin-slow" />
             </div>
             <div className="absolute -top-2 -right-2 px-3 py-1 bg-cyan-600 text-white rounded-lg text-[8px] font-black uppercase tracking-widest animate-pulse">VK-1_STABLE</div>
           </div>
-          <div className="space-y-4 md:space-y-6">
-            <h3 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-none">Kernel Bridge.</h3>
-            <p className="text-zinc-500 text-sm md:text-2xl font-medium italic max-w-2xl mx-auto leading-relaxed px-4">
+          <div className="space-y-3 md:space-y-5">
+            <h3 className="text-3xl md:text-6xl font-black text-white italic uppercase tracking-tighter leading-none">Kernel Bridge.</h3>
+            <p className="text-zinc-500 text-xs md:text-xl font-medium italic max-w-2xl mx-auto leading-relaxed px-4">
               "The Sentinel Mesh requires an isolated processing environment. Deploy the standalone kernel to initialize zero-knowledge reputation synthesis."
             </p>
           </div>
@@ -42,7 +45,7 @@ export const MeshKernelBridgeSection: React.FC<MeshKernelBridgeSectionProps> = (
             <FileText size={20} className="group-hover/btn:scale-110 transition-transform text-cyan-500" /> READ_CAPABILITIES
           </button>
         </div>
-        <div className="pt-10 md:pt-16 border-t border-zinc-900/50 flex flex-col items-center gap-6">
+        <div className="pt-8 md:pt-12 border-t border-zinc-900/50 flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-4 opacity-20">
             <div className="h-[1px] w-12 bg-zinc-800" />
             <span className="text-[9px] font-black uppercase tracking-[0.6em]">Auth_Node: VK-1</span>

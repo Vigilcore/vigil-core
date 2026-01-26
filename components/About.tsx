@@ -58,7 +58,7 @@ export const About: React.FC = () => (
 
         <div className="lg:col-span-7 space-y-12">
           <div className="space-y-8">
-            <p className="text-2xl md:text-3xl text-zinc-300 leading-relaxed font-medium">
+            <p className="text-xl text-zinc-300 leading-relaxed font-medium">
               VIGIL is a browser level Web3 security project built by a four-member team spanning trading, development, and security engineering - individuals who have experienced firsthand how sophisticated crypto scams have become.
             </p>
             
