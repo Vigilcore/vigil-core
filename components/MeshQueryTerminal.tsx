@@ -226,8 +226,10 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
           const lastMsg = newHistory[newHistory.length - 1];
           if (lastMsg && lastMsg.role === 'MESH') {
             if (lastMsg.text.length < fullTextRef.current.length) {
+              // Continue typing - more text available
               return [...prev.slice(0, -1), { ...lastMsg, text: lastMsg.text + fullTextRef.current[lastMsg.text.length], sources: currentSourcesRef.current }];
-            } else if (!isStreamingRef.current) {
+            } else {
+              // Text complete - stop typing deterministically
               clearInterval(typingTimerRef.current!);
               typingTimerRef.current = null;
               setIsTyping(false);
@@ -312,43 +314,77 @@ export const MeshQueryTerminal: React.FC<MeshQueryTerminalProps> = ({ isStandalo
     onScanningChange?.(true);
     currentSourcesRef.current = [];
 
-    try {
-      const responseStream = await routeMeshQuery(userQuery, abortControllerRef.current.signal);
-      fullTextRef.current = "";
-      isStreamingRef.current = true;
-      setHistory([...newHistory, { role: 'MESH', text: '' }]);
-      setIsTyping(true);
-
-      for await (const chunk of responseStream) {
-        if (chunk.text) fullTextRef.current += chunk.text;
-        
-        // Capture Grounding Metadata (URLs)
-        const grounding = (chunk as any).candidates?.[0]?.groundingMetadata;
-        if (grounding?.groundingChunks) {
-          grounding.groundingChunks.forEach((c: any) => {
-            if (c.web && !currentSourcesRef.current.find(s => s.uri === c.web.uri)) {
-              currentSourcesRef.current.push({ uri: c.web.uri, title: c.web.title });
-            }
-          });
-        }
-
-        if (chunk.usageMetadata) {
-          onUsageUpdate?.({
-            promptTokens: chunk.usageMetadata.promptTokenCount || 0,
-            candidatesTokens: chunk.usageMetadata.candidatesTokenCount || 0,
-            totalTokens: chunk.usageMetadata.totalTokenCount || 0,
-            latencyMs: Date.now() - startTime
-          });
-        }
+    // Timeout safety: ensure request doesn't hang forever
+    const timeoutId = setTimeout(() => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
       }
-    } catch (error: any) {
-      if (error.name === 'AbortError') return;
-      fullTextRef.current = error.message || "[CLASSIFICATION] RESTRICTED\n[!] CRITICAL_LINK_FAILURE: DATA_STREAM_COLLAPSE.";
+    }, 60000); // 60 second timeout
+
+    try {
+      // Non-streaming: await complete response
+      console.log('[MESH] Awaiting response...');
+      const response = await routeMeshQuery(userQuery, abortControllerRef.current.signal);
+      console.log('[MESH] Response received:', response);
+      clearTimeout(timeoutId);
+      
+      // Validate response structure
+      if (!response || typeof response !== 'object') {
+        throw new Error('[CLASSIFICATION] MALFORMED_RESPONSE\n[!] Backend returned invalid response structure.');
+      }
+      
+      // Set complete text immediately (non-streaming backend)
+      fullTextRef.current = response.text || '';
+      
+      // Add empty MESH message to history - typing timer will animate it
+      // If text is empty, timer will see 0 === 0 and finalize immediately
+      setHistory([...newHistory, { role: 'MESH', text: '', sources: currentSourcesRef.current }]);
       setIsTyping(true);
+      
+      // Update usage metadata if available
+      if (response.usageMetadata) {
+        onUsageUpdate?.({
+          promptTokens: response.usageMetadata.promptTokenCount || 0,
+          candidatesTokens: response.usageMetadata.candidatesTokenCount || 0,
+          totalTokens: response.usageMetadata.totalTokenCount || 0,
+          latencyMs: Date.now() - startTime
+        });
+      }
+      
+      // Typing timer will handle completion when lastMsg.text.length === fullTextRef.current.length
+      // DO NOT stop typing here - let the timer complete naturally
+    } catch (error: any) {
+      clearTimeout(timeoutId);
+      console.error('[MESH] Error:', error);
+      if (error.name === 'AbortError') {
+        // Abort is intentional - cleanup and return
+        setIsProcessing(false);
+        setIsTyping(false);
+        onScanningChange?.(false);
+        if (typingTimerRef.current) {
+          clearInterval(typingTimerRef.current);
+          typingTimerRef.current = null;
+        }
+        return;
+      }
+      const errorMessage = error.message || "[CLASSIFICATION] RESTRICTED\n[!] CRITICAL_LINK_FAILURE: DATA_STREAM_COLLAPSE.";
+      fullTextRef.current = errorMessage;
+      // Immediately write error to history and stop typing
+      setHistory([...newHistory, { role: 'MESH', text: errorMessage, sources: currentSourcesRef.current }]);
+      setIsTyping(false);
+      // Clear typing timer immediately on error
+      if (typingTimerRef.current) {
+        clearInterval(typingTimerRef.current);
+        typingTimerRef.current = null;
+      }
     } finally {
+      clearTimeout(timeoutId);
+      console.log('[MESH] Finally block executing - resetting isProcessing');
+      // Atomic finalizer: ALWAYS reset processing state
+      // DO NOT stop typing on success - typing timer handles that
       setIsProcessing(false);
-      isStreamingRef.current = false;
       onScanningChange?.(false);
+      // Only clear typing timer on error/abort (handled in catch/abort blocks above)
     }
   };
 

@@ -31,6 +31,7 @@ export const About: React.FC = () => (
           </div>
 
           <div className="p-8 border border-zinc-900 rounded-3xl bg-zinc-950/50 space-y-6">
+          
             <div className="flex items-center gap-3">
               <Info className="w-5 h-5 text-zinc-500" />
               <h4 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">System Boundaries</h4>

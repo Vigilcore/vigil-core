@@ -31,7 +31,7 @@ import {
   CognitiveAutopsyResponse,
   UsageData
 } from './geminiService';
-import { querySentinelMeshStream } from './meshIntelService';
+import { querySentinelMesh } from './meshIntelService';
 import { 
   generateText, 
   generateTextStream,
@@ -253,33 +253,52 @@ export const routeCognitiveAutopsy = async (
 };
 
 /**
- * Routes mesh query with automatic fallback
+ * Routes mesh query with automatic fallback (NON-STREAMING)
  * PRIMARY: Google AI (Gemini) → FALLBACK: OpenAI
+ * Returns a Promise for complete response (non-streaming backend)
  */
-export const routeMeshQuery = (
+export const routeMeshQuery = async (
   query: string,
   signal?: AbortSignal
-): AsyncGenerator<{ text: string; usageMetadata?: any }> => {
+): Promise<{ text: string; usageMetadata?: any }> => {
   validateAtLeastOneProvider();
   const googleConfig = getGoogleAIConfig();
   const openaiConfig = getOpenAIConfig();
 
-  // Return the appropriate generator based on availability
+  // Try Gemini first (primary)
   if (googleConfig.available) {
-    console.log('[VIGIL ROUTER] Using Google AI (Gemini) for mesh query');
-    return querySentinelMeshStream(query, signal);
+    try {
+      console.log('[VIGIL ROUTER] Using Google AI (Gemini) for mesh query');
+      return await querySentinelMesh(query, signal);
+    } catch (error: any) {
+      // If aborted, re-throw immediately (don't try fallback)
+      if (error.name === 'AbortError' || signal?.aborted) {
+        throw error;
+      }
+      console.warn('[VIGIL FALLBACK] Gemini failed, attempting OpenAI fallback:', error.message);
+      // Continue to fallback only if not aborted
+    }
   }
 
-  // Fallback to OpenAI
-  if (openaiConfig.available) {
-    console.log('[VIGIL ROUTER] Using OpenAI as fallback for mesh query');
-    return querySentinelMeshStreamWithOpenAI(query, signal);
+  // Fallback to OpenAI (if not aborted) - not yet implemented
+  // Skip OpenAI fallback for now - just throw the original Gemini error
+  if (openaiConfig.available && !signal?.aborted) {
+    console.warn('[VIGIL] OpenAI fallback available but not implemented for mesh queries');
   }
 
-  // If neither available, return error generator
-  return (async function* () {
-    throw new Error('[VIGIL NO PROVIDERS AVAILABLE] No AI providers configured.');
-  })();
+  // If we get here, Gemini failed and no fallback worked
+  if (signal?.aborted) {
+    throw new DOMException('Aborted', 'AbortError');
+  }
+  
+  // Throw a clear error about what went wrong
+  if (!googleConfig.available) {
+    throw new Error('[VIGIL NO PROVIDERS AVAILABLE] No AI providers configured. Please set GEMINI_API_KEY in your environment variables.');
+  }
+  
+  // If Gemini was available but failed, the original error should have been thrown
+  // This should never be reached, but just in case:
+  throw new Error('[VIGIL ERROR] Mesh query failed. Please check your API keys and ensure you are running `vercel dev` (not `npm run dev`).');
 };
 
 /**

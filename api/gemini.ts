@@ -277,14 +277,54 @@ DIRECTIVES:
 7. GRATITUDE: Exactly: "[CLASSIFICATION] HYGIENE\nACKNOWLEDGMENT REGISTERED. VIGILANCE IS THE ONLY PERMANENT SHIELD."
 `;
 
-        response = await ai.models.generateContent({
-          model: 'gemini-3-flash-preview',
-          contents: `${SYSTEM_INSTRUCTION}\n\nQUERY: ${query}`,
-          config: {
-            tools: [{ googleSearch: {} }], // Enable Google Search grounding
-            thinkingConfig: { thinkingBudget: 0 }
+        // Try with grounding first, fallback to non-grounded if it fails
+        try {
+          response = await ai.models.generateContent({
+            model: 'gemini-3-flash-preview',
+            contents: `${SYSTEM_INSTRUCTION}\n\nQUERY: ${query}`,
+            config: {
+              tools: [{ googleSearch: {} }], // Enable Google Search grounding
+              thinkingConfig: { thinkingBudget: 0 }
+            }
+          });
+        } catch (groundingError: any) {
+          // If grounding fails (503, overload, etc.), fallback to non-grounded generation
+          console.warn('Grounding failed, falling back to non-grounded generation:', groundingError.message);
+          try {
+            response = await ai.models.generateContent({
+              model: 'gemini-3-flash-preview',
+              contents: `${SYSTEM_INSTRUCTION}\n\nQUERY: ${query}`,
+              config: {
+                thinkingConfig: { thinkingBudget: 0 }
+              }
+            });
+          } catch (fallbackError: any) {
+            // Both attempts failed - return error response
+            console.error('Both grounded and non-grounded generation failed:', fallbackError.message);
+            return res.status(500).json({
+              text: `[CLASSIFICATION] API_ERROR\n[!] GENERATION_FAILED: ${fallbackError.message || 'Model unavailable. Please try again later.'}`,
+              usage: {
+                promptTokens: 0,
+                candidatesTokens: 0,
+                totalTokens: 0,
+                latencyMs: Date.now() - start
+              }
+            });
           }
-        });
+        }
+        
+        // Ensure response exists before accessing properties
+        if (!response) {
+          return res.status(500).json({
+            text: '[CLASSIFICATION] API_ERROR\n[!] GENERATION_FAILED: No response received from model.',
+            usage: {
+              promptTokens: 0,
+              candidatesTokens: 0,
+              totalTokens: 0,
+              latencyMs: Date.now() - start
+            }
+          });
+        }
         
         const latency = Date.now() - start;
         const text = response.text || '';
