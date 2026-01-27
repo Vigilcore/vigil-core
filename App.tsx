@@ -617,11 +617,13 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className={`h-screen w-screen bg-[#020202] text-[#fafafa] selection:bg-blue-600/40 selection:text-white font-sans flex flex-col pt-10 overflow-hidden ${isPowerSave ? 'pwr-save' : ''}`}>
+    <div className={`h-screen w-screen bg-[#020202] text-[#fafafa] selection:bg-blue-600/40 selection:text-white font-sans flex flex-col overflow-hidden ${isPowerSave ? 'pwr-save' : ''}`}>
       
       {viewMode === 'TACTICAL' && <div className="crt-overlay" />}
       <SecurityZoneBackground activeAnchor={activeAnchor} powerSave={isPowerSave} />
-      <SecurityAnnouncementBar onNeutralize={() => handleScoring(true, unlockLevel)} />
+      <div className="hidden">
+        <SecurityAnnouncementBar onNeutralize={() => handleScoring(true, unlockLevel)} />
+      </div>
       
       <SecurityModal isOpen={isModalOpen} onClose={(walletAddr, isGuestUser) => {
         setWallet(walletAddr);
@@ -683,7 +685,7 @@ const App: React.FC = () => {
         <>
           <TelemetryDisplay data={lastUsage} isScanning={isAiScanning} isVisible={isTelemetryVisible} />
           
-          <div className="fixed top-12 right-12 z-[150] hidden md:flex items-center gap-6 animate-in fade-in duration-1000">
+          <div className="fixed top-6 right-12 z-[150] hidden md:flex items-center gap-6 animate-in fade-in duration-1000">
              <div className="flex items-center gap-1 p-1 bg-zinc-950 border border-zinc-800 rounded-xl">
                <button 
                 onClick={() => { setViewMode('NARRATIVE'); setActiveSpoke(null); }}
