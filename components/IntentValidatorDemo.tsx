@@ -255,6 +255,7 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
     { id: 'TRUSTED', label: 'Test Trusted', addr: 'Ab1C92kLp6mX9wR7yT5vB4nQ8jK3mZz90', telemetry: { age: '1,204 Days', lastTx: '14m ago', activity15d: '402' }, axes: { vsi: 5, edi: 0, pdi: 10, cri: 0, ipi: 0, rii: 0, eii: 0 } },
     { id: 'POISON', label: 'Visual Poisoning', addr: 'Ab1C00000000000000000000000000Zz90', telemetry: { age: '2,401 Days', lastTx: '14m ago', activity15d: '402' }, axes: { vsi: 95, edi: 92, pdi: 50, cri: 30, ipi: 80, rii: 0, eii: 0 } },
     { id: 'ZERO_VALUE_SPOOF', label: 'Zero-Value Injection', addr: '6vX9f72Lp6mX9wR7yT5vB4nQ8jK3mZzM1', telemetry: { age: '1 Day', lastTx: 'New', activity15d: '20,000+' }, axes: { vsi: 85, edi: 98, pdi: 100, cri: 40, ipi: 100, rii: 0, eii: 0 } },
+    { id: 'SUPPLY_POISONING', label: 'Clustered Seeding', addr: 'Seeder8821xPoisoN7729110028x992211', projectName: 'SYBIL_DISPERSION_NODE', contractAddress: 'Seeder8821xPoisoN7729110028x992211', telemetry: { age: '4h', lastTx: 'New', activity15d: '82,000+' }, axes: { vsi: 40, edi: 98, pdi: 100, cri: 20, ipi: 100, rii: 0, eii: 0 } },
     { id: 'ACCUMULATION_TRAP', label: 'Stealth Accumulation', addr: 'VGAccNodeX772199291120038xPoisoN', projectName: 'STEALTH_LIQUIDITY_CORE', contractAddress: 'VGAccNodeX772199291120038xPoisoN', telemetry: { age: '340 Days', lastTx: 'New', activity15d: '1,200' }, axes: { vsi: 20, edi: 85, pdi: 40, cri: 80, ipi: 95, rii: 0, eii: 0 } },
     { id: 'MARKET_INTEL', label: 'Pump.fun Rug-Risk', addr: 'Rug44DeployerX992811x772199291120038', projectName: 'RUG_PUMP_EXPERIMENTAL', contractAddress: 'Rug44DeployerX992811x772199291120038', telemetry: { age: '4 Minutes', lastTx: 'New', activity15d: '142' }, axes: { vsi: 20, edi: 98, pdi: 100, cri: 90, ipi: 80, rii: 0, eii: 0 } },
     { id: 'PHISHING', label: 'Phishing Shield', addr: '6vX9f72Lp6mX9wR7yT5vB4nQ8jK3mZzM1', telemetry: { age: '3 Days', lastTx: 'Never', activity15d: '1' }, axes: { vsi: 30, edi: 0, pdi: 100, cri: 100, ipi: 0, rii: 0, eii: 0 } },
@@ -278,29 +279,39 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
     setIsAnalyzing(true);
     setError(null);
     onScanningChange?.(true);
-    const matchedScenario = testScenarios.find(s => s.addr === currentAddr);
-    setTimeout(async () => {
-      try {
-        const { data, usage } = await routeSecurityIntent(currentAddr, historyAddr, source);
-        onUsageUpdate?.(usage);
-        const threatIndex = calculateThreatIndex(matchedScenario?.axes || { vsi: data.riskScore, edi: 10, pdi: 20, cri: 10, ipi: 5, rii: 0, eii: 0 });
-        const latency = 9.2 + (Math.random() * 2.1);
-        setSimLatency(latency);
-        setResult({ ...data, intentState: (matchedScenario?.id as IntentCategory) || data.intentState, telemetry: { ...(matchedScenario?.telemetry || { age: data.onChainAge, lastTx: 'Unknown', activity15d: '0' }), latency: latency }, threatIndex: threatIndex, axes: matchedScenario?.axes || { vsi: data.riskScore, edi: 10, pdi: 20, cri: 10, ipi: 5, rii: 0, eii: 0 }, projectName: matchedScenario?.projectName, contractAddress: matchedScenario?.contractAddress });
-        if (matchedScenario) setCompletedSims(prev => new Set([...prev, matchedScenario.id]));
-      } catch (err: any) {
-        console.error(err);
-        const errorMessage = err?.message || String(err);
-        if (errorMessage.includes('API_KEY_MISSING') || errorMessage.includes('API KEY') || errorMessage.includes('NO AI PROVIDERS')) {
-          setError('API_KEY_MISSING: At least one AI provider (Google AI or OpenAI) must be configured. Please set API_KEY (for Google AI) or OPENAI_API_KEY (for OpenAI) in your environment variables or .env.local file to enable simulations.');
-        } else {
-          setError(`SIMULATION_ERROR: ${errorMessage}`);
-        }
-      } finally {
-        setIsAnalyzing(false);
-        onScanningChange?.(false);
+
+    try {
+      const matchedScenario = testScenarios.find(s => s.addr === currentAddr);
+      const { data, usage } = await routeSecurityIntent(currentAddr, historyAddr, source);
+      
+      onUsageUpdate?.(usage);
+      const threatIndex = calculateThreatIndex(matchedScenario?.axes || { vsi: data.riskScore, edi: 10, pdi: 20, cri: 10, ipi: 5, rii: 0, eii: 0 });
+      const latency = 9.2 + (Math.random() * 2.1);
+      setSimLatency(latency);
+
+      setResult({ 
+        ...data, 
+        intentState: (matchedScenario?.id as IntentCategory) || data.intentState, 
+        telemetry: { ...(matchedScenario?.telemetry || { age: data.onChainAge, lastTx: 'Unknown', activity15d: '0' }), latency: latency }, 
+        threatIndex: threatIndex, 
+        axes: matchedScenario?.axes || { vsi: data.riskScore, edi: 10, pdi: 20, cri: 10, ipi: 5, rii: 0, eii: 0 }, 
+        projectName: matchedScenario?.projectName, 
+        contractAddress: matchedScenario?.contractAddress 
+      });
+
+      if (matchedScenario) setCompletedSims(prev => new Set([...prev, matchedScenario.id]));
+    } catch (err: any) {
+      console.error('[SIMULATION_CRASH]', err);
+      const errorMessage = err?.message || String(err);
+      if (errorMessage.includes('BACKEND_NOT_FOUND') || errorMessage.includes('API_KEY_MISSING')) {
+        setError(errorMessage);
+      } else {
+        setError(`SIMULATION_ERROR: The request timed out or returned an invalid response. ${errorMessage}`);
       }
-    }, 1200);
+    } finally {
+      setIsAnalyzing(false);
+      onScanningChange?.(false);
+    }
   };
 
   const startHold = () => { const startTime = Date.now(); holdTimerRef.current = window.setInterval(() => { const elapsed = Date.now() - startTime; const p = Math.min(100, (elapsed / 1500) * 100); setHoldProgress(p); if (p >= 100) { clearInterval(holdTimerRef.current!); handleOverride(); } }, 10); };
@@ -311,6 +322,7 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
     switch (state) {
       case 'POISON': return { color: 'text-red-500', bg: 'bg-red-500/5', border: 'border-red-500/20', icon: <Skull className="w-6 h-6" />, label: 'POSSIBLE ADDRESS POISONING', glow: 'bg-red-600', animation: 'animate-scan-vertical', primaryCta: "HALT: ADDRESS POISONING DETECTED", secondaryCta: "OVERRIDE: PROCEED WITH RISK", why: "DEFINITION: Critical detection of vanity mimics designed to exploit the human eye's 8-character verification gap.\nEXAMPLE: An attacker sees you frequently send to Ab1C...Zz90 and generates a fake address Ab1C...Hacker...Zz90. You almost click it because the start and end look identical." };
       case 'ZERO_VALUE_SPOOF': return { color: 'text-red-600', bg: 'bg-red-600/5', border: 'border-red-600/40', icon: <Ghost className="w-6 h-6" />, label: 'ZERO_VALUE_INJECTION_DETECTED', glow: 'bg-red-700', animation: 'animate-glitch', primaryCta: "HALT: HISTORY TAMPERING", secondaryCta: "OVERRIDE: TRUST INJECTION", why: "DEFINITION: High-loss variant of dusting that injects a 'Sent' record into history without moving assets or requiring balance.\nEXAMPLE: A seeder program triggers a 0 SOL transfer to your wallet. You see a 'Sent' record in history and accidentally copy the look-alike address for your next main transfer." };
+      case 'SUPPLY_POISONING': return { color: 'text-red-600', bg: 'bg-red-600/10', border: 'border-red-500/60', icon: <Radar className="w-6 h-6" />, label: 'INDUSTRIALIZED_SEEDING_DETECTED', glow: 'bg-red-700', animation: 'animate-pulse', primaryCta: "HALT: SYBIL CLUSTER ACTIVE", secondaryCta: "OVERRIDE: TRUST MOTHER_WALLET", why: "DEFINITION: Detection of an industrialized Sybil cluster where a single 'Mother Wallet' funds thousands of fresh mimics.\nEXAMPLE: VIGIL identifies that this address was funded by 0x8821...Seeder, which has generated 82,000 identical look-alike addresses in the last 24 hours." };
       case 'ACCUMULATION_TRAP': return { color: 'text-orange-500', bg: 'bg-orange-500/5', border: 'border-orange-500/40', icon: <TrendingUp className="w-6 h-6" />, label: 'STEALTH_ACCUMULATION_DETECTED', glow: 'bg-orange-600', animation: 'animate-sonar-ripple', primaryCta: "ABORT: LIQUIDITY RISK EXTREME", secondaryCta: "IGNORE FORENSIC: TRUST CLUSTER", why: "DEFINITION: Detection of a stealth entity accumulating >1% total supply or >2% rapid accumulation (0-5 days).\nEXAMPLE: A single cluster of linked wallets swept 2.1% of supply in 72 hours. This positioning allows the entity to drain 80% of liquidity in one transaction." };
       case 'MARKET_INTEL': return { color: 'text-red-600', bg: 'bg-red-600/5', border: 'border-red-600/40', icon: <Target className="w-6 h-6" />, label: 'CRITICAL RUG RISK: BUNDLED', glow: 'bg-red-700', animation: 'animate-strobe', primaryCta: "ABORT: SYSTEMIC MANIPULATION", secondaryCta: "IGNORE INTEL: EXECUTE ENTRY", why: "DEFINITION: Forensic detection of 'Bundling' where one entity funds multiple wallets to control supply before retail entry.\nEXAMPLE: On Pump.fun, a deployer uses 30 wallets to buy 40% of supply in Block 0. VIGIL identifies the shared funding source and flags the trap." };
       case 'PHISHING': return { color: 'text-purple-500', bg: 'bg-purple-500/5', border: 'border-purple-500/30', icon: <Radar className="w-6 h-6" />, label: 'PHISHING SHIELD ACTIVE', glow: 'bg-purple-600', animation: 'animate-sonar-ripple', primaryCta: "TERMINAL ABORT: SOURCE UNTRUSTED", secondaryCta: "IGNORE SHIELD: TRUST MANUALLY", why: "DEFINITION: Interception triggered by high-risk source contexts such as social DMs or unverified dApp portals.\nEXAMPLE: You copy a 'Treasury Address' from a Telegram DM or a random X (Twitter) comment; VIGIL flags the source as a high-risk entry point." };
