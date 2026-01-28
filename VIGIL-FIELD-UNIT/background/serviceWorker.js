@@ -2,7 +2,7 @@
 // VIGIL BACKGROUND GUARDIAN
 // VERSION: 1.9.0 (CAMPAIGN_BROADCAST_ENABLED)
 
-const HELIUS_SECURE_LINK = "https://mainnet.helius-rpc.com/?api-key=YOUR_PAID_KEY_HERE";
+const HELIUS_SECURE_LINK = "https://meriel-eao5s5-fast-mainnet.helius-rpc.com";
 
 chrome.runtime.onInstalled.addListener(async () => {
   const data = await chrome.storage.local.get(['VIG_PLAN_TIER']);
