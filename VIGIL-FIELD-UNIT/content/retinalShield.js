@@ -11,7 +11,6 @@
   const { calculateEntropy, getSimilarityScore } = await import(diffSrc);
 
   const HIGH_RISK_DOMAINS = ['t.me', 'twitter.com', 'x.com', 'discord.com', 'web.telegram.org'];
-  const DISCOVERY_DOMAINS = ['pump.fun', 'dexscreener.com', 'birdeye.so', 'raydium.io', 'jupiter.ag'];
 
   const STYLES = `
     vigil-shield {
@@ -57,15 +56,11 @@
   }
 
   async function analyzeAddress(addr) {
-    const data = await chrome.storage.local.get(['VIG_USER_TRUSTED_NODES', 'VIG_CLIPBOARD_INTENT', 'VIG_PLAN_TIER']);
+    const data = await chrome.storage.local.get(['VIG_USER_TRUSTED_NODES', 'VIG_CLIPBOARD_INTENT']);
     const userWhitelist = data.VIG_USER_TRUSTED_NODES || [];
     const currentOrigin = window.location.hostname;
-    
+
     if (userWhitelist.includes(addr) || Object.values(CANONICAL_MINTS).includes(addr)) return 'TRUSTED';
-    
-    // Check for Discovery Surface (Alpha Forensics Trigger)
-    const isDiscoverySurface = DISCOVERY_DOMAINS.some(d => currentOrigin.includes(d));
-    if (isDiscoverySurface && data.VIG_PLAN_TIER !== 'BASELINE') return 'MARKET_INTEL';
 
     const isHighRiskContext = HIGH_RISK_DOMAINS.some(d => currentOrigin.includes(d));
     if (isHighRiskContext) return 'PHISHING';
@@ -99,19 +94,6 @@
         const verdict = await analyzeAddress(addr);
         const shield = document.createElement('vigil-shield');
         shield.className = verdict.toLowerCase();
-        
-        // Add Radar Icon for Market Intel
-        if (verdict === 'MARKET_INTEL') {
-          const radar = document.createElement('span');
-          radar.className = 'vigil-radar-trigger';
-          radar.innerHTML = '📡';
-          radar.title = "RUN_CONCENTRATION_FORENSICS";
-          radar.onclick = (e) => { 
-            e.stopPropagation(); 
-            dispatchHUD(addr, 'MARKET_INTEL'); 
-          };
-          shield.appendChild(radar);
-        }
 
         const span = document.createElement('span');
         span.textContent = addr;
@@ -156,20 +138,22 @@
     const index = calculateCompositeThreat(axes);
     
     // Map verdict to UI component
-    const moduleName = verdict === 'MARKET_INTEL' ? 'MarketIntel' : 
-                      verdict.charAt(0) + verdict.slice(1).toLowerCase();
-    
+    const moduleName = verdict.charAt(0) + verdict.slice(1).toLowerCase();
+
     const moduleSrc = chrome.runtime.getURL(`content/ui/Alert${moduleName}.js`);
-    
+
+    // Telemetry fails closed: when evidence is unavailable it is reported as
+    // UNAVAILABLE. It is never presented as verified or trusted provenance.
+    const telemetryAvailable = forensics && forensics.status === 'SUCCESS';
+
     try {
       const { render } = await import(moduleSrc);
-      render(address, index, { 
-        age: forensics.status === 'SUCCESS' ? "Verified Protocol" : "Unknown Provenance",
-        activity: forensics.data?.length || "0",
-        axes,
-        forensics: forensics.forensics // Passing mother-wallet / cluster data
+      render(address, index, {
+        age: telemetryAvailable ? (forensics.age || 'UNKNOWN') : 'UNAVAILABLE',
+        activity: telemetryAvailable ? String(forensics.data?.length ?? 0) : 'UNAVAILABLE',
+        status: (forensics && forensics.status) || 'UNAVAILABLE',
+        axes
       });
-      chrome.runtime.sendMessage({ type: 'THREAT_LOG', payload: { address, verdict, index } });
     } catch (e) { console.error(`[VIGIL] HUD Error:`, e); }
   }
 

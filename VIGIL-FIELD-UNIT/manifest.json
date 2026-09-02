@@ -1,21 +1,11 @@
-
 {
   "manifest_version": 3,
   "name": "VIGIL | Field Unit",
   "version": "0.0.5.1",
-  "description": "Layer 0.5 Security Standard. Modular HUD Architecture v2.",
+  "description": "Contained alpha. The protection engine is disabled pending evidence validation; no verdicts are issued.",
   "permissions": [
-    "storage",
-    "scripting"
+    "storage"
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
-  "externally_connectable": {
-    "matches": [
-      "https://*.scf.usercontent.goog/*"
-    ]
-  },
   "action": {
     "default_popup": "popup/popup.html"
   },
@@ -23,25 +13,7 @@
     "service_worker": "background/serviceWorker.js",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content/retinalShield.js"],
-      "run_at": "document_start"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "core/*.js", 
-        "popup/*.css", 
-        "content/ui/*.js"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'none';",
-    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+    "extension_pages": "script-src 'self'; object-src 'none';"
   }
 }

@@ -4,8 +4,11 @@
 const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
 // SOVEREIGN MINT REGISTRY (PHASE 2 - IMPLEMENTATION)
+// USDC auto-trust is disabled: the previous entry was inconsistent with the
+// expected canonical Solana USDC mint. No replacement is asserted here pending
+// authoritative issuer verification. An address absent from this registry is
+// simply not auto-trusted, which is the safe direction to fail.
 export const CANONICAL_MINTS = {
-  USDC: "EPjFW33rdLH2QD6LksXY33vMRfGct1grTparXMQ7fgc3",
   USDT: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
   SOL_WRAPPED: "So11111111111111111111111111111111111111112",
   SOL_NATIVE: "11111111111111111111111111111111"
