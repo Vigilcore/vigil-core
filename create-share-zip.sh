@@ -25,12 +25,13 @@ zip -r "$ZIP_NAME" . \
   -x "dist/*" \
   -x ".git/*" \
   -x "*.zip" \
-  -x ".DS_Store" \
   -x "*.log" \
   -x "vigil-core-full.zip" \
   -x "vigil-core-*.zip" \
-  -x ".env.local" \
-  -x ".env" \
+  -x ".env*" \
+  -x "*/.env*" \
+  -x ".DS_Store" \
+  -x "*/.DS_Store" \
   -x ".vercel/*" \
   -x "*.bak" \
   -x "*.backup" \
