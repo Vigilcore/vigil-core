@@ -1,7 +1,8 @@
 # VIGIL Core — Canonical Master Plan
 
-> **Version:** Draft 1.2 — Final Owner Approval Required
-> **Status:** Draft for review. Not approved. Not final.
+> **Version:** 1.0 — Owner and CTO Approved
+> **Status:** Approved canonical master plan
+> **Approval date:** 2026-09-03
 > **Last updated:** 2026-09-03
 > **Canonical repository:** `/Users/ajmalfahad/Desktop/Web Projects -Playground/VIGIL/Website-Stable/VIGIL-Core`
 > **`development` HEAD:** `5f0dd69d82dd7da74a0e62fad763c76d4d5c9869`
@@ -22,7 +23,7 @@
 | GitHub repository | `Vigilcore/vigil-core` (SSH alias `github-vigil`) |
 | `development` SHA | `5f0dd69d82dd7da74a0e62fad763c76d4d5c9869` |
 | `main` SHA | `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8` |
-| Status | Draft 1.2 — Final Owner Approval Required |
+| Status | 1.0 — Owner and CTO Approved · Approved canonical master plan |
 
 **Update policy.** Update on any material decision, milestone start/finish, new/resolved risk, scope change, or when evidence changes a claim. Record in §18 (Decision Log) and §20 (Change Log). Never rewrite silently. Never mark `✅` without linked evidence (a run test/build/review or an approved document). Writing code is not completion; verification is.
 
@@ -34,11 +35,11 @@
 
 **Source-of-truth rule.**
 
-> After Ajmal's explicit approval and the approved commit to `development`, this file becomes the single canonical VIGIL master plan.
+> Ajmal Fahad and the CTO approved Draft 1.2 on 2026-09-03.
+>
+> This approved Version 1.0 is the single canonical VIGIL master plan.
 >
 > Earlier ChatGPT, Claude, Grok, repository, and artifact roadmaps remain historical evidence or reference material and must not operate as parallel sources of truth.
->
-> Until that approval and commit occur, this document remains a draft.
 
 ---
 
@@ -571,6 +572,7 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 
 | Version | Date | Summary |
 |---|---|---|
+| Version 1.0 | 2026-09-03 | Draft 1.2 approved by Ajmal Fahad and the CTO and adopted as the single canonical VIGIL master plan. |
 | Draft 1.2 | 2026-09-03 | Owner-alignment: first return post set to the gated Robinhood Chain security post (HIGH claim-risk, Owner+CTO reviewers, full verification/citation gate); prohibited unsupported volume/fee/dump/liquidity figures as facts; capabilities (tx decoding, honeypot, vanishing-token, wallet-level pre-sign) marked target/under-development; alpha/beta counts (10–25 / 100–250) relabelled provisional CTO target ranges pending owner approval & capacity review; Phase 09 security/privacy requirements made substantive (no contract/treasury/keys; protect legal/compliance/identity data); added source-of-truth rule (canonical only after owner approval + commit). All prior corrections preserved. Status: Final Owner Approval Required. |
 | Draft 1.1 | 2026-09-03 | Expanded all Phase 00–10 with 11 fields; added documentation-reconciliation table (§3.6); added reachability-aware fabrication inventory (§3.7) incl. newly found `AlertMarketIntel.js` random rug-risk and `VIG_TOTAL_POISONS` corruption; split USDC evidence (verified value / needs official external verification); reclassified Decision Log into A/B/C; excluded `AGENTS.md` from inspection with verbatim policy; corrected the immediate sequence; added executable website (§9) and extension (§10) work packages incl. pre-sign scope statement; replaced the campaign with a four-week X plan (§11); added requirements traceability (§19.2); qualified uncertain claims (removed "all major integrity claims verified"). Status: CTO Review Required. |
 | Draft 1.0 | 2026-09-03 | Initial consolidated plan reconciling CTO/Claude/Grok reviews against the current tree. |
