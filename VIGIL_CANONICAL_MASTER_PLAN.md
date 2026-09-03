@@ -1,6 +1,6 @@
 # VIGIL Core — Canonical Master Plan
 
-> **Version:** 1.0.3 — Owner and CTO Approved
+> **Version:** 1.0.4 — Owner and CTO Approved
 > **Status:** Approved canonical master plan
 > **Approval date:** 2026-09-03
 > **Last updated:** 2026-09-03
@@ -11,6 +11,10 @@
 > ## ⚠️ The VIGIL extension is intentionally NON-PROTECTIVE at this stage
 >
 > The Chrome extension **issues no threat verdicts, performs no scanning, and provides no protection whatsoever**. It is deliberately failed closed pending a validated deterministic detector (Phase 01). Runtime verification (Task 016) confirms that this contained state *behaves as documented* — it does **not** mean the extension detects anything. Nothing in this plan may be read as a deployment, release, production-readiness, or active-protection claim.
+>
+> **No detector capability may be marketed as live.** VIGIL has no validated detector in production.
+>
+> **API source containment is not deployment.** Task 020 removed two unsafe API surfaces from the tracked source in **local, unpushed** commits. The deployed site may still expose the old routes until an authorized deployment occurs. **F12 (open Helius proxy), F19 (provider-call amplification), F20 (unconditional logging) and F25 (mesh prompt control) all remain unresolved.**
 
 ---
 
@@ -29,7 +33,7 @@
 | Main baseline at plan approval | `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8` |
 | Plan adoption commit | `d10729d752acb263535a9c841a44f70391f44850` |
 | Plan approval-metadata commit | `2daf67e9866955d1bbe1d724a0c87221e4da4438` |
-| Status | 1.0.3 — Owner and CTO Approved · Approved canonical master plan |
+| Status | 1.0.4 — Owner and CTO Approved · Approved canonical master plan |
 
 **Update policy.** Update on any material decision, milestone start/finish, new/resolved risk, scope change, or when evidence changes a claim. Record in §18 (Decision Log) and §20 (Change Log). Never rewrite silently. Never mark `✅` without linked evidence (a run test/build/review or an approved document). Writing code is not completion; verification is.
 
@@ -126,11 +130,15 @@ Fabricated campaign, random verdicts (service worker **and** `AlertMarketIntel.j
 
 > `AGENTS.md` is **excluded** from this reconciliation and from all inspection/classification (see §6 policy and §8). It is not analysed as a routine artifact.
 
-### 3.7 Primary finding ledger — F1–F23 (single source; each ID appears once)
+### 3.7 Primary finding ledger — F1–F27 (single source; each ID appears once)
 
 **Category key:** (1) clearly labelled harmless demo randomness · (2) unlabelled simulation needing disclosure/`/lab` isolation · (3) affects a verdict, warning, score, security evidence, telemetry, campaign, forensic conclusion, entitlement, or user metric. Not every `Math.random()` is a vulnerability; only reachable, user-impacting cases are Category 3.
 
-**Status key:** `CONTAINED-RUNTIME-VERIFIED` = *the fabrication or unsafe surface is absent from the published `development` source (containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`, pushed in Task 015) **and** its absence was confirmed in an isolated browser runtime (Task 016)*. This status means **containment only**. It is **not** a permanent remediation, **not** production validation, **not** deployment, and **not** release; the underlying capability is honestly replaced only in Phase 01, and each row's remaining blocker still applies. `OPEN` = not yet contained. Reachability is stated **as of Task 012 (pre-containment)**; live deployed reachability remains unverified.
+**Status key:** `CONTAINED-RUNTIME-VERIFIED` = *the fabrication or unsafe surface is absent from the published `development` source (containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`, pushed in Task 015) **and** its absence was confirmed in an isolated browser runtime (Task 016)*. This status means **containment only**. It is **not** a permanent remediation, **not** production validation, **not** deployment, and **not** release; the underlying capability is honestly replaced only in Phase 01, and each row's remaining blocker still applies. `OPEN` = not yet contained.
+
+`CONTAINED-SOURCE-LOCAL` = *the unsafe surface has been removed from the tracked source in a **local commit that has not been pushed**.* Five states are tracked separately and **none implies another**: **committed locally** → **pushed to `development`** → **deployed** → **runtime verified** → **permanently remediated**. `CONTAINED-SOURCE-LOCAL` asserts only the first. **The currently deployed site may still expose the old routes until an authorized deployment occurs.**
+
+Reachability is stated **as of Task 012 (pre-containment)** for F1–F23 and **as of Task 019** for F24–F27; live deployed reachability remains unverified.
 
 | ID | File(s) | Finding | Reachability (pre-containment) | Cat | Current status | Containment / target batch | Acceptance evidence | Remaining limitation / blocker |
 |---|---|---|---|---|---|---|---|---|
@@ -144,23 +152,27 @@ Fabricated campaign, random verdicts (service worker **and** `AlertMarketIntel.j
 | F8 | `components/Pricing.tsx` | **Dangerous dead payment code** — placeholder treasury address, `PLEASE_REPLACE…` extension id, `localStorage` entitlement with no server verification | **Apparently unreachable** (0 imports) | 3 | **OPEN** (dead code, **not** an active payment vulnerability) | Simulation/dead-code batch | — | Must not be revived without a full rewrite |
 | F9 | `App.tsx` | Client-side admin backdoor (hardcoded unlock code → `localStorage` master auth) | Currently reachable | 3 | **OPEN** | Website containment batch | — | **Can be removed/disabled now.** Server-side authorization is required only if an admin feature is later restored |
 | F10 | `App.tsx` | `?mode=standalone_kernel` query-parameter gating bypass | Currently reachable | **2 (presentation/gating, not an emergency vulnerability)** | **OPEN** | Simulation/dead-code batch | — | Relabel / isolate |
-| F11 | `api/openai.ts` | `generateText` lets the client choose `model` and `maxTokens` — uncapped provider cost | Currently reachable | 3 (cost) | **OPEN** | API containment batch | — | Needs auth + model allowlist + token cap |
-| F12 | `api/helius.ts` | Open proxy — arbitrary `rpcMethod`/`rpcParams` and arbitrary `endpoint`/`method` executed with the server-side key | Currently reachable | 3 | **OPEN** | API containment batch | — | Must land **before/with** any extension re-route |
-| F13 | `api/cache.ts` | Unauthenticated cache `set` — cache poisoning | Currently reachable | 3 | **OPEN** | API containment batch | — | Needs server-only writes |
+| F11 | `api/openai.ts` | Unauthenticated `generateText` let the client choose `model`, `maxTokens`, `temperature` and an unconstrained prompt — uncapped provider cost, no system-prompt constraint | Reachable over the network **before Task 020**; no UI caller ever existed | 3 (cost) | **CONTAINED-SOURCE-LOCAL** | Task 020 Commit 2 `962c854` | `generateText` case removed; server-controlled endpoint allowlist added **before** SDK construction; stubbed local runtime harness — 7/7 rejection paths returned HTTP 400 with a generic body and **no provider call**; production build passed | **Not deployed and not pushed.** The deployed site may still expose the old endpoint. Five retained fallback operations remain server-controlled |
+| F12 | `api/helius.ts` | Unauthenticated **general-purpose** proxy — arbitrary `rpcMethod`/`rpcParams` (including state-changing methods) and arbitrary `endpoint`/`method`/`payload` executed with the server-side key | Currently reachable | 3 | **OPEN** | API containment batch 2 | — | **Highest-priority remaining API exposure.** The provider key is never revealed but is fully abusable. Requires a purpose-specific operation contract, **not** a superficial method allowlist. Must land **before/with** any extension re-route |
+| F13 | `api/cache.ts` *(deleted in source)* | Unauthenticated shared-cache `get`/`set` — cache poisoning, unbounded value size, unvalidated key namespace; **no legitimate caller existed** | Reachable over the network **before Task 020** | 3 | **CONTAINED-SOURCE-LOCAL** | Task 020 Commit 1 `71b78ed` | `api/cache.ts` and `lib/cache.ts` deleted; dead import, `CACHE_VERSION`, commented integration and cache-status logs removed from `services/heliusService.ts`; **170 deletions / 0 insertions**; repo-wide tracked search finds no residual reference; production build passed | **Not deployed and not pushed.** Validated **statically and by build only** — no runtime exercise, because nothing calls it |
 | F14 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | **Credential-bearing provider endpoint** distributed inside the extension | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 | `HELIUS_SECURE_LINK`, provider hostname absent | Provider-side credential rotation remains an **owner action**; **not proven leaked** |
 | F15 | `serviceWorker.js`, `manifest.json` | Unsigned external entitlement handshake self-granting paid tier | Conditional — externally reachable **only through the configured Googleusercontent scope** | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 / 013-R1 | `onMessageExternal`, `VIGIL_HANDSHAKE_ACTIVATE`, `externally_connectable` absent | Deployment, release and Phase 01 replacement pending |
 | F16 | `VIGIL-FIELD-UNIT/core/addressValidator.js` | Incorrect USDC value auto-trusted as a canonical mint | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** — the **unsafe auto-trust behaviour is contained by removal**; no replacement asserted | Task 013 | Prior value absent; remaining registry unchanged | Authoritative replacement is **separately pending** (`NEEDS OFFICIAL EXTERNAL VERIFICATION`) — not a blocker to the containment already applied |
 | F17 | `EntropyCollider.tsx`, `SiloGate.tsx`, `NeuralAttentionalAudit.tsx` | Training-game randomness using production threat vocabulary without an explicit simulation label | Currently reachable | 2 | **OPEN** | Simulation/dead-code batch | — | Relabel / `/lab` isolation |
 | F18 | `components/IntelligenceForge.tsx` | Randomly assigned "cluster" presented as global threat intelligence | Currently reachable | 2/3 | **OPEN** | Simulation/dead-code batch | — | Relabel or replace with evidence |
-| F19 | `services/heliusService.ts` | Provider-call ceiling of 50 × 500 signatures plus parse batches | Currently reachable | 3 (cost) | **OPEN** | API containment batch | — | **Worst-case static upper bound — not measured real-world spend** |
-| F20 | `services/heliusService.ts` | Privacy-adjacent debug logging of address/cursor material | Currently reachable | 2 | **OPEN** | API containment batch | — | Gate behind a debug flag |
+| F19 | `services/heliusService.ts` | Provider-call amplification: ≤1 balance + ≤50 signature pages (500/page) + ≤250 parse calls + 1 newest page + ≤2 parse ⇒ **structural ceiling ≈304 provider calls per user action** | Currently reachable | 3 (cost) | **OPEN** | API containment batch 2 | — | **Theoretical structural ceiling derived from code — NOT observed usage.** Real production volume, latency and cost remain **unknown and uninstrumented**. Bounded in practice only by one 9 s client-side abort covering the whole sequence; an aborted client fetch does **not** cancel in-flight server-side provider calls. Task 020 does **not** reduce amplification — caching was already disabled (F26) |
+| F20 | `services/heliusService.ts`, `api/*` | Unconditional, production-capable logging of addresses, transaction signatures and pagination cursors; provider error objects logged raw | Currently reachable | 2 | **OPEN** | API containment batch 2 | — | **No log statement is environment-gated** — the only `NODE_ENV` use in tracked source was the cache-delete guard deleted in Task 020. `api/helius.ts:118` logs the raw error object, which can carry a request URL bearing the provider key: a **credible but UNVERIFIED** key-in-logs path, to be treated fail-closed. Unchanged by Task 020 apart from two cache-status logs removed with the deleted integration |
+| F24 | *(repository-wide)* | No tracked deployment/runtime configuration — `vercel.json` absent, so function `maxDuration`, memory, region and headers are unpinned platform defaults | N/A — configuration | — (operational) | **OPEN** | Deferred until verified against the live environment | — | **Operational / governance reproducibility gap — NOT an established exploitable vulnerability.** Its consequence is that every server-side time bound recorded here is an assumption rather than a pinned fact |
+| F25 | `api/gemini.ts` | `queryMeshIntelligence` concatenates client-supplied `query` into the model prompt behind only a six-word denylist; `query.toLowerCase()` throws on a non-string input | Currently reachable | 3 | **OPEN** | API containment batch 2 | — | **Active input-validation / prompt-injection concern.** The six-word denylist and the missing string validation are **insufficient**; Google Search grounding is enabled on this path |
+| F26 | `services/heliusService.ts`, `api/cache.ts` | Cache integration commented out in the client while the writable route stayed deployed — guaranteed 100% cache misses | Historic (pre-Task 020) | — | **CONTRIBUTING EVIDENCE — not an independent finding** | Recorded under F13 and F19 | Task 020 Commit 1 removed the route and helper from source | **Design debt, not a separate exploit class.** F19 amplification remains fully open |
+| F27 | `components/VideoProductionStudio.tsx` | Dead client-side provider-key pattern after an unconditional `throw`; references undefined `apiKey`/`ai` | **Unreachable — dead code** | — (hygiene) | **OPEN — hygiene only** | Deferred cleanup task | — | **Dead-code hygiene, NOT an active vulnerability.** Must never be revived as a client-side key pattern |
 | F21 | `VIGIL-FIELD-UNIT/content/retinalShield.js` | Domain-only automatic `PHISHING` verdict — returned purely from the host name, with no address evidence | Currently reachable (pre-containment) | 3 | **CONTAINED-RUNTIME-VERIFIED by reachability removal** | Task 013-R1 | `content_scripts` absent → script never injected | **Underlying heuristic is NOT fixed** — disabled and deferred to Phase 01 |
 | F22 | `popup/popup.html`, `popup/popup.js`, `serviceWorker.js` | Invented/unvalidated popup metrics and operational claims (resilience %, trusted/poison/mesh/VCI counts, "secure relay stable", "telemetry stream listening") | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013-R1 | Popup is a static honest state; 7 invalid metric keys removed from storage | Deployment, release and Phase 01 replacement pending |
 | F23 | `popup/popup.html`, `popup/popup.js` | Obsolete external activation UI (handshake button + command-centre link) still reachable after the backend handshake was removed | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013-R1 | Handshake UI and external URL absent from the reachable surface | Deployment, release and Phase 01 replacement pending |
 
 Non-security randomness (visual/demo) is Category 1 and out of emergency-containment scope unless it feeds an entry above.
 
-### 3.8 Task execution ledger (Tasks 001–017)
+### 3.8 Task execution ledger (Tasks 001–021)
 
 | Task | Objective | Status | Evidence / commit | Changed code | Committed / pushed | Follow-up |
 |---|---|---|---|---|---|---|
@@ -183,19 +195,26 @@ Non-security randomness (visual/demo) is Category 1 and out of emergency-contain
 | 014 | Two auditable local commits — the seven-file extension containment, then this plan update | ✅ | preflight passed; `node --check` ×5, manifest parse + surface assertions, production build and forbidden-identifier searches all passed; containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` | No new product code | Committed locally | Published later, in Task 015 |
 | 015 | Publish the two Task 014 commits to `origin/development` | ✅ | fast-forward `bfcf850..ec78e0c`, non-forced; local `development`, tracking `origin/development` and the actual remote `refs/heads/development` all resolved to `ec78e0c`; `main` untouched at `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8` | No | **Pushed** | **Publication of development source only — NOT deployment, release, or production readiness** |
 | 016 | Isolated Chrome extension runtime verification | ✅ | two explicitly separated evidence layers — see §3.12 and §19.1 | No — verification only | N/A | Deployment, Chrome Web Store release and merge to `main` remain pending |
-| 017 | Record publication and runtime-verification evidence in this plan | ✅ | version 1.0.3; diff inspected; table columns checked; no finding marked permanently resolved | **Documentation only — no product or extension code** | Committed locally — **not pushed** | Push pending separate CTO authorization |
+| 017 | Record publication and runtime-verification evidence in this plan | ✅ | version 1.0.3; diff inspected; table columns checked; no finding marked permanently resolved | **Documentation only — no product or extension code** | Committed locally | Published in Task 018 |
+| 018 | Publish the Task 017 documentation commit | ✅ | fast-forward `ec78e0c..a6d2bbf`, non-forced; local, tracking and actual remote `development` all resolved to `a6d2bbf`; `main` untouched at `0f66464` | No | **Pushed** | Publication only — not deployment or release |
+| 019 | **Read-only** API emergency-containment analysis (F11, F12, F13, F19, F20) | ✅ | complete route inventory, end-to-end reachability maps and an impact matrix. Established that **no authentication, authorization, rate limiting, strict schema boundary, CORS policy, body-size guard or API test exists anywhere in tracked `api/`, `services/` or `lib/`**. Identified F24–F27 | No — read-only, nothing edited | N/A | Containment design approved in part; the Helius operation contract is deferred to a dedicated task |
+| 020 | API emergency containment batch 1 — two local commits | ✅ | Commit 1 `71b78eda56eb6dadfe4867f42dbbc17788f9fa3d` (F13) and Commit 2 `962c854261a8d29dba5142e8f84b787c7b65fef3` (F11) — full evidence in §3.13 | Yes — API source only | Committed locally — **not pushed** | Push, deployment and production verification all pending |
+| 021 | Record Task 019 findings and Task 020 containment in this plan | ✅ | version 1.0.4; complete diff inspected; table columns checked; commit SHAs and Git-derived change counts verified against `git show --numstat` | **Documentation only — no product code** | Committed locally — **not pushed** | Push pending separate CTO authorization |
 
 ### 3.9 Phase 00 progress
 
 Completed and verified:
-✅ GitHub account isolation · ✅ Branch consolidation to `development` + `main` · ✅ Worktree removal · ✅ Repository operating charter · ✅ Canonical master-plan adoption · ✅ Authorized untracked-artifact classification · ✅ Obsolete sensitive ZIP deletion · ✅ Share-archive exclusion hardening and publication · ✅ Reproducible technical baseline · ✅ Reachability-aware containment inventory through F23 · ✅ Exact extension-containment change list approved · ✅ Extension containment implemented and statically checked · ✅ Extension containment committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016) · ✅ Containment commits published to `origin/development` (Task 015) · ✅ **Extension containment runtime-verified in an isolated browser (Task 016)**
+✅ GitHub account isolation · ✅ Branch consolidation to `development` + `main` · ✅ Worktree removal · ✅ Repository operating charter · ✅ Canonical master-plan adoption · ✅ Authorized untracked-artifact classification · ✅ Obsolete sensitive ZIP deletion · ✅ Share-archive exclusion hardening and publication · ✅ Reproducible technical baseline · ✅ Reachability-aware containment inventory through F23 · ✅ Exact extension-containment change list approved · ✅ Extension containment implemented and statically checked · ✅ Extension containment committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016) · ✅ Containment commits published to `origin/development` (Task 015) · ✅ **Extension containment runtime-verified in an isolated browser (Task 016)** · ✅ Read-only API-boundary analysis (Task 019) · ✅ **F11 and F13 source-contained in local commits (Task 020)**
 
 **Phase 00 remains 🟨 IN PROGRESS.** Specifically:
 - Task 013/013-R1 changes are **committed and published** (`3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`, published in Task 015) and **runtime-verified in isolation** (Task 016), but remain **undeployed, unreleased, and unmerged to `main`**.
 - Containment is **not** remediation: the extension still performs **no detection and issues no verdicts**, by design.
 - Extension containment is **not** release-complete and **not** Chrome Web Store ready.
 - Still pending: the complete quality floor · TypeScript remediation · tests, lint and CI · the provider credential decision · authoritative USDC replacement · full detector implementation · deployment · Chrome Web Store release · merge into `main`.
-- F5–F13 and F17–F20, the website, simulation labelling, API boundary and the Phase 00 exit gate are **not** complete.
+- **API containment batch 1 (Task 020) is source-contained locally only.** F11 and F13 are removed from the tracked source in commits `71b78ed` and `962c854`, which are **committed locally, not pushed, not deployed, and not production-verified**. The deployed site may still expose the old routes.
+- **F12, F19, F20 and F25 remain fully open**, with F12 — the unauthenticated general-purpose Helius proxy — the highest-priority remaining API exposure.
+- F24 is an open **configuration reproducibility gap**; F26 is **contributing evidence** under F13/F19; F27 is open **dead-code hygiene**. None of these three is an established active vulnerability.
+- F5–F10, F14–F18, the website, simulation labelling and the Phase 00 exit gate are **not** complete.
 
 ### 3.10 Artifact status
 
@@ -265,6 +284,27 @@ Extension containment state: content scripts disabled · `<all_urls>` host permi
 **Chrome-version gap: partially closed.** Installed Chrome 152 accepted the unpacked extension and passed the limited owner checks above; full automated behavioural coverage still rests on Chrome for Testing 148.
 
 None of this is deployment, release, production validation, or evidence of protective capability. **The extension issues no verdicts and provides no protection.**
+
+### 3.13 API boundary containment state (Tasks 019–020)
+
+**Status: `CONTAINED-SOURCE-LOCAL` for F11 and F13 only — NOT pushed, NOT deployed, NOT production-remediated. F12, F19, F20 and F25 remain fully OPEN.**
+
+**Commit 1 — `71b78eda56eb6dadfe4867f42dbbc17788f9fa3d`** · `security(api): remove unauthenticated cache mutation surface`
+Deleted `api/cache.ts` and `lib/cache.ts`; removed the dead `lib/cache` import, the now-unused `CACHE_VERSION` constant, the commented-out cache integration and the two cache-status logs from `services/heliusService.ts`. **170 deletions, zero insertions.** No live tracked caller existed. Production build passed.
+
+**Commit 2 — `962c854261a8d29dba5142e8f84b787c7b65fef3`** · `security(api): remove client-controlled model and prompt endpoint`
+`api/openai.ts` only, **17 insertions / 25 deletions**. The `generateText` case is removed; a server-controlled endpoint allowlist is evaluated **before** SDK construction; unsupported, missing and non-string endpoints return a generic HTTP 400 that reveals no internal configuration. The five fixed-purpose Gemini-fallback operations are retained and still select their own model, system prompt, response format and temperature. Production build passed.
+
+**Evidence boundary.** Commit 2's rejection paths were **runtime-verified locally**: the real transpiled handler was executed against a **stubbed SDK with no network I/O**, and 7/7 rejection paths returned HTTP 400 with an identical generic body while the provider client was **never constructed**; a retained endpoint still routed correctly through the stub. Commit 1 rests on **static search plus production build only** — there was no runtime exercise, because nothing calls the deleted route. Neither commit has been pushed, deployed, or verified in production.
+
+**Residual Task 020 debt (recorded, not fixed).**
+
+- Dead `generateText` / narrative client wrappers remain in `services/openaiService.ts` and `services/aiRouter.ts` — unreachable from any component, but misleading; cleanup deferred.
+- `@vercel/kv` is now an **unused dependency** in `package.json`; dependency changes were not authorized.
+- API logging is **unchanged** apart from the two cache-status logs removed with the deleted integration — F20 stands.
+- **`api/helius.ts` is the highest-priority remaining API exposure** and was not touched.
+- Cache deletion does **not** reduce current provider-call amplification, because caching was already disabled (F26); F19 stands.
+- A fresh remote fetch was unavailable during Task 020 because of a command safety-classifier outage; **no push occurred**, and a fresh fetch was completed successfully in the Task 021 preflight.
 
 ---
 
@@ -346,7 +386,8 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
    - 🟨 unsigned external handshake removed and committed locally (worker + manifest)
    - ⬜ paid checkout / dead payment code (F8)
    - ⬜ admin backdoor (F9)
-   - ⬜ API boundary (F11, F12, F13, F19, F20)
+   - 🟨 API boundary — **F11 and F13 source-contained locally** (Task 020, unpushed/undeployed); **F12, F19, F20, F25 open**
+   - ⬜ push, deployment and production verification of API containment batch 1
    - ⬜ website integrity (F5, F6, F7)
    - ⬜ simulation labelling (F10, F17, F18)
    - ⬜ TypeScript / test / lint / dependency / CI quality floor
@@ -502,14 +543,14 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
 3. ✅ Commit the approved seven-file extension containment — `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` (Task 014)
 4. ✅ Push it to `origin/development` — fast-forward `bfcf850..ec78e0c` (Task 015)
 5. ✅ Perform extension runtime/browser verification — isolated Chrome for Testing 148 plus owner-assisted Chrome 152 confirmation (Task 016, §3.12)
-6. ⬜ API emergency containment — F11, F12, F13, F19, F20
+6. 🟨 API emergency containment — **batch 1 complete in local source** (F11 via `962c854`, F13 via `71b78ed`, Task 020) · **push, deployment and production verification pending** · **F12, F19, F20, F25 still open** (batch 2)
 7. ⬜ Website integrity containment — F5, F6, F7, F9
 8. ⬜ Simulation / dead-code containment — F8, F10, F17, F18
 9. ⬜ Establish the TypeScript, test, lint, dependency and CI quality floor
 10. ⬜ Re-inspect F1–F23 and record acceptance evidence
 11. ⬜ Release-gated merge to `main`
 
-**Open findings retained (not contained):** F5 · F6 · F7 · F8 · F9 · F10 · F11 · F12 · F13 · F17 · F18 · F19 · F20 · F21 (underlying heuristic, currently unreachable) — plus authoritative USDC replacement verification, orphaned extension files and unused CSS, browser runtime verification, and the dependency/type/test/lint/CI quality floor.
+**Open findings retained (not contained):** F5 · F6 · F7 · F8 · F9 · F10 · **F12** · F17 · F18 · **F19** · **F20** · F21 (underlying heuristic, currently unreachable) · **F24** (configuration gap) · **F25** · F27 (hygiene) — plus F11 and F13, which are **source-contained locally but neither pushed nor deployed** — plus authoritative USDC replacement verification, orphaned extension files and unused CSS, browser runtime verification, and the dependency/type/test/lint/CI quality floor.
 
 **Explicitly still pending (none of these is complete):** complete quality floor · TypeScript remediation · tests, lint and CI · provider credential decision · authoritative USDC replacement · full detector implementation · deployment · Chrome Web Store release · merge into `main`.
 
@@ -661,7 +702,7 @@ Define methodology; **do not invent baselines/targets** — mark absent values a
 | Fabricated/random intelligence | Critical | Present | F1–F23 `VERIFIED` (§3.7) | F1–F4, F14–F16, F21–F23 **contained, published and runtime-verified in isolation** (`3c1fb2b`, Tasks 015–016); **F5–F13 and F17–F20 remain open** | Eng | prod exposure | ⚠️ **OPEN** until deployment, release and Phase 01 replacement |
 | Corrupted user metric (`VIG_TOTAL_POISONS`) | High | Present | F4 `VERIFIED` | **contained, published and runtime-verified**; invalid keys removed (not re-initialised) on install **and** update | Eng | any HUD open | ⚠️ deployment/release pending |
 | Credential-bearing provider endpoint | High | Present | F14 (pre-containment location `serviceWorker.js:5`) | **removed, published and runtime-verified absent**; provider-side rotation decision **remains open** | Eng/Owner | extraction | ⚠️ |
-| Provider/API abuse | High | Med | open proxy + unauth cache | allowlist/auth/limits | Eng | cost spike | ⚠️ |
+| Provider/API abuse | High | Med | open proxy (F12) + unauth cache (F13) | F13 and F11 **source-contained locally** (Task 020 — unpushed, undeployed); **F12 operation contract still open**; no auth or rate limiting exists anywhere | Eng | cost spike | ⚠️ **OPEN** — F12 unmitigated and nothing deployed |
 | Incorrect canonical registry | High | Present | F16 (pre-containment location `addressValidator.js:8`) | **unsafe USDC auto-trust removed**; replacement verification pending | Eng | wrong trust | ⚠️ |
 | Privacy-claim mismatch | Med | Present | README/context vs code | data-flow audit + rewrite | Eng/Owner | store/legal review | ⚠️ |
 | Brand collision | Med | Likely | `NEEDS VERIFICATION` | trademark/naming review | Owner | marketing spend | ⚠️ |
@@ -705,7 +746,9 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 | Credential-bearing provider endpoint | Claude | `serviceWorker.js:5` *(pre-containment)* | VERIFIED (redacted) | 2026-09-03 | Removed in working tree (F14); **provider-side rotation remains an owner action** |
 | Inconsistent USDC value | Claude | `core/addressValidator.js:8` *(pre-containment)* | VERIFIED (value) / NEEDS OFFICIAL EXTERNAL VERIFICATION (replacement) | 2026-09-03 | **Unsafe auto-trust removed now**; replacement only after official verification |
 | Forced `NEW` + fabricated latency | Claude/CTO | `IntentValidatorDemo.tsx:545,547` | VERIFIED | 2026-09-03 | **Removable/suppressible now**; evidence-derived replacement is Phase 01 |
-| Open proxy / unauth cache | Claude | `api/helius.ts:25`; `api/cache.ts:34` | VERIFIED | 2026-09-03 | Allowlist + server-only writes — **open** |
+| Open proxy / unauth cache | Claude | `api/helius.ts:25`; `api/cache.ts:34` *(cache route deleted in source, Task 020)* | VERIFIED | 2026-09-03 | Cache surface **source-contained locally** (F13); **open proxy F12 remains fully unmitigated** |
+| API-boundary analysis (Task 019) | Claude/CTO | `api/*`, `services/*`, `lib/*` | VERIFIED (read-only) | 2026-09-03 | Route inventory and reachability maps. **No authentication, authorization, rate limiting, strict schema boundary, CORS policy, body-size guard or API test exists in tracked code.** `/api/cache` was deployed with **no** legitimate caller; `generateText` was reachable over the network with **no** UI caller. F19 restated as a structural ceiling, not observed usage |
+| API containment batch 1 (Task 020) | Claude/CTO | `api/cache.ts`, `lib/cache.ts`, `services/heliusService.ts`, `api/openai.ts` | VERIFIED (local source + build; rejection paths runtime-verified against a stub) | 2026-09-03 | Commit `71b78eda56eb6dadfe4867f42dbbc17788f9fa3d`: 170 deletions / 0 insertions, no live tracked caller, build passed. Commit `962c854261a8d29dba5142e8f84b787c7b65fef3`: `api/openai.ts` only, **17 insertions / 25 deletions**, `generateText` removed, allowlist added before SDK construction, unsupported/missing/non-string endpoints return generic HTTP 400, stubbed harness confirmed **no provider call** on rejection, build passed. **Both commits local and unpushed; no deployment** |
 | Duplicate deps | Claude | `package.json` | VERIFIED | 2026-09-03 | Deterministic installs |
 | Zero test/CI/lint | Claude/CTO | repo root | VERIFIED | 2026-09-03 | Quality floor |
 | No SSR / crawlability | Grok/Claude | `index.html` | PARTIALLY VERIFIED | 2026-09-03 | SSR essential content |
@@ -736,9 +779,13 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 | F7 | `utils/marketMath.ts:19,42` hardcoded distribution | VERIFIED | 00 (remove/hide) → 01 (real data) | Remove or hide now | **OPEN** | Phase 01 exit |
 | F8 | `components/Pricing.tsx` dead payment code | VERIFIED | 00 | Explicit disable guard | **OPEN** — dead code, not an active vulnerability | Phase 00 exit |
 | F9 | `App.tsx` admin backdoor | VERIFIED | 00 | Remove/disable now | **OPEN** | Phase 00 exit |
-| F11 | `api/openai.ts:193` client-chosen model/tokens | VERIFIED | 00 | Auth + allowlist + token cap | **OPEN** | Phase 00 exit |
+| F11 | `api/openai.ts:193` client-chosen model/tokens *(pre-containment)* | VERIFIED | 00 | Remove the endpoint; server-controlled allowlist | ✅ removed in `962c854`; rejection paths runtime-verified against a stub (no provider call) — **local commit only, not pushed or deployed** | Phase 00 exit |
 | F12 | `api/helius.ts:25` open proxy | VERIFIED | 00 | Allowlist operations | **OPEN** — must precede any extension re-route | Phase 00 exit |
-| F13 | `api/cache.ts:34` unauth `set` | VERIFIED | 00 | Server-only writes | **OPEN** | Phase 00 exit |
+| F13 | `api/cache.ts:34` unauth `set` *(pre-containment)* | VERIFIED | 00 | Delete the unused writable route | ✅ route and helper deleted in `71b78ed`; no residual tracked reference; build passed — **static + build evidence only; local commit, not pushed or deployed** | Phase 00 exit |
+| F24 | No tracked `vercel.json` | VERIFIED (absence) | 00 → later | Pin runtime config **after** verifying the live environment | **OPEN** — configuration/reproducibility gap, not an established vulnerability | Phase 00 exit |
+| F25 | `api/gemini.ts:242` mesh denylist + missing string validation | VERIFIED | 00 | Type-guard, length cap, real input contract | **OPEN** — active input/prompt-control concern | Phase 00 exit |
+| F26 | Disabled cache while route deployed | VERIFIED | 00 | Recorded under F13 / F19 | **CONTRIBUTING EVIDENCE** — source removed in `71b78ed`; F19 still open | n/a |
+| F27 | `components/VideoProductionStudio.tsx` dead key pattern | VERIFIED | 00 | Delete dead block | **OPEN — hygiene only**, unreachable | Phase 00 exit |
 | F19 | `services/heliusService.ts:216` provider-call ceiling | VERIFIED (static upper bound) | 00 | Lower caps + budget | **OPEN** — upper bound, not measured spend | Phase 00 exit |
 | F20 | `services/heliusService.ts:310` debug logging | VERIFIED | 00 | Gate behind debug flag | **OPEN** | Phase 00 exit |
 | F10, F17, F18 | Gating bypass + unlabelled simulations | VERIFIED | 00 | Relabel / `/lab` isolation | **OPEN** | Phase 00 exit |
@@ -749,6 +796,7 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 
 | Version | Date | Summary |
 |---|---|---|
+| Version 1.0.4 | 2026-09-03 | Records **Task 019** — the read-only API-boundary analysis covering F11, F12, F13, F19 and F20, which established that **no authentication, authorization, rate limiting, strict schema boundary, CORS policy, body-size guard or API test exists in tracked code**, and which identified **F24** (deployment/runtime configuration reproducibility gap — *not* an established exploitable vulnerability), **F25** (active mesh-query input/prompt-control weakness), **F26** (disabled cache integration while the writable route stayed deployed — *contributing evidence* under F13/F19, not an independent exploit class) and **F27** (unreachable dead client-side provider-key pattern — hygiene only). Records **Task 020** API containment batch 1: commit `71b78eda56eb6dadfe4867f42dbbc17788f9fa3d` deleted `api/cache.ts` and `lib/cache.ts` and the dead cache integration in `services/heliusService.ts` (170 deletions / 0 insertions), and commit `962c854261a8d29dba5142e8f84b787c7b65fef3` removed the client-controlled `generateText` endpoint from `api/openai.ts` (17 insertions / 25 deletions) while retaining the five fixed-purpose, server-controlled fallback operations. **F11 and F13 move to `CONTAINED-SOURCE-LOCAL`** — removed from tracked source in **local, unpushed** commits; neither is deployed, production-remediated, or permanently resolved, and the deployed site may still expose the old routes. **F12, F19, F20 and F25 remain fully open.** Phase 00 remains 🟨 **IN PROGRESS**. No deployment or production remediation has occurred. |
 | Version 1.0.3 | 2026-09-03 | Records **Task 015** — the containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` and plan commit `ec78e0cc0eea30e1e58db05c94034fe9e628bb2e` were fast-forward pushed to `origin/development`; local, tracking and actual remote `development` all resolved to `ec78e0c`; `main` remained untouched at `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8`; this was publication of development source only, not deployment or release. Records **Task 016** isolated runtime verification (Google Chrome for Testing `148.0.7778.96`, fresh disposable profile, extension ID `ccolepkadgjblolibndpeglajhokknbg`) and, as a **separately bounded second layer**, the **owner-assisted confirmation in installed Google Chrome `152.0.7977.65`**; the two layers are not combined, and telemetry, storage migration, DOM injection and update behaviour were not independently exercised in Chrome 152. Moves F1–F4, F14–F16 and F21–F23 from `CONTAINED-COMMIT` to **`CONTAINED-RUNTIME-VERIFIED`** (§3.7) and marks the Phase 00 containment runtime-verification step complete (§7). Records that the Chrome-version gap is **partially** closed. States prominently that the extension is **intentionally non-protective and issues no threat verdicts**. Phase 00 remains 🟨 **IN PROGRESS**; F5–F13 and F17–F20 stay open; quality floor, TypeScript remediation, tests/lint/CI, provider credential decision, authoritative USDC replacement, full detector implementation, deployment, Chrome Web Store release and merge into `main` all remain pending. No finding is marked permanently resolved and no deployment, release, production-readiness or active-protection claim is introduced. |
 | Version 1.0.2 | 2026-09-03 | Records Tasks 001–013 (§3.8), artifact and archive containment (§3.10), the measured technical baseline (§3.11), the F1–F23 reachability ledger (§3.7), and Task 013 extension-containment implementation status (§3.12). Adds the progress-control rule (§1) and updates the immediate-action sequence (§8). Phase 00 remains in progress; at the time of that revision Task 013 changes were uncommitted, unpushed and not runtime-verified. **Task 013-R3 reconciliation:** corrected the stale Phase 00 summary and the main Phase 00 checklist; requalified product-asset claims (`retinalShield.js` = legacy unvalidated prototype, disabled; Helius = plumbing only, boundary unsafe; `poisoningDetector.ts` = reviewed candidate); separated immediate containment from eventual replacement (F5, F6, F7, F9, F14, F16); corrected the task ledger (001 docs-only, 009/010 commit `bfcf850`, 012 initial F1–F20 later expanded); reconciled the cross-review table, risk register, evidence ledger and traceability to the F1–F23 ledger; and labelled superseded line numbers as pre-containment locations.  **Task 014 amendment (same version):** the approved seven-file extension containment is now committed locally as `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`; §2, §3.7, §3.8, §3.9, §3.12, §7, §8, §17 and §19.2 move from `CONTAINED-WT` to `CONTAINED-COMMIT`. Push, browser/runtime verification, deployment and release verification remain pending and unauthorized. No doctrine, scope, architecture, finding classification or approval status changed, so the version remains 1.0.2. |
 | Version 1.0.1 | 2026-09-03 | Clarified immutable baseline and adoption references so the plan does not contain a self-invalidating "current HEAD" field. |
