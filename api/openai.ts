@@ -22,10 +22,22 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { endpoint, payload } = req.body;
+    const { endpoint, payload } = req.body || {};
 
-    if (!endpoint || !payload) {
-      return res.status(400).json({ error: 'Missing endpoint or payload' });
+    // Server-controlled allowlist. Every supported operation below selects its
+    // own model, system prompt and generation settings; the client never
+    // supplies them. Anything not on this list — including a missing, non-string
+    // or unknown endpoint — is rejected before any provider request is made.
+    const ALLOWED_ENDPOINTS = [
+      'analyzeSecurityIntent',
+      'analyzeMarketIntel',
+      'analyzeAddressInterception',
+      'synthesizeAddressReputation',
+      'generateCognitiveAutopsy'
+    ];
+
+    if (typeof endpoint !== 'string' || !ALLOWED_ENDPOINTS.includes(endpoint) || !payload) {
+      return res.status(400).json({ error: 'Unsupported request' });
     }
 
     const client = new OpenAI({ apiKey });
@@ -189,28 +201,8 @@ export default async function handler(req: any, res: any) {
         return res.status(200).json(JSON.parse(text));
       }
 
-      case 'generateText': {
-        const { prompt, model, maxTokens, temperature } = payload;
-        response = await client.chat.completions.create({
-          model: model || 'gpt-4o-mini',
-          messages: [{ role: 'user', content: prompt }],
-          max_tokens: maxTokens || 2000,
-          temperature: temperature || 0.7
-        });
-
-        const text = response.choices[0]?.message?.content || '';
-        return res.status(200).json({
-          text,
-          usage: response.usage ? {
-            promptTokens: response.usage.prompt_tokens,
-            completionTokens: response.usage.completion_tokens,
-            totalTokens: response.usage.total_tokens
-          } : undefined
-        });
-      }
-
       default:
-        return res.status(400).json({ error: `Unknown endpoint: ${endpoint}` });
+        return res.status(400).json({ error: 'Unsupported request' });
     }
   } catch (error: any) {
     console.error('OpenAI API Error:', error);
