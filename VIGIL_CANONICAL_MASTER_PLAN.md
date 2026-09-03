@@ -1,12 +1,16 @@
 # VIGIL Core — Canonical Master Plan
 
-> **Version:** 1.0.2 — Owner and CTO Approved
+> **Version:** 1.0.3 — Owner and CTO Approved
 > **Status:** Approved canonical master plan
 > **Approval date:** 2026-09-03
 > **Last updated:** 2026-09-03
 > **Canonical repository:** `/Users/ajmalfahad/Desktop/Web Projects -Playground/VIGIL/Website-Stable/VIGIL-Core`
 > **Development baseline analyzed:** `5f0dd69d82dd7da74a0e62fad763c76d4d5c9869`
 > **Main baseline at plan approval:** `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8`
+
+> ## ⚠️ The VIGIL extension is intentionally NON-PROTECTIVE at this stage
+>
+> The Chrome extension **issues no threat verdicts, performs no scanning, and provides no protection whatsoever**. It is deliberately failed closed pending a validated deterministic detector (Phase 01). Runtime verification (Task 016) confirms that this contained state *behaves as documented* — it does **not** mean the extension detects anything. Nothing in this plan may be read as a deployment, release, production-readiness, or active-protection claim.
 
 ---
 
@@ -25,7 +29,7 @@
 | Main baseline at plan approval | `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8` |
 | Plan adoption commit | `d10729d752acb263535a9c841a44f70391f44850` |
 | Plan approval-metadata commit | `2daf67e9866955d1bbe1d724a0c87221e4da4438` |
-| Status | 1.0.2 — Owner and CTO Approved · Approved canonical master plan |
+| Status | 1.0.3 — Owner and CTO Approved · Approved canonical master plan |
 
 **Update policy.** Update on any material decision, milestone start/finish, new/resolved risk, scope change, or when evidence changes a claim. Record in §18 (Decision Log) and §20 (Change Log). Never rewrite silently. Never mark `✅` without linked evidence (a run test/build/review or an approved document). Writing code is not completion; verification is.
 
@@ -83,7 +87,7 @@
 - ✅ `VERIFIED` — `utils/poisoningDetector.ts` preserved (SHA-256 `c174cd08…acccc97`), untracked; **reviewed in Task 006** and classified a deterministic Solana **candidate** — not integrated.
 - ✅ `VERIFIED` — Root `CLAUDE.md` charter created, committed (`5f0dd69`), pushed to `origin/development`.
 
-> **Phase 00 status.** The repository foundation, artifact classification, technical baseline, and the F1–F23 inventory are **complete**. Extension containment is **implemented, statically checked, and committed locally** (`3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`), but remains **unpushed, undeployed, and not browser/runtime verified**. API, website, simulation, quality-floor, CI, and the final Phase 00 gates remain **open**. See §3.9.
+> **Phase 00 status.** The repository foundation, artifact classification, technical baseline, and the F1–F23 inventory are **complete**. Extension containment is **implemented, statically checked, committed (`3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`), published to `origin/development` (Task 015), and verified in an isolated browser runtime (Task 016)**, but remains **undeployed, unreleased, and unmerged to `main`**. API, website, simulation, quality-floor, CI, and the final Phase 00 gates remain **open**. See §3.9.
 
 ### 3.2 Product assets carried forward (qualified)
 - 🟨 `PARTIALLY VERIFIED` — **Legacy deterministic heuristic prototype**: `VIGIL-FIELD-UNIT/content/retinalShield.js` `analyzeAddress()`. It contains **unvalidated entropy/similarity thresholds**, contained the **F21 domain-only phishing logic**, and its active reachability was **disabled by Task 013-R1**. It is **not production-valid**. Candidate concepts may inform Phase 01; **the implementation is not an approved detector.**
@@ -126,14 +130,14 @@ Fabricated campaign, random verdicts (service worker **and** `AlertMarketIntel.j
 
 **Category key:** (1) clearly labelled harmless demo randomness · (2) unlabelled simulation needing disclosure/`/lab` isolation · (3) affects a verdict, warning, score, security evidence, telemetry, campaign, forensic conclusion, entitlement, or user metric. Not every `Math.random()` is a vulnerability; only reachable, user-impacting cases are Category 3.
 
-**Status key:** `CONTAINED-COMMIT` = *contained and committed locally in `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` — static checks and production build passed — push, browser/runtime verification, deployment and release verification pending*. `OPEN` = not yet contained. Reachability is stated **as of Task 012 (pre-containment)**; live deployed reachability remains unverified.
+**Status key:** `CONTAINED-RUNTIME-VERIFIED` = *the fabrication or unsafe surface is absent from the published `development` source (containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`, pushed in Task 015) **and** its absence was confirmed in an isolated browser runtime (Task 016)*. This status means **containment only**. It is **not** a permanent remediation, **not** production validation, **not** deployment, and **not** release; the underlying capability is honestly replaced only in Phase 01, and each row's remaining blocker still applies. `OPEN` = not yet contained. Reachability is stated **as of Task 012 (pre-containment)**; live deployed reachability remains unverified.
 
 | ID | File(s) | Finding | Reachability (pre-containment) | Cat | Current status | Containment / target batch | Acceptance evidence | Remaining limitation / blocker |
 |---|---|---|---|---|---|---|---|---|
-| F1 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | Fabricated global campaign timer + payload | Conditional (required `VIG_NODE_VERIFIED`, set only via F15) | 3 | **CONTAINED-COMMIT** | Task 013 | `GLOBAL_CAMPAIGN_SIGNAL`, `INDUSTRIALIZED` absent; build pass | Push + runtime verification |
-| F2 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | Random concentration-trap verdict + fabricated forensic fields | Conditional (paid tier via F15) | 3 | **CONTAINED-COMMIT** | Task 013 | `isAccumulationTrap`, `motherWallet` absent | Push + runtime verification |
-| F3 | `VIGIL-FIELD-UNIT/content/ui/AlertMarketIntel.js` | Random rug-risk decision + hardcoded holder/bundling/dev/mcap metrics + proceed-or-abort recommendation | Conditional (discovery domain + non-BASELINE tier) | 3 | **CONTAINED-COMMIT** — replaced with labelled unavailable state | Task 013 | `isRugRisk`, `rug-pulls` absent; zero `Math.random` extension-wide | Push + runtime verification |
-| F4 | `retinalShield.js` → `serviceWorker.js` | `THREAT_LOG` on any HUD open mutated `VIG_TOTAL_POISONS` / `VIG_USER_BRI` regardless of verdict | Currently reachable | 3 | **CONTAINED-COMMIT** | Task 013 / 013-R1 | `THREAT_LOG`, `updateLocalIntelligence` absent; invalid keys **removed**, not re-initialised | Push + runtime verification |
+| F1 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | Fabricated global campaign timer + payload | Conditional (required `VIG_NODE_VERIFIED`, set only via F15) | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 | `GLOBAL_CAMPAIGN_SIGNAL`, `INDUSTRIALIZED` absent; build pass | Deployment, release and Phase 01 replacement pending |
+| F2 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | Random concentration-trap verdict + fabricated forensic fields | Conditional (paid tier via F15) | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 | `isAccumulationTrap`, `motherWallet` absent | Deployment, release and Phase 01 replacement pending |
+| F3 | `VIGIL-FIELD-UNIT/content/ui/AlertMarketIntel.js` | Random rug-risk decision + hardcoded holder/bundling/dev/mcap metrics + proceed-or-abort recommendation | Conditional (discovery domain + non-BASELINE tier) | 3 | **CONTAINED-RUNTIME-VERIFIED** — replaced with labelled unavailable state | Task 013 | `isRugRisk`, `rug-pulls` absent; zero `Math.random` extension-wide | Deployment, release and Phase 01 replacement pending |
+| F4 | `retinalShield.js` → `serviceWorker.js` | `THREAT_LOG` on any HUD open mutated `VIG_TOTAL_POISONS` / `VIG_USER_BRI` regardless of verdict | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 / 013-R1 | `THREAT_LOG`, `updateLocalIntelligence` absent; invalid keys **removed**, not re-initialised | Deployment, release and Phase 01 replacement pending |
 | F5 | `api/gemini.ts`, `api/openai.ts` | AI-generated risk/reputation/honeypot/Sybil verdicts from an address alone | Currently reachable | 3 | **OPEN** | API containment batch | — | **Verdict endpoints can be disabled during Phase 00.** Only the *honest replacement* requires the Phase 01 engine — that is not a blocker to containment |
 | F6 | `components/IntentValidatorDemo.tsx` | Forced `NEW` verdict for real addresses + fabricated `9.2–11.3 ms` latency shown as measurement | Currently reachable | 3 | **OPEN** | Website containment batch | — | **Forced `NEW` and fabricated latency can be removed/suppressed now.** Only the evidence-derived replacement requires Phase 01 |
 | F7 | `utils/marketMath.ts` | Hardcoded distribution `{top10:1,top20:3,top50:12}` + placeholder bundling presented as analysis | Conditional | 2/3 | **OPEN** | Website containment batch | — | **Hardcoded values can be removed or hidden now.** Only real distribution requires validated holder data later |
@@ -143,20 +147,20 @@ Fabricated campaign, random verdicts (service worker **and** `AlertMarketIntel.j
 | F11 | `api/openai.ts` | `generateText` lets the client choose `model` and `maxTokens` — uncapped provider cost | Currently reachable | 3 (cost) | **OPEN** | API containment batch | — | Needs auth + model allowlist + token cap |
 | F12 | `api/helius.ts` | Open proxy — arbitrary `rpcMethod`/`rpcParams` and arbitrary `endpoint`/`method` executed with the server-side key | Currently reachable | 3 | **OPEN** | API containment batch | — | Must land **before/with** any extension re-route |
 | F13 | `api/cache.ts` | Unauthenticated cache `set` — cache poisoning | Currently reachable | 3 | **OPEN** | API containment batch | — | Needs server-only writes |
-| F14 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | **Credential-bearing provider endpoint** distributed inside the extension | Currently reachable | 3 | **CONTAINED-COMMIT** | Task 013 | `HELIUS_SECURE_LINK`, provider hostname absent | Provider-side credential rotation remains an **owner action**; **not proven leaked** |
-| F15 | `serviceWorker.js`, `manifest.json` | Unsigned external entitlement handshake self-granting paid tier | Conditional — externally reachable **only through the configured Googleusercontent scope** | 3 | **CONTAINED-COMMIT** | Task 013 / 013-R1 | `onMessageExternal`, `VIGIL_HANDSHAKE_ACTIVATE`, `externally_connectable` absent | Push + runtime verification |
-| F16 | `VIGIL-FIELD-UNIT/core/addressValidator.js` | Incorrect USDC value auto-trusted as a canonical mint | Currently reachable | 3 | **CONTAINED-COMMIT** — the **unsafe auto-trust behaviour is contained by removal**; no replacement asserted | Task 013 | Prior value absent; remaining registry unchanged | Authoritative replacement is **separately pending** (`NEEDS OFFICIAL EXTERNAL VERIFICATION`) — not a blocker to the containment already applied |
+| F14 | `VIGIL-FIELD-UNIT/background/serviceWorker.js` | **Credential-bearing provider endpoint** distributed inside the extension | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 | `HELIUS_SECURE_LINK`, provider hostname absent | Provider-side credential rotation remains an **owner action**; **not proven leaked** |
+| F15 | `serviceWorker.js`, `manifest.json` | Unsigned external entitlement handshake self-granting paid tier | Conditional — externally reachable **only through the configured Googleusercontent scope** | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013 / 013-R1 | `onMessageExternal`, `VIGIL_HANDSHAKE_ACTIVATE`, `externally_connectable` absent | Deployment, release and Phase 01 replacement pending |
+| F16 | `VIGIL-FIELD-UNIT/core/addressValidator.js` | Incorrect USDC value auto-trusted as a canonical mint | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** — the **unsafe auto-trust behaviour is contained by removal**; no replacement asserted | Task 013 | Prior value absent; remaining registry unchanged | Authoritative replacement is **separately pending** (`NEEDS OFFICIAL EXTERNAL VERIFICATION`) — not a blocker to the containment already applied |
 | F17 | `EntropyCollider.tsx`, `SiloGate.tsx`, `NeuralAttentionalAudit.tsx` | Training-game randomness using production threat vocabulary without an explicit simulation label | Currently reachable | 2 | **OPEN** | Simulation/dead-code batch | — | Relabel / `/lab` isolation |
 | F18 | `components/IntelligenceForge.tsx` | Randomly assigned "cluster" presented as global threat intelligence | Currently reachable | 2/3 | **OPEN** | Simulation/dead-code batch | — | Relabel or replace with evidence |
 | F19 | `services/heliusService.ts` | Provider-call ceiling of 50 × 500 signatures plus parse batches | Currently reachable | 3 (cost) | **OPEN** | API containment batch | — | **Worst-case static upper bound — not measured real-world spend** |
 | F20 | `services/heliusService.ts` | Privacy-adjacent debug logging of address/cursor material | Currently reachable | 2 | **OPEN** | API containment batch | — | Gate behind a debug flag |
-| F21 | `VIGIL-FIELD-UNIT/content/retinalShield.js` | Domain-only automatic `PHISHING` verdict — returned purely from the host name, with no address evidence | Currently reachable (pre-containment) | 3 | **CONTAINED-COMMIT by reachability removal** | Task 013-R1 | `content_scripts` absent → script never injected | **Underlying heuristic is NOT fixed** — disabled and deferred to Phase 01 |
-| F22 | `popup/popup.html`, `popup/popup.js`, `serviceWorker.js` | Invented/unvalidated popup metrics and operational claims (resilience %, trusted/poison/mesh/VCI counts, "secure relay stable", "telemetry stream listening") | Currently reachable | 3 | **CONTAINED-COMMIT** | Task 013-R1 | Popup is a static honest state; 7 invalid metric keys removed from storage | Push + runtime verification |
-| F23 | `popup/popup.html`, `popup/popup.js` | Obsolete external activation UI (handshake button + command-centre link) still reachable after the backend handshake was removed | Currently reachable | 3 | **CONTAINED-COMMIT** | Task 013-R1 | Handshake UI and external URL absent from the reachable surface | Push + runtime verification |
+| F21 | `VIGIL-FIELD-UNIT/content/retinalShield.js` | Domain-only automatic `PHISHING` verdict — returned purely from the host name, with no address evidence | Currently reachable (pre-containment) | 3 | **CONTAINED-RUNTIME-VERIFIED by reachability removal** | Task 013-R1 | `content_scripts` absent → script never injected | **Underlying heuristic is NOT fixed** — disabled and deferred to Phase 01 |
+| F22 | `popup/popup.html`, `popup/popup.js`, `serviceWorker.js` | Invented/unvalidated popup metrics and operational claims (resilience %, trusted/poison/mesh/VCI counts, "secure relay stable", "telemetry stream listening") | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013-R1 | Popup is a static honest state; 7 invalid metric keys removed from storage | Deployment, release and Phase 01 replacement pending |
+| F23 | `popup/popup.html`, `popup/popup.js` | Obsolete external activation UI (handshake button + command-centre link) still reachable after the backend handshake was removed | Currently reachable | 3 | **CONTAINED-RUNTIME-VERIFIED** | Task 013-R1 | Handshake UI and external URL absent from the reachable surface | Deployment, release and Phase 01 replacement pending |
 
 Non-security randomness (visual/demo) is Category 1 and out of emergency-containment scope unless it feeds an entry above.
 
-### 3.8 Task execution ledger (Tasks 001–014)
+### 3.8 Task execution ledger (Tasks 001–017)
 
 | Task | Objective | Status | Evidence / commit | Changed code | Committed / pushed | Follow-up |
 |---|---|---|---|---|---|---|
@@ -174,20 +178,24 @@ Non-security randomness (visual/demo) is Category 1 and out of emergency-contain
 | 011 | Capture the reproducible technical baseline | ✅ | measured results (§3.11) | No | N/A | Quality-floor gaps open |
 | 012 | **Initial** reachability-aware containment inventory (F1–F20), **later expanded** through CTO review and Task 013-R1 to F1–F23 | ✅ | read-only report; superseded by the §3.7 primary ledger | No | N/A | Ledger is the living record — not permanently fixed at F20 |
 | — CTO review of 012 | Corrected F8, F10, F15, F16, F19 classifications | ✅ | recorded in §3.7 | No | N/A | — |
-| 013 | Extension Containment Batch 1 | 🟨 | 5 files; static checks pass | Yes | **Committed locally** — `3c1fb2b` | Push + runtime verification |
-| 013-R1 | Complete fail-closed containment; identified F21–F23 | 🟨 | 7 files total; static checks pass; CTO diff approval recorded | Yes | **Committed locally** — `3c1fb2b` | Push + runtime verification |
-| 014 | Two auditable local commits — the seven-file extension containment, then this plan update | ✅ | preflight passed; `node --check` ×5, manifest parse + surface assertions, production build and forbidden-identifier searches all passed; containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` | No new product code | Committed locally — **not pushed** | Push remains **unauthorized and pending** |
+| 013 | Extension Containment Batch 1 | 🟨 | 5 files; static checks pass | Yes | **Committed + pushed** — `3c1fb2b` | Deployment, release and Phase 01 replacement pending |
+| 013-R1 | Complete fail-closed containment; identified F21–F23 | 🟨 | 7 files total; static checks pass; CTO diff approval recorded | Yes | **Committed + pushed** — `3c1fb2b` | Deployment, release and Phase 01 replacement pending |
+| 014 | Two auditable local commits — the seven-file extension containment, then this plan update | ✅ | preflight passed; `node --check` ×5, manifest parse + surface assertions, production build and forbidden-identifier searches all passed; containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` | No new product code | Committed locally | Published later, in Task 015 |
+| 015 | Publish the two Task 014 commits to `origin/development` | ✅ | fast-forward `bfcf850..ec78e0c`, non-forced; local `development`, tracking `origin/development` and the actual remote `refs/heads/development` all resolved to `ec78e0c`; `main` untouched at `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8` | No | **Pushed** | **Publication of development source only — NOT deployment, release, or production readiness** |
+| 016 | Isolated Chrome extension runtime verification | ✅ | two explicitly separated evidence layers — see §3.12 and §19.1 | No — verification only | N/A | Deployment, Chrome Web Store release and merge to `main` remain pending |
+| 017 | Record publication and runtime-verification evidence in this plan | ✅ | version 1.0.3; diff inspected; table columns checked; no finding marked permanently resolved | **Documentation only — no product or extension code** | Committed locally — **not pushed** | Push pending separate CTO authorization |
 
 ### 3.9 Phase 00 progress
 
 Completed and verified:
-✅ GitHub account isolation · ✅ Branch consolidation to `development` + `main` · ✅ Worktree removal · ✅ Repository operating charter · ✅ Canonical master-plan adoption · ✅ Authorized untracked-artifact classification · ✅ Obsolete sensitive ZIP deletion · ✅ Share-archive exclusion hardening and publication · ✅ Reproducible technical baseline · ✅ Reachability-aware containment inventory through F23 · ✅ Exact extension-containment change list approved · ✅ Extension containment implemented and statically checked · ✅ Extension containment committed locally (`3c1fb2b`)
+✅ GitHub account isolation · ✅ Branch consolidation to `development` + `main` · ✅ Worktree removal · ✅ Repository operating charter · ✅ Canonical master-plan adoption · ✅ Authorized untracked-artifact classification · ✅ Obsolete sensitive ZIP deletion · ✅ Share-archive exclusion hardening and publication · ✅ Reproducible technical baseline · ✅ Reachability-aware containment inventory through F23 · ✅ Exact extension-containment change list approved · ✅ Extension containment implemented and statically checked · ✅ Extension containment committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016) · ✅ Containment commits published to `origin/development` (Task 015) · ✅ **Extension containment runtime-verified in an isolated browser (Task 016)**
 
 **Phase 00 remains 🟨 IN PROGRESS.** Specifically:
-- Task 013/013-R1 changes are **committed locally** (`3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`) but remain **unpushed and undeployed**.
-- Extension **runtime/browser verification has not occurred**.
-- Extension containment is **not** release-complete.
-- API, website, simulation, quality-floor, CI, and the Phase 00 exit gate are **not** complete.
+- Task 013/013-R1 changes are **committed and published** (`3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`, published in Task 015) and **runtime-verified in isolation** (Task 016), but remain **undeployed, unreleased, and unmerged to `main`**.
+- Containment is **not** remediation: the extension still performs **no detection and issues no verdicts**, by design.
+- Extension containment is **not** release-complete and **not** Chrome Web Store ready.
+- Still pending: the complete quality floor · TypeScript remediation · tests, lint and CI · the provider credential decision · authoritative USDC replacement · full detector implementation · deployment · Chrome Web Store release · merge into `main`.
+- F5–F13 and F17–F20, the website, simulation labelling, API boundary and the Phase 00 exit gate are **not** complete.
 
 ### 3.10 Artifact status
 
@@ -213,17 +221,50 @@ Completed and verified:
 | Dependency audit | 19 advisories total — 1 critical, 12 high, 5 moderate, 1 low; 12 reported by the production-only audit. That production figure is **distorted** by build tooling sitting in runtime `dependencies`. **Actual reachability and upgrade paths remain unverified — no advisory is claimed exploitable.** |
 | Build output vs Git | `dist/` is ignored; the build did **not** alter tracked Git state |
 
-### 3.12 Task 013 / 013-R1 containment state
+### 3.12 Extension containment state (Tasks 013–016)
 
-**Status: `CONTAINED AND COMMITTED LOCALLY — STATIC CHECKS AND PRODUCTION BUILD PASSED — PUSH, RUNTIME VERIFICATION, DEPLOYMENT AND RELEASE VERIFICATION PENDING`.**
+**Status: `CONTAINED-RUNTIME-VERIFIED — PUBLISHED TO ORIGIN/DEVELOPMENT — DEPLOYMENT, RELEASE AND MERGE TO MAIN PENDING`.**
 
-Local containment commit: `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` — parent `bfcf8503803c48a0c2120561ebcbe2600083279f`, branch `development`, seven files, +186 / −609. **Not pushed.**
+Containment commit: `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` — parent `bfcf8503803c48a0c2120561ebcbe2600083279f`, branch `development`, seven files, +186 / −609. Published to `origin/development` in Task 015 together with plan commit `ec78e0cc0eea30e1e58db05c94034fe9e628bb2e`; `main` untouched at `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8`. **Publication of development source is not deployment or release.**
 
 Removed or contained: F1 (fabricated campaign timer + payload), F2 (random trap verdict + fabricated forensics), F3 (random market-intelligence verdict + hardcoded metrics; unavailable state substituted), F4 (unconditional poison/resilience metric mutation), F14 (client-distributed provider endpoint), F15 (unsigned external activation — removed from worker **and** manifest), F16 (incorrect USDC auto-trust — removed **without** replacement), F21 (domain-only phishing behaviour — contained by disabling content-script reachability; **underlying heuristic remains unfixed and deferred**), F22 (invented popup metrics/operational claims — removed; invalid metric keys removed from storage), F23 (obsolete handshake UI and external command-centre link — removed).
 
 Extension containment state: content scripts disabled · `<all_urls>` host permission removed · web-accessible resources removed · externally-connectable scope removed · unnecessary `scripting` permission removed · unused sandbox CSP entry removed · popup replaced with an honest contained-alpha state · telemetry fails closed as unavailable · no wallet connection required · no verdicts issued · active scanning disabled · **the extension currently provides no protection — intentionally, until Phase 01**.
 
-Evidence: JavaScript syntax checks passed (`node --check`, five files) · manifest JSON parsing passed · manifest surface assertions passed (`content_scripts`, `host_permissions`, `web_accessible_resources`, `externally_connectable` and the `scripting` permission all absent) · production build passed · static forbidden-identifier searches passed, including zero `Math.random` extension-wide · exactly seven authorized tracked files staged and committed. **No browser/runtime extension test has run.** The changes are **committed locally only** and remain **unpushed and undeployed**. None of these findings is release-verified.
+**Static evidence (Tasks 013–014).** JavaScript syntax checks passed (`node --check`, five files) · manifest JSON parsing passed · manifest surface assertions passed (`content_scripts`, `host_permissions`, `web_accessible_resources`, `externally_connectable` and the `scripting` permission all absent) · production build passed · static forbidden-identifier searches passed, including zero `Math.random` extension-wide · exactly seven authorized tracked files staged and committed.
+
+#### Runtime evidence (Task 016) — two separate layers, not to be combined
+
+**Layer 1 — automated isolated runtime verification.** Google Chrome for Testing `148.0.7778.96`, fresh disposable profile outside the repository, extension ID `ccolepkadgjblolibndpeglajhokknbg`, loaded unpacked from the exact canonical `VIGIL-FIELD-UNIT` directory:
+
+- manifest accepted, no manifest error
+- MV3 service worker **activated with zero captured errors**
+- static popup rendered the honest disabled state with **zero scripts and zero errors**
+- runtime permissions: **`storage` only, origins empty**
+- **no content-script injection, no overlay, no DOM mutation, no provider request**
+- `FETCH_TELEMETRY` returned the documented **`UNAVAILABLE`** response
+- the seven deprecated metric keys **absent after install**
+- a genuine disposable-copy version update **behaviourally removed all seven deprecated keys while preserving a sentinel control key**, proving persisted storage was cleaned by the install/update handler
+- all temporary profiles and disposable copies were removed afterwards
+
+**Command-line load attempts against the installed browser failed and were discarded. They must never be represented as VIGIL evidence.**
+
+**Layer 2 — owner-assisted confirmation in the installed browser.** Installed Google Chrome `152.0.7977.65`, observed by the owner, loaded unpacked via `chrome://extensions` from the exact canonical `VIGIL-FIELD-UNIT` directory:
+
+- extension ID matched `ccolepkadgjblolibndpeglajhokknbg`
+- service-worker inspection opened successfully
+- console empty; Chrome displayed “No issues”
+- toolbar popup opened and displayed the honest disabled / contained-alpha state
+- Chrome reported “This extension requires no special permissions”
+- Chrome reported “This extension has no additional site access”
+- incognito access remained off; file-URL access was turned off
+- Phantom was disabled before testing; VIGIL was removed afterwards and the temporary Chrome profile deleted
+
+**Evidence boundary (binding).** Chrome for Testing 148 received the **complete automated behavioural verification**. Installed Chrome 152 received **only the limited owner-assisted confirmation listed above**. Telemetry response, storage migration, DOM-injection absence and update-cleanup behaviour were **NOT independently exercised in Chrome 152**. The two layers must never be combined into a claim of a single full-browser behavioural test.
+
+**Chrome-version gap: partially closed.** Installed Chrome 152 accepted the unpacked extension and passed the limited owner checks above; full automated behavioural coverage still rests on Chrome for Testing 148.
+
+None of this is deployment, release, production validation, or evidence of protective capability. **The extension issues no verdicts and provides no protection.**
 
 ---
 
@@ -300,7 +341,7 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
    - ✅ artifact classification of the three authorized untracked artifacts (Task 006, §3.10)
    - ✅ measured technical baseline (Task 011, §3.11)
    - ✅ F1–F23 reachability inventory (Task 012 + CTO review + 013-R1, §3.7)
-   - 🟨 extension containment **subset** implemented, statically verified and committed locally in `3c1fb2b` (F1–F4, F14–F16, F21–F23)
+   - 🟨 extension containment **subset** implemented, statically verified, published in `3c1fb2b` and runtime-verified in isolation (F1–F4, F14–F16, F21–F23) — containment only, not remediation
    - 🟨 credential-bearing provider endpoint removed and committed locally; **any provider credential rotation remains an owner action**
    - 🟨 unsigned external handshake removed and committed locally (worker + manifest)
    - ⬜ paid checkout / dead payment code (F8)
@@ -309,9 +350,10 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
    - ⬜ website integrity (F5, F6, F7)
    - ⬜ simulation labelling (F10, F17, F18)
    - ⬜ TypeScript / test / lint / dependency / CI quality floor
-   - ⬜ browser runtime verification
+   - ✅ **browser runtime verification of the containment** (Task 016 — isolated Chrome for Testing 148 + owner-assisted Chrome 152 confirmation)
    - ✅ local commit of the approved seven-file containment (`3c1fb2b`)
-   - ⬜ push / deployment / release verification
+   - ✅ push to `origin/development` (Task 015)
+   - ⬜ deployment / release verification
 5. **Security requirements** — no client-distributed provider secret/endpoint; allowlisted, bounded, authenticated API operations; secret history scan.
 6. **Privacy requirements** — logging without sensitive data; no new outbound data flows; cache not client-writable.
 7. **Required evidence** — build log, typecheck log, audit output, containment diff, CI run.
@@ -456,10 +498,10 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
 ## 8. Immediate next actions
 
 1. ✅ Tasks 001–012 — foundational work and evidence inventory (§3.8)
-2. 🟨 **Task 013 extension containment** — implementation complete · static checks and production build complete · CTO diff approval recorded · **push and browser runtime verification pending**
+2. 🟨 **Task 013 extension containment** — implementation, static checks, production build, CTO diff approval, publication and isolated runtime verification all complete · **deployment, release and Phase 01 replacement pending**
 3. ✅ Commit the approved seven-file extension containment — `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` (Task 014)
-4. ⬜ Push it to `origin/development`
-5. ⬜ Perform extension runtime/browser verification once an appropriate test procedure exists
+4. ✅ Push it to `origin/development` — fast-forward `bfcf850..ec78e0c` (Task 015)
+5. ✅ Perform extension runtime/browser verification — isolated Chrome for Testing 148 plus owner-assisted Chrome 152 confirmation (Task 016, §3.12)
 6. ⬜ API emergency containment — F11, F12, F13, F19, F20
 7. ⬜ Website integrity containment — F5, F6, F7, F9
 8. ⬜ Simulation / dead-code containment — F8, F10, F17, F18
@@ -468,6 +510,8 @@ Dependency-driven. Effort ranges are **estimates only**, not deadlines. Every ph
 11. ⬜ Release-gated merge to `main`
 
 **Open findings retained (not contained):** F5 · F6 · F7 · F8 · F9 · F10 · F11 · F12 · F13 · F17 · F18 · F19 · F20 · F21 (underlying heuristic, currently unreachable) — plus authoritative USDC replacement verification, orphaned extension files and unused CSS, browser runtime verification, and the dependency/type/test/lint/CI quality floor.
+
+**Explicitly still pending (none of these is complete):** complete quality floor · TypeScript remediation · tests, lint and CI · provider credential decision · authoritative USDC replacement · full detector implementation · deployment · Chrome Web Store release · merge into `main`.
 
 **Must NOT do yet:** monorepo migration, website redesign, token work, broad feature development.
 
@@ -614,9 +658,9 @@ Define methodology; **do not invent baselines/targets** — mark absent values a
 | Risk | Severity | Likelihood | Evidence | Mitigation | Owner | Trigger | Status |
 |---|---|---|---|---|---|---|---|
 | False-positive warnings | High | Med | magic-number thresholds | corpus + evidence + `UNKNOWN` | Eng | FP report | ⚠️ |
-| Fabricated/random intelligence | Critical | Present | F1–F23 `VERIFIED` (§3.7) | F1–F4, F14–F16, F21–F23 **contained and committed locally** (`3c1fb2b`); **F5–F13 and F17–F20 remain open** | Eng | prod exposure | ⚠️ **OPEN** until push, deployment and verification |
-| Corrupted user metric (`VIG_TOTAL_POISONS`) | High | Present | F4 `VERIFIED` | **contained and committed locally**; invalid keys removed, not re-initialised | Eng | any HUD open | ⚠️ publication/runtime pending |
-| Credential-bearing provider endpoint | High | Present | F14 (pre-containment location `serviceWorker.js:5`) | **removed and committed locally**; provider-side rotation decision **remains open** | Eng/Owner | extraction | ⚠️ |
+| Fabricated/random intelligence | Critical | Present | F1–F23 `VERIFIED` (§3.7) | F1–F4, F14–F16, F21–F23 **contained, published and runtime-verified in isolation** (`3c1fb2b`, Tasks 015–016); **F5–F13 and F17–F20 remain open** | Eng | prod exposure | ⚠️ **OPEN** until deployment, release and Phase 01 replacement |
+| Corrupted user metric (`VIG_TOTAL_POISONS`) | High | Present | F4 `VERIFIED` | **contained, published and runtime-verified**; invalid keys removed (not re-initialised) on install **and** update | Eng | any HUD open | ⚠️ deployment/release pending |
+| Credential-bearing provider endpoint | High | Present | F14 (pre-containment location `serviceWorker.js:5`) | **removed, published and runtime-verified absent**; provider-side rotation decision **remains open** | Eng/Owner | extraction | ⚠️ |
 | Provider/API abuse | High | Med | open proxy + unauth cache | allowlist/auth/limits | Eng | cost spike | ⚠️ |
 | Incorrect canonical registry | High | Present | F16 (pre-containment location `addressValidator.js:8`) | **unsafe USDC auto-trust removed**; replacement verification pending | Eng | wrong trust | ⚠️ |
 | Privacy-claim mismatch | Med | Present | README/context vs code | data-flow audit + rewrite | Eng/Owner | store/legal review | ⚠️ |
@@ -648,6 +692,9 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 
 | Finding | Source | Repo file / doc | Evidence status | Date | Implication |
 |---|---|---|---|---|---|
+| Containment commits published to `origin/development` | Claude/CTO (Task 015) | `VIGIL-FIELD-UNIT/*`, `VIGIL_CANONICAL_MASTER_PLAN.md` | VERIFIED | 2026-09-03 | Fast-forward `bfcf850..ec78e0c`, non-forced; local, tracking and actual remote `development` all `ec78e0c`; `main` untouched at `0f66464`. **Publication of development source only — not deployment or release** |
+| Automated isolated runtime verification of the contained extension | Claude (Task 016) | `VIGIL-FIELD-UNIT/` loaded unpacked from the canonical directory | VERIFIED (isolated runtime) | 2026-09-03 | Google Chrome for Testing `148.0.7778.96`, fresh disposable profile, extension ID `ccolepkadgjblolibndpeglajhokknbg`: manifest accepted · MV3 service worker **activated, zero captured errors** · static popup rendered honestly, **zero scripts, zero errors** · runtime permissions **`storage` only, origins empty** · **no content-script injection, overlay, DOM mutation or provider request** · `FETCH_TELEMETRY` returned **`UNAVAILABLE`** · deprecated metric keys **absent after install** · a genuine disposable-copy version update **behaviourally removed all seven deprecated keys while preserving the sentinel control** · temporary artifacts removed. **Installed-browser command-line load attempts were discarded and are NOT VIGIL evidence.** Containment behaviour only — not remediation, deployment, or release |
+| Owner-assisted confirmation in the installed browser | Owner (Task 016) | `VIGIL-FIELD-UNIT/` loaded unpacked via `chrome://extensions` | VERIFIED (limited scope) | 2026-09-03 | Installed Google Chrome `152.0.7977.65` observed by the owner: loaded unpacked from the exact canonical directory · extension ID matched `ccolepkadgjblolibndpeglajhokknbg` · service-worker inspection opened · console empty, Chrome showed “No issues” · toolbar popup displayed the honest disabled / contained-alpha state · “This extension requires no special permissions” · “This extension has no additional site access” · incognito access off · file-URL access off · Phantom disabled before testing · VIGIL removed afterwards and the temporary Chrome profile deleted. **Telemetry, storage migration, DOM injection and update behaviour were NOT independently exercised in Chrome 152** |
 | Legacy deterministic heuristic prototype exists | Claude/CTO | `content/retinalShield.js` | PARTIALLY VERIFIED | 2026-09-03 | Unvalidated thresholds; contained F21; disabled by 013-R1; **not an approved detector** — concepts may inform Phase 01 |
 | Telemetry plumbing exists | Claude/CTO | `api/helius.ts`, `services/heliusService.ts` | PARTIALLY VERIFIED | 2026-09-03 | Plumbing is real, but the **API boundary remains unsafe/open (F12, F19) and is not production-approved** |
 | `poisoningDetector.ts` reviewed | Claude/CTO | `utils/poisoningDetector.ts` (untracked) | VERIFIED (reviewed, Task 006) | 2026-09-03 | Deterministic Solana **candidate**; needs Phase 01 fixtures + FP measurement |
@@ -670,20 +717,20 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 
 ### 19.2 Requirements traceability (critical Phase 00 findings)
 
-> Extension rows distinguish three separate states: **implementation complete and committed locally (`3c1fb2b`)** · **static acceptance and production build passed** · **push / runtime / deployment verification pending**. Line references are **pre-containment locations**.
+> Extension rows distinguish separate states: **implementation complete, committed and published (`3c1fb2b`)** · **static acceptance and production build passed** · **isolated runtime verification passed (Task 016)** · **deployment, release and Phase 01 replacement still pending**. Runtime verification confirms containment behaviour only — it is not remediation. Line references are **pre-containment locations**.
 
 | ID | Finding | Evidence status | Phase | Planned task | Acceptance evidence | Release gate |
 |---|---|---|---|---|---|---|
-| F1 | `…/serviceWorker.js:24` fake campaign *(pre-containment)* | VERIFIED | 00 | Remove timer | ✅ static: no `GLOBAL_CAMPAIGN_SIGNAL` — committed locally (`3c1fb2b`); push/runtime verification pending | Phase 00 exit |
-| F2 | `…/serviceWorker.js:75` random trap *(pre-containment)* | VERIFIED | 00 | Remove random verdict | ✅ static: no random verdict path — committed locally (`3c1fb2b`); push/runtime verification pending | Phase 00 exit |
-| F3 | `…/AlertMarketIntel.js:12` random rug-risk *(pre-containment)* | VERIFIED | 00 | Remove/replace with unavailable state | ✅ static: no invented metric or verdict — committed locally (`3c1fb2b`); push/runtime verification pending | Phase 00 exit |
-| F4 | `…/serviceWorker.js:113` corrupted metric *(pre-containment)* | VERIFIED | 00 | Remove mutation path; delete invalid keys | ✅ static: keys removed, not re-initialised — committed locally (`3c1fb2b`); push/runtime verification pending | Phase 00 exit |
-| F14 | `…/serviceWorker.js:5` credential-bearing endpoint *(pre-containment)* | VERIFIED | 00 | Remove from client | ✅ static: no endpoint in extension — committed locally (`3c1fb2b`); **provider rotation = owner action**; push/runtime verification pending | Phase 00 exit |
-| F15 | `…/serviceWorker.js:121` unsigned handshake *(pre-containment)* | VERIFIED | 00 | Remove listener + manifest scope | ✅ static: no `onMessageExternal`, no `externally_connectable` — committed locally (`3c1fb2b`); push/runtime verification pending | Phase 00 exit |
-| F16 | `…/core/addressValidator.js:8` USDC value *(pre-containment)* | VERIFIED / NEEDS OFFICIAL EXTERNAL VERIFICATION | 00 → 01 | **Unsafe auto-trust removed now**; replacement **only after official verification** | ✅ static: prior value absent — committed locally (`3c1fb2b`); replacement pending official source | Phase 01 exit (replacement) |
+| F1 | `…/serviceWorker.js:24` fake campaign *(pre-containment)* | VERIFIED | 00 | Remove timer | ✅ static: no `GLOBAL_CAMPAIGN_SIGNAL` — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); deployment/release verification pending | Phase 00 exit |
+| F2 | `…/serviceWorker.js:75` random trap *(pre-containment)* | VERIFIED | 00 | Remove random verdict | ✅ static: no random verdict path — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); deployment/release verification pending | Phase 00 exit |
+| F3 | `…/AlertMarketIntel.js:12` random rug-risk *(pre-containment)* | VERIFIED | 00 | Remove/replace with unavailable state | ✅ static: no invented metric or verdict — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); deployment/release verification pending | Phase 00 exit |
+| F4 | `…/serviceWorker.js:113` corrupted metric *(pre-containment)* | VERIFIED | 00 | Remove mutation path; delete invalid keys | ✅ static: keys removed, not re-initialised — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); deployment/release verification pending | Phase 00 exit |
+| F14 | `…/serviceWorker.js:5` credential-bearing endpoint *(pre-containment)* | VERIFIED | 00 | Remove from client | ✅ static: no endpoint in extension — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); **provider rotation = owner action**; deployment/release verification pending | Phase 00 exit |
+| F15 | `…/serviceWorker.js:121` unsigned handshake *(pre-containment)* | VERIFIED | 00 | Remove listener + manifest scope | ✅ static: no `onMessageExternal`, no `externally_connectable` — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); deployment/release verification pending | Phase 00 exit |
+| F16 | `…/core/addressValidator.js:8` USDC value *(pre-containment)* | VERIFIED / NEEDS OFFICIAL EXTERNAL VERIFICATION | 00 → 01 | **Unsafe auto-trust removed now**; replacement **only after official verification** | ✅ static: prior value absent — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016); replacement pending official source | Phase 01 exit (replacement) |
 | F21 | `…/content/retinalShield.js` domain-only `PHISHING` *(pre-containment)* | VERIFIED | 00 → 01 | Contain by removing content-script reachability | ✅ static: `content_scripts` absent → not injected — **heuristic itself unfixed, deferred** | Phase 01 exit (heuristic) |
-| F22 | `popup/popup.html`, `popup/popup.js`, `serviceWorker.js` invented metrics/claims | VERIFIED | 00 | Replace popup with honest state; delete invalid keys | ✅ static: no resilience/trusted/poison/mesh/VCI/relay/telemetry claim — committed locally (`3c1fb2b`) | Phase 00 exit |
-| F23 | `popup/popup.html`, `popup/popup.js` obsolete activation UI | VERIFIED | 00 | Remove handshake UI + external link | ✅ static: absent from reachable surface — committed locally (`3c1fb2b`) | Phase 00 exit |
+| F22 | `popup/popup.html`, `popup/popup.js`, `serviceWorker.js` invented metrics/claims | VERIFIED | 00 | Replace popup with honest state; delete invalid keys | ✅ static: no resilience/trusted/poison/mesh/VCI/relay/telemetry claim — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016) | Phase 00 exit |
+| F23 | `popup/popup.html`, `popup/popup.js` obsolete activation UI | VERIFIED | 00 | Remove handshake UI + external link | ✅ static: absent from reachable surface — committed and published (`3c1fb2b`); runtime-verified in isolation (Task 016) | Phase 00 exit |
 | F5 | `api/gemini.ts` / `api/openai.ts` AI verdicts | VERIFIED | 00 (disable) → 01 (replace) | Disable verdict endpoints now | **OPEN** — no acceptance evidence yet | Phase 01 exit |
 | F6 | `components/IntentValidatorDemo.tsx:545,547` forced `NEW` + fabricated latency | VERIFIED | 00 (remove) → 01 (replace) | Remove/suppress now | **OPEN** | Phase 01 exit |
 | F7 | `utils/marketMath.ts:19,42` hardcoded distribution | VERIFIED | 00 (remove/hide) → 01 (real data) | Remove or hide now | **OPEN** | Phase 01 exit |
@@ -702,6 +749,7 @@ Exact shared-engine package structure; complete `apps/`+`packages/` monorepo lay
 
 | Version | Date | Summary |
 |---|---|---|
+| Version 1.0.3 | 2026-09-03 | Records **Task 015** — the containment commit `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a` and plan commit `ec78e0cc0eea30e1e58db05c94034fe9e628bb2e` were fast-forward pushed to `origin/development`; local, tracking and actual remote `development` all resolved to `ec78e0c`; `main` remained untouched at `0f664644e8bdc7fe2a0af76d1c6c1b5470f273c8`; this was publication of development source only, not deployment or release. Records **Task 016** isolated runtime verification (Google Chrome for Testing `148.0.7778.96`, fresh disposable profile, extension ID `ccolepkadgjblolibndpeglajhokknbg`) and, as a **separately bounded second layer**, the **owner-assisted confirmation in installed Google Chrome `152.0.7977.65`**; the two layers are not combined, and telemetry, storage migration, DOM injection and update behaviour were not independently exercised in Chrome 152. Moves F1–F4, F14–F16 and F21–F23 from `CONTAINED-COMMIT` to **`CONTAINED-RUNTIME-VERIFIED`** (§3.7) and marks the Phase 00 containment runtime-verification step complete (§7). Records that the Chrome-version gap is **partially** closed. States prominently that the extension is **intentionally non-protective and issues no threat verdicts**. Phase 00 remains 🟨 **IN PROGRESS**; F5–F13 and F17–F20 stay open; quality floor, TypeScript remediation, tests/lint/CI, provider credential decision, authoritative USDC replacement, full detector implementation, deployment, Chrome Web Store release and merge into `main` all remain pending. No finding is marked permanently resolved and no deployment, release, production-readiness or active-protection claim is introduced. |
 | Version 1.0.2 | 2026-09-03 | Records Tasks 001–013 (§3.8), artifact and archive containment (§3.10), the measured technical baseline (§3.11), the F1–F23 reachability ledger (§3.7), and Task 013 extension-containment implementation status (§3.12). Adds the progress-control rule (§1) and updates the immediate-action sequence (§8). Phase 00 remains in progress; at the time of that revision Task 013 changes were uncommitted, unpushed and not runtime-verified. **Task 013-R3 reconciliation:** corrected the stale Phase 00 summary and the main Phase 00 checklist; requalified product-asset claims (`retinalShield.js` = legacy unvalidated prototype, disabled; Helius = plumbing only, boundary unsafe; `poisoningDetector.ts` = reviewed candidate); separated immediate containment from eventual replacement (F5, F6, F7, F9, F14, F16); corrected the task ledger (001 docs-only, 009/010 commit `bfcf850`, 012 initial F1–F20 later expanded); reconciled the cross-review table, risk register, evidence ledger and traceability to the F1–F23 ledger; and labelled superseded line numbers as pre-containment locations.  **Task 014 amendment (same version):** the approved seven-file extension containment is now committed locally as `3c1fb2bb5f9b257a10649ab211c7561fe2b9ca3a`; §2, §3.7, §3.8, §3.9, §3.12, §7, §8, §17 and §19.2 move from `CONTAINED-WT` to `CONTAINED-COMMIT`. Push, browser/runtime verification, deployment and release verification remain pending and unauthorized. No doctrine, scope, architecture, finding classification or approval status changed, so the version remains 1.0.2. |
 | Version 1.0.1 | 2026-09-03 | Clarified immutable baseline and adoption references so the plan does not contain a self-invalidating "current HEAD" field. |
 | Version 1.0 | 2026-09-03 | Draft 1.2 approved by Ajmal Fahad and the CTO and adopted as the single canonical VIGIL master plan. |
