@@ -4,19 +4,6 @@
  * Gracefully handles failures without breaking simulation flow
  */
 
-import { getCachedTelemetry, setCachedTelemetry } from '../lib/cache';
-
-/**
- * Cache version - increment when telemetry calculation logic changes
- * When incremented, all cached data with old version is automatically invalidated
- * 
- * Version History:
- * - v1: Forward pagination (incorrect ages for old wallets)
- * - v2: Backwards pagination (correct ages for all wallets) - had bug with empty batch filtering
- * - v3: Backwards pagination with fixed batch filtering (filters valid blockTime before checking empty)
- */
-const CACHE_VERSION = 3;
-
 export type NetworkStatus = 'CONNECTED' | 'DEGRADED' | 'OFFLINE';
 export type FundingSourceType = 'EXCHANGE' | 'PRIVATE_WALLET' | 'UNKNOWN';
 export type ActivityPulse = 'ACTIVE' | 'DORMANT';
@@ -72,19 +59,6 @@ export async function getAddressTelemetry(address: string): Promise<RealtimeTele
   if (!address || address.length < 32) {
     return { status: 'OFFLINE' };
   }
-
-  // ===== CACHE TEMPORARILY DISABLED FOR TESTING =====
-  // CHECK CACHE FIRST (with version validation)
-  // const cached = await getCachedTelemetry(address);
-  // if (cached && cached._version === CACHE_VERSION) {
-  //   console.log(`[VIGIL CACHE] Hit (v${CACHE_VERSION}):`, address.slice(0, 8));
-  //   return { ...cached, status: 'CONNECTED' };
-  // } else if (cached) {
-  //   console.log(`[VIGIL CACHE] Version mismatch (cached: v${cached._version || 'undefined'}, current: v${CACHE_VERSION}), refetching...`);
-  //   // Cache exists but version is old - treat as miss and re-fetch
-  // }
-  console.log('[VIGIL] Cache disabled - running fresh backwards pagination');
-  // ===== END CACHE DISABLE =====
 
   const controller = new AbortController();
   let timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
@@ -648,15 +622,6 @@ export async function getAddressTelemetry(address: string): Promise<RealtimeTele
     
     base.balance10dAvg = typeof balance10dAvg === 'number' ? balance10dAvg : currentSol;
     base.tx15d = tx15d;
-
-    // ===== CACHE STORAGE TEMPORARILY DISABLED FOR TESTING =====
-    // CACHE THE RESULT (with version tag)
-    // const cachedData = { ...base, _version: CACHE_VERSION };
-    // setCachedTelemetry(address, cachedData).catch(err => 
-    //   console.error('[VIGIL] Cache failed:', err)
-    // );
-    console.log('[VIGIL] Cache storage disabled - not caching result');
-    // ===== END CACHE STORAGE DISABLE =====
 
     clearTimeout(timeoutId);
     return base;
