@@ -7,7 +7,17 @@ import { routeSecurityIntent } from '../services/aiRouter';
 import { AddressGlyph } from './AddressGlyph';
 import { VigilScanner } from './VigilScanner';
 import { TechLabel, TechNote } from './docs/DocHelpers';
-import { getAddressTelemetry, RealtimeTelemetry } from '../services/heliusService';
+import { RealtimeTelemetry } from '../types';
+import { selectTelemetryDisplay } from '../utils/telemetryDisplay';
+
+/**
+ * Live address telemetry for the current inspection. No live provider is wired since the
+ * legacy Helius/Solana integration was retired (Task 029); `null` means "no live evidence",
+ * which the display layer renders as "Unavailable" — never as simulated values.
+ */
+function liveTelemetry(): RealtimeTelemetry | null {
+  return null;
+}
 import { isValidSolanaAddress } from '../utils/addressValidator';
 
 interface TIMAxes {
@@ -57,17 +67,8 @@ const calculateRealtimeAxes = (telemetry: RealtimeTelemetry | null, source: 'EXP
     }
   }
   
-  // BALANCE_PERSISTENCE: Minor adjustment to PDI (informational-weight only)
-  // Balance persistence suggests address retains value, slightly reducing provenance risk
-  // But this must never override age-based risk assessment
-  if (telemetry.balance10dAvg !== undefined && telemetry.balance10dAvg > 0) {
-    // If address has maintained balance, reduce PDI by small amount (max 5 points)
-    // Only applies if PDI is already moderate/high (not overriding low-risk old addresses)
-    if (pdi > 50) {
-      const persistenceAdjustment = Math.min(5, Math.floor(telemetry.balance10dAvg * 2)); // Max 5 point reduction
-      pdi = Math.max(50, pdi - persistenceAdjustment); // Never go below 50 for new addresses
-    }
-  }
+  // Task 027-R1: the unproven 10-day balance-persistence adjustment was removed.
+  // Missing or lower-bound-only age evidence leaves PDI at its conservative default.
 
   // CRI: Context Risk Index
   let cri = 30; // Base moderate risk
@@ -77,17 +78,6 @@ const calculateRealtimeAxes = (telemetry: RealtimeTelemetry | null, source: 'EXP
     cri = 50; // Moderate risk from dApp
   } else {
     cri = 20; // Lower risk from explorer
-  }
-  
-  // BALANCE_PERSISTENCE: Minor adjustment to CRI (informational-weight only)
-  // Balance persistence can slightly reduce context risk, but never override source-based risk
-  if (telemetry.balance10dAvg !== undefined && telemetry.balance10dAvg > 0.1) {
-    // If address has maintained meaningful balance (>0.1 SOL), reduce CRI slightly
-    // But never override high-risk sources (SOCIAL stays high)
-    if (cri < 90) {
-      const persistenceAdjustment = Math.min(3, Math.floor(telemetry.balance10dAvg)); // Max 3 point reduction
-      cri = Math.max(15, cri - persistenceAdjustment); // Never go below 15
-    }
   }
 
   // IPI: Interaction Pattern Index
@@ -150,35 +140,30 @@ const ThreatIndexModal: React.FC<{
             return `LOCAL_MATCH detected: Prefix/suffix collision with local trust graph → ${score}%`;
           }
           return `ZERO_DETECTION: No prefix/suffix collisions → ${score}%`;
-        case 'PDI':
-          const age = realtimeStatus?.addressAge || 'Unknown';
-          let pdiCalc = '';
-          if (age.includes('year')) {
-            pdiCalc = `Address age: ${age} (established provenance)`;
-          } else if (age.includes('month')) {
-            pdiCalc = `Address age: ${age} (moderate provenance)`;
-          } else if (age.includes('day')) {
-            pdiCalc = `Address age: ${age} (new provenance)`;
+        case 'PDI': {
+          let pdiCalc: string;
+          const exactAge = realtimeStatus?.addressAge;
+          if (exactAge) {
+            if (exactAge.includes('year')) pdiCalc = `Address age: ${exactAge} (established provenance)`;
+            else if (exactAge.includes('month')) pdiCalc = `Address age: ${exactAge} (moderate provenance)`;
+            else if (exactAge.includes('day')) pdiCalc = `Address age: ${exactAge} (new provenance)`;
+            else pdiCalc = `Address age: ${exactAge} (very new)`;
+          } else if (realtimeStatus?.addressAgeLowerBound) {
+            pdiCalc = `Address age: at least ${realtimeStatus.addressAgeLowerBound} (lower bound — first funding not observed)`;
           } else {
-            pdiCalc = `Address age: ${age} (insufficient history)`;
-          }
-          // Add balance persistence note if applicable
-          if (realtimeStatus?.balance10dAvg !== undefined && realtimeStatus.balance10dAvg > 0) {
-            pdiCalc += `, Balance persistence: ${realtimeStatus.balance10dAvg.toFixed(4)} SOL (minor adjustment)`;
+            pdiCalc = 'Address age: Unavailable (insufficient evidence)';
           }
           return `${pdiCalc} → ${score}%`;
-        case 'CRI':
+        }
+        case 'CRI': {
           const src = source || 'EXPLORER';
-          let criCalc = `Source context: ${src}`;
-          // Add balance persistence note if applicable
-          if (realtimeStatus?.balance10dAvg !== undefined && realtimeStatus.balance10dAvg > 0.1) {
-            criCalc += `, Balance persistence: ${realtimeStatus.balance10dAvg.toFixed(4)} SOL (minor adjustment)`;
-          }
-          return `${criCalc} → ${score}%`;
-        case 'IPI':
-          const tx15d = realtimeStatus?.tx15d ?? 0;
-          const flowType = realtimeStatus?.flowType || 'UNKNOWN';
-          return `15D transactions: ${tx15d}, Flow Type: ${flowType} → ${score}%`;
+          return `Source context: ${src} → ${score}%`;
+        }
+        case 'IPI': {
+          const tx15dText = realtimeStatus?.tx15d !== undefined ? String(realtimeStatus.tx15d) : 'Unavailable';
+          const flowType = realtimeStatus?.flowType ?? 'Unavailable';
+          return `15D transactions: ${tx15dText}, Flow Type: ${flowType} → ${score}%`;
+        }
         case 'EDI':
           return `Entropy analysis: Random generation assumed → ${score}%`;
         case 'RII':
@@ -463,7 +448,9 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
   const [showScrollHint, setShowScrollHint] = useState(false);
   const [result, setResult] = useState<(ThreatAnalysisResponse & { telemetry?: { age: string; lastTx: string; activity15d: string; latency?: number }; threatIndex?: number; axes?: TIMAxes; projectName?: string; contractAddress?: string; isSimulation?: boolean; }) | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [realtimeStatus, setRealtimeStatus] = useState<RealtimeTelemetry | null>(null);
+  // No live telemetry provider is wired (the legacy Helius/Solana integration was retired in
+  // Task 029), so every real inspection renders honest "Unavailable" states.
+  const realtimeStatus = liveTelemetry();
 
   /*
    * Fixed: Renamed 'iip' property to 'cri' in all scenarios to match the TIMAxes interface.
@@ -528,11 +515,7 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
     if (!currentAddr) return;
     setIsAnalyzing(true);
     setError(null);
-    setRealtimeStatus(null);
     onScanningChange?.(true);
-
-    // Start Helius fetch in parallel (non-blocking)
-    const heliusPromise = getAddressTelemetry(currentAddr).catch(() => ({ status: 'OFFLINE' as const }));
 
     try {
       const matchedScenario = testScenarios.find(s => s.addr === currentAddr);
@@ -563,24 +546,6 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
       });
 
       if (matchedScenario) setCompletedSims(prev => new Set([...prev, matchedScenario.id]));
-
-      // Update real-time status and recalculate threat index when Helius completes (non-blocking)
-      heliusPromise.then((telemetry) => {
-        setRealtimeStatus(telemetry);
-        
-        // Recalculate threat index with real-time data if this is a real inspection
-        if (isRealInspection && telemetry.status !== 'OFFLINE') {
-          const realtimeAxes = calculateRealtimeAxes(telemetry, source, currentAddr);
-          const realtimeThreatIndex = calculateThreatIndex(realtimeAxes, telemetry, true);
-          
-          // Update result with real-time calculations
-          setResult(prev => prev ? {
-            ...prev,
-            threatIndex: realtimeThreatIndex,
-            axes: realtimeAxes
-          } : null);
-        }
-      });
     } catch (err: any) {
       console.error('[SIMULATION_CRASH]', err);
       const errorMessage = err?.message || String(err);
@@ -589,10 +554,6 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
       } else {
         setError(`SIMULATION_ERROR: The request timed out or returned an invalid response. ${errorMessage}`);
       }
-      // Still try to get Helius data even if simulation fails
-      heliusPromise.then((telemetry) => {
-        setRealtimeStatus(telemetry);
-      });
     } finally {
       setIsAnalyzing(false);
       onScanningChange?.(false);
@@ -980,20 +941,17 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
                         )}
                         {(() => {
                           const base = result.telemetry!;
-                          const isSimulationResult = result.isSimulation;
-                          const live = !isSimulationResult && realtimeStatus && (realtimeStatus.status === 'CONNECTED' || realtimeStatus.status === 'DEGRADED') ? realtimeStatus : null;
-
-                          const displayAge = live?.addressAge || base.age;
-                          const displayLast = live?.lastSeen || base.lastTx || 'Unknown';
-                          const display15d = live?.tx15d != null ? String(live.tx15d) : base.activity15d;
-                          // Show balance field if we have real-time telemetry (even if 0 or undefined)
-                          const displayBalance10d = !isSimulationResult && live 
-                            ? (live.balance10dAvg !== undefined ? live.balance10dAvg.toFixed(4) : '0.0000')
-                            : null;
+                          // Simulation values are shown ONLY for an explicitly labelled simulation. Every
+                          // real inspection — CONNECTED, DEGRADED, OFFLINE or absent — displays obtained
+                          // evidence or "Unavailable"; it never falls back to simulation telemetry.
+                          const display = selectTelemetryDisplay(realtimeStatus, base, result.isSimulation === true);
+                          const displayAge = display.age;
+                          const displayLast = display.lastSeen;
+                          const display15d = display.tx15d;
 
                           return (
                             <>
-                            <div className={`grid gap-4 ${displayBalance10d !== null ? 'grid-cols-5' : 'grid-cols-4'}`}>
+                            <div className="grid gap-4 grid-cols-4">
                           <div className="space-y-1">
                             <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em] block">
                               Address Age
@@ -1018,16 +976,6 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
                               {display15d}
                             </span>
                           </div>
-                          {displayBalance10d !== null && (
-                            <div className="space-y-1 border-r border-white/5 pr-4">
-                              <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em] block">
-                                10-Day Balance Persistence (SOL)
-                              </span>
-                              <span className="text-[11px] font-mono font-bold text-zinc-200 tabular-nums">
-                                {displayBalance10d}
-                              </span>
-                            </div>
-                          )}
                     <div className="space-y-1">
                             <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em] block">
                               Latency
@@ -1052,25 +1000,6 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
                             </div>
                           </div>
                         </div>
-                        {displayBalance10d !== null && (
-                          <div className="mt-2 pt-2 border-t border-white/5 space-y-1">
-                            <p className="text-[8px] font-mono text-zinc-600 italic leading-tight">
-                              Represents average value retained by this address over the last 10 days.
-                              Indicates balance persistence, not destination legitimacy.
-                            </p>
-                            {/* FUNDED BY — surfaced only for real addresses when Helius provides a best-effort funder */}
-                            {live?.fundedBy && (
-                              <div className="flex items-center justify-between pt-1">
-                                <span className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.4em]">
-                                  Funded By
-                                </span>
-                                <span className="text-[10px] font-mono text-zinc-300 truncate max-w-[60%]" title={live.fundedBy}>
-                                  {live.fundedBy}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        )}
                           </>
                           );
                         })()}
@@ -1123,19 +1052,14 @@ export const IntentValidatorDemo: React.FC<IntentValidatorDemoProps> = ({ onUsag
                               </div>
                             )}
                             
-                            {/* BALANCE SIGNALS */}
-                            {(realtimeStatus.balanceBand !== undefined || realtimeStatus.tokenCount !== undefined) && (
+                            {/* BALANCE SIGNALS — chain-specific balance bands were retired with the
+                                legacy provider (Task 029-R1); balance semantics belong to a future adapter. */}
+                            {realtimeStatus.tokenCount !== undefined && (
                               <div className="space-y-2 pt-2 border-t border-white/5">
                                 <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.4em] block">
                                   Balance Signals
                                 </span>
                                 <div className="flex flex-col gap-2">
-                                  {realtimeStatus.balanceBand && (
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-[9px] font-black text-zinc-600 uppercase tracking-wider">SOL Balance</span>
-                                      <span className="text-[10px] font-mono font-bold text-zinc-300">{realtimeStatus.balanceBand}</span>
-                                    </div>
-                                  )}
                                   {realtimeStatus.tokenCount !== undefined && (
                                     <div className="flex items-center justify-between">
                                       <span className="text-[9px] font-black text-zinc-600 uppercase tracking-wider">Token Accounts</span>

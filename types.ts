@@ -25,31 +25,27 @@ export interface VigilAppState {
   events: SecurityEvent[];
 }
 
-// Real-time telemetry types (additive, for Helius integration)
+// Live-telemetry types (provider-neutral). The legacy Helius/Solana provider that
+// populated these was retired in Task 029; no live provider is currently wired, so
+// consumers receive `null` and must render honest "Unavailable" states.
 export type NetworkStatus = 'CONNECTED' | 'DEGRADED' | 'OFFLINE';
 export type FundingSourceType = 'EXCHANGE' | 'PRIVATE_WALLET' | 'UNKNOWN';
 export type ActivityPulse = 'ACTIVE' | 'DORMANT';
 export type ClusterSignal = 'SINGLE_ORIGIN' | 'MULTI_SOURCE' | 'SEEDER_PATTERN';
 export type SimilarityCollision = 'ZERO_DETECTION' | 'LOCAL_MATCH' | 'SOVEREIGN_NODE_MIMIC';
 export type FlowType = 'ORGANIC' | 'SINGLE_USE' | 'UNKNOWN';
-export type BalanceBand = '0 SOL' | '<0.01' | '0.01–1' | '>1';
 
+/** Fields are present only when evidence-backed; absence is honest, never a zero. */
 export interface RealtimeTelemetry {
   status: NetworkStatus;
   addressAge?: string;
-  lastSeen?: string;
+  /** Evidence-backed lower bound, shown only when the exact age is not observed. */
+  addressAgeLowerBound?: string;
   fundingSource?: FundingSourceType;
   activityPulse?: ActivityPulse;
   clusterSignal?: ClusterSignal;
-  firstTxSignature?: string;
-  lastTxSignature?: string;
-  txCount?: number;
   tx15d?: number;
   similarityCollision?: SimilarityCollision;
   flowType?: FlowType;
-  balanceBand?: BalanceBand;
   tokenCount?: number;
-  balance10dAvg?: number;
-  fundedBy?: string;
-  _version?: number; // Cache version for automatic invalidation
 }
